@@ -1,6 +1,6 @@
-baseurl: https://evalsp20.classes.andrewheiss.com/
+baseurl: https://stats_for_neuroscientists.netlify.com/
 defaultContentLanguage: en
-title: "Program Evaluation"
+title: "Stats for Neuroscientists"
 theme: hugo-academic
 
 

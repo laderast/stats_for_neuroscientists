@@ -5,10 +5,10 @@ headless: true
 active: true
 weight: 10
 
-title: "Program Evaluation for Public Service"
+title: "Statistics for Neuroscientists"
 
 # Hero image (optional). Enter filename of an image in the `static/img/` folder.
-hero_media: eval_hires.png
+hero_media: HeLa_cells.jpg
 
 design:
   background:
@@ -20,7 +20,5 @@ design:
     text_color_light: true
 
 cta_note:
-  label: Spring 2020<br>Andrew Young School of Policy Studies<br>Georgia State University
+  label: Spring 2020<br>Neuroscience Graduate Program<br>Oregon Health & Science University
 ---
-
-**Combine research design, causal inference, and econometric tools to measure the effects of social programs**
