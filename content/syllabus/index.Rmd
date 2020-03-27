@@ -16,12 +16,12 @@ library(pander)
 
 `r blogdown::shortcode("courseinfo")`
 
-## COURSE DESCRIPTION
+## Course Description
 
 This course is a gentle introduction to statistical concepts that are relevant to image processing. We will cover steps of the image processing workflow on cellular images, culminating in simple spatial
 analysis on cellular structures in the image. No previous background in statistics is required. The focus of this course is not on programming, but on assessing image processing workflows and understanding their impact on downstream analysis. To do this, we will take a lab notebook approach to image processing, comparing the effect of different methods on each step of the image processing workflow.
 
-## CREDIT HOURS
+## Credit Hours
 
 2
 
@@ -32,29 +32,33 @@ analysis on cellular structures in the image. No previous background in statisti
 3.  **Understand** basic spatial statistics and how to **assess** null models of spatial data.
 4.  **Execute** and **Interpret** basic spatial statistics on data that are involved with fluoresence microscopy analysis.
 
-## COURSE WEBSITE
+## Course Website
 
 All course information will be available here.
 
 https://stats4neuro.netlify.com/
 
-## PREREQUISITES OR CONCURRENT ENROLLMENT REQUIREMENTS
+Course discussions will be done in the class Slack Workspace. Invites will be sent before class.
+
+https://neus643.slack.com
+
+# Prerequisites or Concurrent Enrollment Requirements
 
 No Prerequisites
 
-## FACULTY INFORMATION
+## Faculty Information
 
-**Name**: Ted Laderas, PhD (Instructor)
-**Email**: laderast@ohsu.edu
-**Phone**: 503-481-8460
-**Address & Office Number**: SON630
-**Preferred Method of Contact**: Email/Slack
-**Expected Response Time**: 24hrs
+- **Name**: Ted Laderas, PhD (Instructor)
+- **Email**: laderast@ohsu.edu
+- **Phone**: 503-481-8460
+- **Address & Office Number**: SON630
+- **Preferred Method of Contact**: Email/Slack
+- **Expected Response Time**: 24hrs
 
-**Name**: Samantha Papdakis (Teaching Assistant)
-**Email**: papadaks@ohsu.edu
+- **Name**: Samantha Papdakis (Teaching Assistant)
+- **Email**: papadaks@ohsu.edu
 
-## CODE OF CONDUCT
+## Code of Conduct
 
 This class is governed by the BioData Club Code of Conduct:
 <https://biodata-club.github.io/code_of_conduct/>
@@ -64,7 +68,9 @@ desire to learn more.
 
 If you are disruptive to class learning or disparaging to other students, I may mute you for the day. I am very serious about this.
 
-## REQUIRED TEXTS OR READINGS
+## Required Texts or Readings
+
+We will be drawing on the following online textbooks during class.
 
 *Analyzing fluorescence microscopy images with ImageJ*. Pete Bankhead.
 <https://petebankhead.gitbooks.io/imagej-intro/content/>
@@ -75,20 +81,20 @@ Huber. <http://web.stanford.edu/class/bios221/book/>
 *Getting Used to R, RStudio, and RMarkdown*. Chester Ismay.
 <https://ismayc.github.io/rbasics-book/>
 
-**ATTENDANCE REQUIREMENTS**
+## Attendance Requirements
 
-Online attendance is required. Please let me know if you have to miss
-class. If you miss a lab day, know that you are responsible for
-finishing the lab and understanding the content.
+Online attendance is required. Please let me know if you have to miss class. If you miss a lab day, know that you are responsible for finishing the lab and understanding the content.
 
-## GRADING POLICY**
+Classes will be recorded, but please do not use this as an excuse to miss class.
+
+## Grading Policy
 
 Grades will be based on the following:
 
-> In class discussion 15%
-> Midterm 20%
-> Homework (from labs) 45%
-> Final Project 20%
+- In class discussion 15%
+- Midterm 20%
+- Homework (from labs) 45%
+- Final Project 20%
 
 This course will be graded on a Pass/Fail Basis. Pass is defined as a grade of at least 70%.
 
@@ -108,7 +114,7 @@ Class grades are due to the Registrar by the Friday following the week of finals
 2.  *For the conjoined courses (course number is preceded by CON\_ that
     are run by Graduate Studies.*
 
-## COPYRIGHT INFORMATION
+## Copyright Information
 
 Every reasonable effort has been made to protect the copyright requirements of materials used in this course. Class participants are warned not to copy, audio, or videotape in violation of copyright laws.
 Journal articles will be kept on reserve at the library or online for student access. Copyright law does allow for making one personal copy of each article from the original article. This limit also applies to electronic sources.
@@ -116,7 +122,7 @@ Journal articles will be kept on reserve at the library or online for student ac
 To comply with the fair use fair use doctrine of the US copyright law, Sakai course sites close three weeks after grades are posted with the Registrar. Please be sure to download all course material you wish to
 keep before this time as you will have no further access to your courses.
 
-## COMMUNICATION POLICY
+## Communication Policy
 
 1.  If the syllabus directs the student to contact the TA before contacting the instructor, the student should do so. Otherwise, the student should contact the instructor and allow 2 business days (not including weekends) for a response.
 
@@ -130,11 +136,11 @@ keep before this time as you will have no further access to your courses.
 
 6.  Please use professional etiquette when communicating with peers and the instructor. This means avoiding aggressive or offensive language, showing respect for others' opinions and positions, and conducting yourself as if you were face to face with them. Please pay special attention to etiquette in class forums and when using email. If you notice someone violating this policy, please make the instructor and TA aware of the problem.
 
-## SYLLABUS CHANGES AND RETENTION
+## Syllabus Changes and Retention
 
 This syllabus is not to be considered a contract between the student and the School of Medicine. It is recognized that changes may be made as the need arises. Students are responsible for keeping a copy of the course syllabus for their records.
 
-## SYLLABUS STATEMENT REGARDING DISABILITY SERVICES
+## Syllabus Statement Regarding Disability Services
 
 OHSU is committed to providing equal access to qualified students who experience a disability in compliance with Section 504 of the Rehabilitation Act of 1973, the Americans with Disabilities Act (ADA) of
 1990, and the ADA Amendments Act (ADA-AA) of 2008. If you have a disability or think you may have a disability (physical, sensory, chronic health, psychological or learning) please contact the Office for Student Access at (503) 494-0082 or <studentaccess@ohsu.edu> to discuss
@@ -142,14 +148,14 @@ eligibility for academic accommodations. Information is also available at [www.o
 possible. All information regarding a student's disability is kept in accordance with relevant state and federal laws.
 
 
-## COMMITMENT TO EQUITY AND INCLUSION
+## Commitment of Equity and Inclusion
 
 Oregon Health & Science University is committed to creating and fostering a learning and working environment based on open communication
 and mutual respect. If you encounter sexual harassment, sexual misconduct, sexual assault, or discrimination based on race, color,
 religion, age, national origin or ancestry, veteran or military status, sex, marital status, pregnancy or parenting status, sexual orientation,
 gender identity, disability or any other protected status please contact the Affirmative Action and Equal Opportunity Department at 503-494-5148 or <aaeo@ohsu.edu.> Inquiries about Title IX compliance or sex/gender discrimination and harassment may be directed to the OHSU Title IX Coordinator at 503-494-0258 or <titleix@ohsu.edu>
 
-## ACADEMIC HONESTY
+## Academic Honesty
 
 Course participants are expected to maintain academic honesty in their course work. Participants should refrain from seeking past published solutions to any assignments. Literature and resources (including
 Internet resources) employed in fulfilling assignments must be cited. See
@@ -169,7 +175,7 @@ remove all personal information, i.e. student name, email address,
 student u-number, or any other personal information, from documents
 BEFORE submission.*
 
-## USE OF SAKAI
+## Use of Sakai
 
 This course will have an online component, which can be accessed through
 Sakai, OHSU's online course management system. For any technical
@@ -200,7 +206,7 @@ requirements in the Course Materials.
 Policy number: 02-70-050
 (<http://www.ohsu.edu/xd/education/student-services/academic-programs-and-assessment/academic-policy/approved-policies/upload/Online-Exam-Proctoring-02-70-050.pdf>)
 
-## INCLEMENT WEATHER POLICY
+## Inclement Weather Policy
 
 When the weather forecaster is calling for ice or snow, call the **OHSU
 Alert Line, 503 494-9021**, for information regarding weather conditions
