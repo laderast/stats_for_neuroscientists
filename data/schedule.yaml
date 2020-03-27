@@ -14,12 +14,12 @@ lessons:
   - title: "Notebook 1 Due"
     date: "April 9"
 
-  - title: '**Image Operations/Filters**'
+  - title: '**Image Operations/Filtering Images**'
     date: "April 7"
     reading: "03-reading"
     class: "03-class"
 
-  - title: '**Image Operations/Filters Lab**'
+  - title: '**Image Operations/Filtering Images Lab**'
     date: "April 9"
     assignment: "02-problem-set"
 

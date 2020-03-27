@@ -37,7 +37,7 @@ font_size: "L"
 site_type: "Course"
 
 # Description for social sharing and search engines. If undefined, superuser role is used in place.
-description: "Use modern statistical and data scientific tools to measure causal effects and evaluate public policy"
+description: "Understand and apply image processing techniques to microscopy images"
 
 # Display a logo in navigation bar rather than title (optional).
 #   To enable, place an image in `static/img/` and reference its filename below. To disable, set the value to "".
@@ -74,7 +74,7 @@ privacy_pack: false
 # Enable visitors to edit pages?
 #   `repo` defines the repository URL. `editable` defines which page types can be edited.
 edit_page:
-  repo_url: 'https://github.com/andrewheiss/evalsp20.classes.andrewheiss.com'
+  repo_url: 'https://github.com/laderast/stats_for_neuroscientists'
   content_dir: ''
   repo_branch: master
   editable:
@@ -89,36 +89,36 @@ edit_page:
 ## Additionally, for organizations, these details may be used to enrich search engine results.
 ############################
 
-author: Andrew Heiss
+author: Ted Laderas
 
 instructor: 
-  name: Dr. Andrew Heiss
-  email: aheiss@gsu.edu
-  url: "https://www.andrewheiss.com"
-  twitter: andrewheiss
-  github: andrewheiss
-  office: "357 Andrew Young School"
+  name: Dr. Ted Laderas
+  email: laderast@ohsu.edu
+  url: "https://laderast.github.io"
+  twitter: tladeras
+  github: laderast
+  office: "School of Nursing 630"
   contact_policy: >-
-    E-mail is the best way to get in contact with me. I will try to respond to all course-related e-mails within 24 hours (*really*), but also remember that life can be busy and chaotic for everyone (including me!), so if I don't respond to your e-mail right away, don't worry!
-  appointment_url: https://calendly.com/andrewheiss/meeting/
+    E-mail or Slack is the best way to get in contact with me. I will try to respond to all course-related e-mails within 24 hours (*really*), but also remember that life can be busy and chaotic for everyone (including me!), so if I don't respond to your e-mail right away, don't worry!
+#  appointment_url: https://calendly.com/andrewheiss/meeting/
 
 course:
-  number: "PMAP 8521"
+  number: "NEUS 643"
   semester: "Spring 2020"
-  days: "Wednesdays"
-  time: "4:30–7:00 PM"
-  location: "Aderhold Learning Center 204"
-  dates: "January 15–April 22, 2020"
-  github: "andrewheiss/evalsp20.classes.andrewheiss.com"
+  days: "Tuesday/Thursday"
+  time: "1:00–2:00 PM"
+  location: "Online"
+  dates: "March 31 – June 2, 2020"
+  github: "laderast/stats_for_neuroscientists"
   copyrightYear: "2020"
 
 university: 
-  name: Georgia State University
-  url: "https://www.gsu.edu"
+  name: Oregon Health & Science University
+  url: "https://www.ohsu.edu"
 
 school:
-  name: Andrew Young School of Policy Studies
-  url: "https://aysps.gsu.edu/"
+  name: Neuroscience Graduate Program
+  url: "https://www.ohsu.edu/school-of-medicine/neuroscience-graduate-program"
 
 
 ############################
@@ -129,7 +129,7 @@ school:
 sharing_image: "social-image.png"
 
 # Twitter username (without @). Used when a visitor shares your site on Twitter.
-twitter: "andrewheiss"
+twitter: "tladeras"
 
 
 ############################

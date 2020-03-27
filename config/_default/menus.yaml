@@ -14,9 +14,6 @@ main:
   - name: Classes
     url: /class/
     weight: 5
-  - name: Reference
-    url: /reference/
-    weight: 6
   - name: RStudio.cloud
     url: https://rstudio.cloud/
     weight: 7
@@ -25,7 +22,3 @@ assignment:
     weight: 1
   - name: Problem sets
     weight: 2
-  - name: Evaluation
-    weight: 3
-  - name: Other projects
-    weight: 4
