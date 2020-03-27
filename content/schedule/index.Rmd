@@ -3,7 +3,7 @@ title: "Schedule"
 slug: schedule
 ---
 
-Here's your roadmap for the semester!
+Here's your roadmap for the quarter!
 
 - <i class="fas fa-book-reader"></i> Readings are supplemental to each lecture session
 - <i class="fas fa-laptop-code"></i> Assignments are due by **11:59 PM** on the day they are due
