@@ -16,3 +16,5 @@ design:
 ---
 
 {{< courseinfo >}}
+
+{{< figure src="/img/analysis-flowchart.png" alt="Course map" >}}
