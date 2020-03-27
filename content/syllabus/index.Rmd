@@ -42,7 +42,7 @@ Course discussions will be done in the class Slack Workspace. Invites will be se
 
 https://neus643.slack.com
 
-# Prerequisites or Concurrent Enrollment Requirements
+## Prerequisites or Concurrent Enrollment Requirements
 
 No Prerequisites
 
