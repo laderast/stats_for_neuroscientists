@@ -1,10 +1,8 @@
 ---
-title: "Evaluation, data science, the causal revolution, and the tidyverse"
-linktitle: "1: Evaluation, causality, and the tidyverse"
+title: "Lecture: Introduction to Rstudio and Images"
+linktitle: "1. Introduction to RStudio and Images"
 date: "2020-01-15"
 class_date: "2020-01-15"
-bibliography: ../../static/bib/references.bib
-csl: ../../static/bib/chicago-syllabus-no-bib.csl
 output:
   blogdown::html_page:
     toc: true
@@ -14,8 +12,8 @@ menu:
     weight: 1
 type: docs
 weight: 1
-pdf: "/slides/PMAP-8521_2020-01-15.pdf"
-thumb: "/slides/PMAP-8521_2020-01-15.png"
+# pdf: 
+# thumb: 
 editor_options: 
   chunk_output_type: console
 ---
@@ -23,12 +21,6 @@ editor_options:
 ## Slides
 
 `r blogdown::shortcode("slides")`
-
-## R stuff
-
-[Take a super short survey!](https://andhs.co/survey)
-
-Download all the R stuff we did today if you want to try it on your own computer: [<i class="fas fa-file-archive"></i> `week1.zip`](/projects/week-1.zip)
 
 ## Clearest and muddiest things
 
