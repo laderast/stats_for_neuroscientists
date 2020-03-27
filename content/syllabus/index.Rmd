@@ -85,21 +85,12 @@ finishing the lab and understanding the content.
 
 Grades will be based on the following:
 
-*Assignments 40%*
-*Mid-Term 20%*
-*Final Project 40%*
+> In class discussion 15%
+> Midterm 20%
+> Homework (from labs) 45%
+> Final Project 20%
 
-The following grading scale is used:
-
-> A 93 - 100
-> A 90 - 92.99
-> B+ 87 - 89.99
-> B 83 - 86.99
-> B- 80 - 82.99
-> C+ 77 - 79.99
-> C 73 - 76.99
-> C- 70 - 72.99
-> F \< 70
+This course will be graded on a Pass/Fail Basis. Pass is defined as a grade of at least 70%.
 
 Graduate Studies in the OHSU School of Medicine is committed to providing grades to students in a timely manner. Course instructors will provide students with information in writing at the beginning of each
 course that describes the grading policies and procedures including but not limited to evaluation criteria, expected time needed to grade individual student examinations and type of feedback they will provide.
