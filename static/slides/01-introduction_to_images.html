@@ -37,16 +37,29 @@ class: center, middle, inverse, title-slide
 - All software is installed for you
 
 ---
-&lt;img src="image/week1/project.jpg" width=800&gt;
+&lt;img src="image/week1/project1.jpg" width=800&gt;
 
 ???
 
 - Projects have a root (where the `.rproj` file lives)
 - Projects have a `data/` folder
-- Images should be in the `data/` folder (`.tif` files)
 - RMarkdown notebooks live in the root folder (`.Rmd` files)
-    - if we want to use an image called `image.tif` that is in the ``data` folder, we refer to it by `data/image.tif` in our notebook.
 - Rendered RMarkdown notebooks are `.nb.html` files
+
+---
+&lt;img src="image/week1/project2.jpg" width = 800&gt;
+
+???
+- Images should be in the `data/` folder (`.tif` files)
+- if we want to use an image called `image.tif` that is in the ``data` folder, we refer to it by `data/image.tif` in our notebook.
+
+---
+&lt;img src="image/week1/project3.jpg" width = 800&gt;
+
+???
+
+- Optionally, we can have a `docs` folder
+- We'll put slides and cheat sheets here
 
 ---
 # Thursday's Lab
@@ -54,6 +67,10 @@ class: center, middle, inverse, title-slide
 - Learning R/RStudio
 - Loading images
 - Making histograms
+
+---
+class: center, middle
+## Let's talk about image acquisition
 
 ---
 ![](image/week1/intro_exciting.png)
@@ -65,8 +82,8 @@ class: center, middle, inverse, title-slide
 ---
 # Detecting Things
 
-- Our overall focus in this course is in **detecting** and quantifying cells and cellular proteins and their location in an image.
-- What are some cellular structures we'd like to detect?
+- Our overall focus in this course is in **detecting** cells and cellular proteins and their location in an image.
+- What are some cellular structures we'd like to detect? (Type them in chat)
 
 ---
 # What are Images?
@@ -93,29 +110,34 @@ An array has *columns*, and *rows*
 
 This is a 200 x 200 pixel image
 
-![](image/week1/kid_example.tif)
-
-The first number refers to the number of rows in an image
+&lt;img src="image/week1/kid_example.png" width=200&gt;
 
 200    x   200
 *Columns* x *Rows*
 
----
-# Image
+*200 x 200 pixels* is also called the **resolution** of the image.
 
+---
+# Where is [1, 1]?
+
+.pull-left[
+Top left corner of the image is always referred to as [1,1]
+]
+
+.pull-right[
 ![](01-introduction_to_images_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
-
----
-# Orienting ourselves
-
-Top left corner of the table is always referred to as [1,1]
+]
 
 ---
 # Subsetting an Image
 
+.pull-left[
 If we wanted to get the bottom left quadrant of the photo, we want a subimage of 100 x 100 pixels. 
+]
 
-How do we get this?
+.pull-right[
+![](01-introduction_to_images_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;![](01-introduction_to_images_files/figure-html/unnamed-chunk-2-2.png)&lt;!-- --&gt;
+]
 
 Well, we can use technique called *subsetting* to get this quadrant.
 
@@ -124,25 +146,42 @@ We want the first 100 columns and the last 100 rows of our image. How do we refe
 ---
 # Image indexing
 
-If our loaded image is called `image`, we use the bracket (`[,]`) notation to refer to *rows* and *columns* in it.
-
 .pull-left[
-![](01-introduction_to_images_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+![](01-introduction_to_images_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
-![](01-introduction_to_images_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+![](01-introduction_to_images_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 ]
---- 
-# Sequences
-
-The `51:100` and `1:50` are called `sequences`. They are a short hand for *every number between* 51 and 100 (including 51 and 100).
-
-What does the sequence `1:50` refer to? Is this sequence referring to the rows or columns?
 
 ---
 
-&lt;img src="image/week1/image_array.jpg" width=800&gt;
+&lt;img src="image/week1/image_array1.jpg" width=800&gt;
+
+???
+
+- If our loaded image is called `image`, we use the bracket (`[,]`) notation to refer to *rows* and *columns* in it. The notation is [column, row]
+
+- One thing to note. This is a computer graphics standard and it's opposite to how other data structures in R work. They are usually [row, column]
+
+---
+
+&lt;img src="image/week1/image_array2.jpg" width=800&gt;
+
+???
+
+- The `51:100` and `1:50` are called **sequences**. They are a short hand for *every number between* 51 and 100 (including 51 and 100).
+
+- Question: What does the sequence `1:50` refer to? Is this sequence referring to the rows or columns?
+
+---
+
+&lt;img src="image/week1/image_array3.jpg" width=800&gt;
+
+???
+
+- In the lower left of the diagram, you'll see where each part of the sequence aligns to.
+- Our subset is the bottom left.
 
 ---
 # Check yourself
@@ -158,24 +197,9 @@ These numeric values can either be:
 
 - A unsigned Integer (0-127)
   - Usually used when images are acquired by an instrument
-- Decimal (also known as `double`) (0.156, 0.630, etc)   - ranges from 0 to 1
+- Decimal values (also known as `double`) (0.156, 0.630, etc)   
+  - ranges from 0 to 1
   - This is usually what we'll use
----
-# Bit Depth
-
-Images are usually acquired as integers represented as binary numbers. 
-
-- Each value for a cell takes a little bit of memory in the file
-
----
-&lt;img src="image/week1/bit_depth.JPG" width=800&gt;
-
-???
-
-- Most images use unsigned integers to store values
-- A 8-bit image can have 2^8, or 128 different values, ranging from 0-127
-- Want the number of bits per pixel to be as large as possible
-- 0 is black, 127 is white
 
 ---
 # Transformed images
@@ -196,7 +220,7 @@ Our x-axis is our intensity value, and our y-axis are the number of pixels in ou
 ---
 # What can you tell from this histogram?
 
-![](01-introduction_to_images_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+![](01-introduction_to_images_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 
 ---
 # Check Yourself
@@ -204,7 +228,7 @@ Our x-axis is our intensity value, and our y-axis are the number of pixels in ou
 - Are the pixel values *floating point* or *integer*?
 - What is the maximum observed value in the image?
 
-![](01-introduction_to_images_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](01-introduction_to_images_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
 ---
 # Color images 
