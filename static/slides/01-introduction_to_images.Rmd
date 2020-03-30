@@ -114,14 +114,14 @@ Images are an example of what is called a *matrix* or a 2 dimensional *array*.
 An array has *columns*, and *rows*
 
 ---
-# Rows and Columns
+# Columns and Rows
 
 This is a 200 x 200 pixel image
 
 <img src="image/week1/kid_example.png" width=200>
 
-200    x   200
-*Columns* x *Rows*
+200    x   200  
+*Columns* x *Rows*  
 
 *200 x 200 pixels* is also called the **resolution** of the image.
 
@@ -243,15 +243,18 @@ hist(image)
 ```
 
 ---
-# Check Yourself
+# Your Turn
 
+.pull-left[
 - Are the pixel values *floating point* or *integer*?
 - What is the maximum observed value in the image?
+]
 
+.pull-right[
 ```{r echo=FALSE}
 hist(image)
 ```
-
+]
 ---
 # Color images 
 
