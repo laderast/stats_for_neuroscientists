@@ -42,7 +42,11 @@ Course discussions will be done in the class Slack Workspace. Invites will be se
 
 https://neus643.slack.com
 
-Lab Assignments will be done in the class RStudio.cloud workspace. Students should register at RStudio.cloud before the lab. Link to join the workspace will be sent out before the first lab.
+Lab Assignments will be done in the class RStudio.cloud workspace. Students should register at https://RStudio.cloud before the lab. Link to join the workspace will be sent out before the first lab.
+
+## Office Hours
+
+Office Hours will be held via Zoom and a link will be sent out that day. Feel free to drop into the office hours and work and ask questions as needed.
 
 ## Prerequisites or Concurrent Enrollment Requirements
 
@@ -54,7 +58,6 @@ No Prerequisites
 
 [Ted Laderas, PhD](https://laderast.github.io)  
 laderast@ohsu.edu  
-503-481-8460  
 **Preferred Method of Contact**: Email/Slack  
 **Expected Response Time**: 24hrs  
 
@@ -85,6 +88,26 @@ Huber. <http://web.stanford.edu/class/bios221/book/>
 *Getting Used to R, RStudio, and RMarkdown*. Chester Ismay.
 <https://ismayc.github.io/rbasics-book/>
 
+
+## Words of Encouragement
+
+> This was adopted from Andrew Heiss. Thanks!
+
+I *promise* you can succeed in this class.
+
+Learning R can be difficult at first—it's like learning a new language, just like Spanish, French, or Chinese. Hadley Wickham—the chief data scientist at RStudio and the author of some amazing R packages you'll be using like `ggplot2`—[made this wise observation](https://r-posts.com/advice-to-young-and-old-programmers-a-conversation-with-hadley-wickham/): 
+
+> It’s easy when you start out programming to get really frustrated and think, “Oh it’s me, I’m really stupid,” or, “I’m not made out to program.” But, that is absolutely not the case. Everyone gets frustrated. I still get frustrated occasionally when writing R code. It’s just a natural part of programming. So, it happens to everyone and gets less and less over time. Don’t blame yourself. Just take a break, do something fun, and then come back and try again later.
+
+Even experienced programmers find themselves bashing their heads against seemingly intractable errors. If you're finding yourself taking way too long hitting your head against a wall and not understanding, take a break, talk to classmates, e-mail me, etc. 
+
+```{r echo=FALSE, out.width="60%"}
+# https://twitter.com/allison_horst/status/1213275783675822080
+knitr::include_graphics("/img/syllabus/hosrt_error_tweet.png", error = FALSE)
+```
+
+[![Alison Horst: Gator error](/img/syllabus/gator_error.jpg)](https://twitter.com/allison_horst/status/1213275783675822080)
+
 ## Attendance Requirements
 
 Online attendance is required. Please let me know if you have to miss class. If you miss a lab day, know that you are responsible for finishing the lab and understanding the content.
@@ -101,6 +124,10 @@ Grades will be based on the following:
 - Final Project 20%
 
 This course will be graded on a Pass/Fail Basis. Pass is defined as a grade of at least 70%.
+
+### Late Policy
+
+Students get 1 free assignment to submit late without penalties. Please email us through Sakai that you need more time. If you need accomodation, please email us so we can figure out a way to help you.
 
 Graduate Studies in the OHSU School of Medicine is committed to providing grades to students in a timely manner. Course instructors will provide students with information in writing at the beginning of each
 course that describes the grading policies and procedures including but not limited to evaluation criteria, expected time needed to grade individual student examinations and type of feedback they will provide.

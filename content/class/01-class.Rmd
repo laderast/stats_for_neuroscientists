@@ -1,8 +1,8 @@
 ---
 title: "Lecture: Introduction to Rstudio and Images"
 linktitle: "1. Introduction to RStudio and Images"
-date: "2020-01-15"
-class_date: "2020-01-15"
+date: "2020-03-31"
+class_date: "2020-03-31"
 output:
   blogdown::html_page:
     toc: true
@@ -19,6 +19,12 @@ editor_options:
 ---
 
 ## Slides
+
+### Collaborative Lecture Notes
+
+Click the link below to start editing the class notes. You will need to add to these to participate in the class activity.
+
+https://hackmd.io/@laderast/HkyAfj1vI/edit
 
 ### Class Introduction
 
