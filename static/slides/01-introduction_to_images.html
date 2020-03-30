@@ -24,24 +24,49 @@ class: center, middle, inverse, title-slide
 
 # Learning Objectives
 
+- **Understand** the Structure of an RStudio Project
 - **Understand** how confocal microscope images are acquired by a system
 - **Learn** about how images are represented 
 - **Learn** about the types of numeric values we can use as intensities in an image
 - **Learn** about histograms 
-- **Understand** the Structure of an RStudio Project
+
+---
+# RStudio Cloud
+
+- Web based version of RStudio
+- All software is installed for you
+
+---
+&lt;img src="image/week1/project.jpg" width=800&gt;
+
+???
+
+- Projects have a root (where the `.rproj` file lives)
+- Projects have a `data/` folder
+- Images should be in the `data/` folder (`.tif` files)
+- RMarkdown notebooks live in the root folder (`.Rmd` files)
+    - if we want to use an image called `image.tif` that is in the ``data` folder, we refer to it by `data/image.tif` in our notebook.
+- Rendered RMarkdown notebooks are `.nb.html` files
+
+---
+# Thursday's Lab
+
+- Learning R/RStudio
+- Loading images
+- Making histograms
 
 
 ---
 # Confocal Microscope Images
 
-![](image/intro_exciting.png)
+![](image/week1/intro_exciting.png)
 
 ---
 # Dynamic Range and Depth
 
 - Depending on the amount of observed fluoresence, our detector (our camera) can quantify it as a number.
 
-![](image/intro_exciting.png)
+![](image/week1/intro_exciting.png)
 
 ---
 # Detecting Things
@@ -50,14 +75,13 @@ class: center, middle, inverse, title-slide
 - What are some cellular structures we'd like to detect?
 
 ---
-
 # What are Images?
 
 - Images are represented as an **array** of numbers
 - Horizontal Lines of an image correspond to *rows* in the table
 - Vertical Lines of an image correspond to *columns* of the table
 
- ![Image Data](image/raster_concept.png)
+ ![Image Data](image/week1/raster_concept.png)
 ]
 
 .footnote[https://petebankhead.gitbooks.io/imagej-intro/content/chapters/images_and_pixels/images_and_pixels.html]
@@ -74,7 +98,7 @@ An array has *columns*, and *rows*
 
 This is a 200 x 200 pixel image
 
-![](image/kid_example.tif)
+![](image/week1/kid_example.tif)
 
 The first number refers to the number of rows in an image
 
@@ -114,9 +138,16 @@ If our loaded image is called `image`, we use the bracket (`[,]`) notation to re
 .pull-right[
 ![](01-introduction_to_images_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
 ]
+--- 
+# Sequences
+
 The `51:100` and `1:50` are called `sequences`. They are a short hand for *every number between* 51 and 100 (including 51 and 100).
 
 What does the sequence `1:50` refer to? Is this sequence referring to the rows or columns?
+
+---
+
+&lt;img src="image/week1/image_array.jpg" width=800&gt;
 
 ---
 # Check yourself
@@ -131,13 +162,21 @@ The numeric value at a particular pixel represents the intensity of light at tha
 These numeric values can either be:
 
 - A unsigned Integer (0-127)
-- Decimal (also known as Floating point) (0.156, 0.630, etc)
+  - Usually used when images are acquired by an instrument
+- Decimal (also known as `double`) (0.156, 0.630, etc)   - ranges from 0 to 1
+  - This is usually what we'll use
 ---
 # Bit Depth
 
 Images are usually acquired as integers represented as binary numbers. 
 
 - Each value for a cell takes a little bit of memory in the file
+
+---
+&lt;img src="image/week1/bit_depth.JPG" width=800&gt;
+
+???
+
 - Most images use unsigned integers to store values
 - A 8-bit image can have 2^8, or 128 different values, ranging from 0-127
 - Want the number of bits per pixel to be as large as possible
@@ -151,7 +190,9 @@ Images are usually acquired as integers represented as binary numbers.
 - File size can be larger than integer-valued images
 
 ---
-# Intensity Histograms
+&lt;img src="image/week1/histogram.jpg" width=800&gt;
+
+???
 
 One of our most useful tools for understanding an image is the **intensity histogram**.
 
@@ -182,42 +223,17 @@ Color images are usually represented by three different intensity values, that a
 ---
 # Channels
 
+--
 Sometimes you use a different stain to label different proteins. Then the different intensity values correspond to **channels**.
 
+--
 We often do this when we're interested in quantifying whether two proteins are *co-located*. 
 
+--
 To do this, we will need to process each channel separately, and then combine the results in the end.
 
 ---
-# Processing Image Workflow
-
----
-# RStudio Cloud
-
-- Web based version of RStudio
-- All software is installed for you
-
----
-# Opening up the Project
-
-
----
-# Exporting Data
-
-
----
-# Rstudio Projects
-
-
-
-
-
----
-# Thursday's Lab
-
-- Learning R/RStudio
-- Loading images
-- Making histograms
+&lt;img src="image/week1/analysis-flowchart.png" width = 900&gt;
 
 ---
 # Reading 
