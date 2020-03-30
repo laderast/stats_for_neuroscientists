@@ -20,7 +20,9 @@ editor_options:
 
 ## Slides
 
-`r blogdown::shortcode("slides")`
+knitr::include_url('https://stats4neuro.netlify.com/slides/01-introduction_slides#1')
+
+knitr::include_url('https://stats4neuro.netlify.com/slides/01-introduction_to_images#1')
 
 ## Clearest and muddiest things
 
