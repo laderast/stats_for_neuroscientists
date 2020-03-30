@@ -162,7 +162,7 @@ What does the sequence `1:50` refer to? Is this sequence referring to the rows o
 ---
 # Check yourself
 
-If we have a 100 x 100 pixel image, how do we refer to the top right quadrant? (use the format `image[a:b, x:y]`)
+If we have a 200 x 200 pixel image, how do we refer to the top right quadrant? (use the format `image[a:b, x:y]`)
 
 ---
 # Intensity
