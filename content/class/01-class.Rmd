@@ -36,6 +36,3 @@ Open these slides in a separate window: <a href="https://stats4neuro.netlify.com
 knitr::include_url('https://stats4neuro.netlify.com/slides/01-introduction_to_images#1')
 ``````
 
-## Clearest and muddiest things
-
-`r blogdown::shortcode("feedback")`
