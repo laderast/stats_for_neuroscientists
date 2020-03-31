@@ -43,7 +43,7 @@ options(htmltools.dir.version = FALSE)
 - Certified RStudio Instructor 
 - Co-founder of [BioData Club](http://biodata-club.github.io)]
 
-.pull-right[]
+.pull-right[<img src="image/week1/ted.jpg" width = 500>]
 
 ---
 # Introduction Overview
@@ -76,10 +76,30 @@ When we're doing the activity, use the hands up in Zoom to indicate that you're 
 If you have questions, please ask them in chat.
 
 ---
-# Class Facilitator
+# Class Facilitator/TA
 
-- Because it's hard to lecture and monitor chat at the same time, I will ask one of you to be class facilitator and monitor the chat
-- This goes towards your class participation grade
+- Meet Sam Papadakis from the Fair Lab
+- She will be 
+
+---
+# Rules for Interaction
+
+During Lectures:
+
+- Post questions in Chat
+    - Sam will interrupt me to make sure these questions are answered
+- Post answers to questions in chat
+- We'll learn Hack.md for taking collaborative notes next lecture
+
+---
+# Rules for Interaction
+
+During Labs:
+
+- Work within your breakout group to solve 
+- Share screens to talk about issues
+- I
+
 
 ---
 # Sharing Your Screen
@@ -89,15 +109,25 @@ If you have questions, please ask them in chat.
 ---
 # Breakout Rooms
 
-- I'll divide the class from time to time into breakout rooms for discussion
+- I'll divide the class into breakout rooms for discussion and labs
 - I'll ask each room for a summary
 - Let's try it
-    - Icebreaker: what is your favorite YouTube Channel and why?
+    - Icebreaker: What is your favorite thing to add to Ramen (or oatmeal)?
 
 ---
 # Zoom Recordings/Attendance
 
 - I will record each session and post it as soon it is ready
+
+---
+class: center, middle
+
+# Let's look at the website
+
+---
+class: center, middle
+
+# Class Logistics
 
 ---
 # The Course This Year
@@ -148,18 +178,20 @@ If you are disruptive to class learning or disparaging to other students, I may 
 
 I have created a class Slack here: http://neus643.slack.com - the invite link should have been sent out.
 
-I will try to answer questions there when I can.
+I will try to answer questions there when I can. We'll take a tour of class next week.
 
-If you have a question, please ask it in a public channel, rather than a private message, so it can benefit everyone
+If you have a question, please ask it in a public channel, rather than a private message, so it can benefit everyone.
 
 - [Slack 101 Videos](https://slack.com/resources/slack-101)
 
 ---
 # Office Hours
 
-I will be available for office hours/drop in time 2 Hours a week. You're free to sign in to the Zoom Room and work on homework at this time.
+I will be available for office hours/drop in time 2 Hours a week (Sam will be available once a week). You're free to sign in to the Zoom Room and work on homework at this time.
 
-Doodle Poll will be sent out with times.
+When is good link: http://whenisgood.net/rretq92
+
+Highlight all times that work for you.
 
 ---
 # Class Assignments
@@ -187,14 +219,25 @@ The writing is the most important part of these assignments, not the coding.
 I want to see you thinking and observing about the data.
 
 ---
-# However
+# R is Not Easy
 
-If there is some interest in learning more about R, I will do some workshops on more basics.
+- Learning R can be a difficult, but rewarding process
+- Be patient with yourself, don't beat yourself up
+- We'll try to make it a fun process
 
-These will be optional.
+---
+# R-Bootcamp
+
+I am also teaching a 1 credit course this term called the R-Bootcamp that starts the week of April 6.
+
+The focus is more on visualization, data wrangling, and simple statistics.
+
+There should be an announcement sent out this week.
 
 ---
 # Grading Breakdown
+
+Class is Pass/Fail
 
 - In class discussion 15%
 - Midterm 20%
@@ -205,19 +248,20 @@ These will be optional.
 # Format of Class
 
 - "Lecture Days"
-    - Discussion of Previous Week (1/2 hr)
-    - Lectures (1/2 hr)
+    - Discussion of Previous Week (15 min)
+    - Lectures (45 min)
 
 - "Lab Days"
     - In-Class Labs (1 hr)
 
-- Office Hours (2 hr)
+- Office Hours (2 hrs/week)
 
 ---
 # R and RStudio
 
 - In-class labs and assignments will be done with [RStudio.cloud](http://rstudio.cloud)
 - We'll take a guided tour of RStudio Cloud next class
+- Invite to the class workspace will be sent out before Thursday
 - Submissions of notebooks will be via Sakai (we will talk about this)
 
 ---
