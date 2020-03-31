@@ -20,12 +20,6 @@ editor_options:
 
 ## Slides
 
-### Collaborative Lecture Notes
-
-Click the link below to start editing the class notes. You will need to add to these to participate in the class activity.
-
-https://hackmd.io/@laderast/HkyAfj1vI/edit
-
 ### Class Introduction
 
 Open the class introduction slides in a separate window: <a href="https://stats4neuro.netlify.com/slides/01-introduction_slides#1" target="_blank">https://stats4neuro.netlify.com/slides/01-introduction_slides#1</a>
@@ -37,6 +31,8 @@ knitr::include_url('https://stats4neuro.netlify.com/slides/01-introduction_slide
 ### Introduction to Images
 
 Open these slides in a separate window: <a href="https://stats4neuro.netlify.com/slides/01-introduction_to_images#1" target="_blank">https://stats4neuro.netlify.com/slides/01-introduction_to_images#1</a>
+
+To view my speaker notes, press "p".
 
 ```{r echo=FALSE}
 knitr::include_url('https://stats4neuro.netlify.com/slides/01-introduction_to_images#1')
