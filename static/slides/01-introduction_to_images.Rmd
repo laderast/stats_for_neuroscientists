@@ -161,12 +161,12 @@ plot(image)
 # Subsetting an Image
 
 .pull-left[
-<img src = "image/week1/kid_example.png" width = 600>
+<img src = "image/week1/kid_example.png" width = 400>
 ]
 
 .pull-right[
 
-<img src = "image/week1/small_image.png" width = 300>
+<img src = "image/week1/small_image.png" width = 200>
 ]
 
 ???
@@ -176,21 +176,6 @@ If we wanted to get the bottom left quadrant of the photo, we want a subimage of
 Well, we can use technique called *subsetting* to get this quadrant.
 
 We want the first 100 columns and the last 100 rows of our image. How do we refer to this?
-
----
-# Image indexing
-
-.pull-left[
-```{r echo=FALSE}
-plot(image)
-```
-]
-
-.pull-right[
-```{r echo=FALSE}
-plot(image[1:100, 101:200])
-```
-]
 
 ---
 
@@ -315,7 +300,7 @@ Color images are usually represented by three different intensity values, that a
 
 ???
 
-- Sometimes you use a different stain to label different proteins. Then the different intensity values correspond to **channels**.
+- Sometimes you use a different stain/antibody to label different proteins. Then the different intensity values correspond to **channels**.
 - We often do this when we're interested in quantifying whether two proteins are *co-located*. 
 - To do this, we will need to process each channel separately, and then combine the results in the end.
 
