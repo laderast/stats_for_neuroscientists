@@ -1,15 +1,30 @@
 ---
-title: "Introduction to Image Manipulation"
+title: "Introduction to Image Preprocessing"
 author: "Ted Laderas"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
+    css: xaringan-themer.css
     nature:
+      ratio: '16:9'
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
 ---
+```{r xaringan-themer, include = FALSE}
+library(xaringanthemer)
+mono_light(
+  base_color = "midnightblue",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Droid Mono"),
+  link_color = "deepskyblue1",
+  text_font_size = "28px"
+)
+```
+
+
 # Sharing Session
 
 - For 10 minutes a class, we'll discuss assignments
@@ -25,25 +40,24 @@ output:
 ---
 # Glossary
 
-- *histogram*
-- *transformation* - performing a numeric operation on the pixel values of an image
-- *filtering* - a specific type transformation that uses a pixel value and its neighboring pixels
-- *global* transformations - an operation that is applied to all of the pixel values at once.
-- *local* transformations - an operation that is applied one pixel at a time, usually dependent on the *neighborhood* of this pixel
-- *neighborhood* - an area of pixels that is centered around one pixel. The smallest neighborhood is 3 pixels by 3 pixels = 9 pixels total, which form a "moat" around the center pixel.
+- **transformation** - performing a numeric operation on the pixel values of an image
+- **global** transformations - an operation that is applied to all of the pixel values at once. Also known as **point operations**.
+- **local transformations** - an operation that is applied one pixel at a time, usually dependent on the *neighborhood* of this pixel. 
+- **filtering** - a specific type of *local transformation* that uses a pixel value and the value of its neighboring pixels
+- **neighborhood** - an area of pixels that is centered around one pixel. The smallest neighborhood is 3 pixels by 3 pixels = 9 pixels total, which form a "moat" around the center pixel.
 
 ---
 # What are some problems with Microscope Images?
 
-- Noise
-- Exposure - dynamic range was too low
+- Noise (often from Exposure)
 - Uneven Illumination
+- Overexposure
 
 ---
 # First Do No Harm
 
-- Do as little as possible to images
-- Be Transparent
+- Do as little as possible to images when preprocessing them.
+- Be Transparent and share your workflow
 
 ---
 # Histograms
@@ -103,7 +117,7 @@ output:
 ]
 
 .pull-right[
-  ![](image/mean_filter.png)
+  ![](image/week2/mean_filter.png)
 ]
 
 
@@ -111,12 +125,12 @@ output:
 ---
 # Smoothing our image out
 
-![](image/applying_filter.png)
+![](image/week2/applying_filter.png)
 ---
 # What about the edges?
 
 .pull-right[
-![](image/borders.png)
+![](image/week2/borders.png)
 ]
 
 ---
@@ -128,13 +142,13 @@ output:
 ]
 
 .pull-right[
-  ![](image/median_filtering.png)
+  ![](image/week2/median_filtering.png)
 ]
 
 ---
 # Mean vs Median: One ignores the "extreme" values
 
-![](image/median_vs_mean.png)
+![](image/week2/median_vs_mean.png)
 
 ---
 # Variations: Gaussian Filters
@@ -143,7 +157,7 @@ output:
 - Avoids "blockiness"
 
 .pull-right[
-   ![](image/gaussian_filter.png)
+   ![](image/week2/gaussian_filter.png)
 ]
 
 ---

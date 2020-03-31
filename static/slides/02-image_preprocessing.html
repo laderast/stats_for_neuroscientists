@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Introduction to Image Manipulation</title>
+    <title>Introduction to Image Preprocessing</title>
     <meta charset="utf-8" />
     <meta name="author" content="Ted Laderas" />
-    <meta name="date" content="2020-03-30" />
-    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <meta name="date" content="2020-03-31" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Introduction to Image Manipulation
+# Introduction to Image Preprocessing
 ### Ted Laderas
-### 2020-03-30
+### 2020-03-31
 
 ---
+
+
+
 
 # Sharing Session
 
@@ -33,25 +35,24 @@ class: center, middle, inverse, title-slide
 ---
 # Glossary
 
-- *histogram*
-- *transformation* - performing a numeric operation on the pixel values of an image
-- *filtering* - a specific type transformation that uses a pixel value and its neighboring pixels
-- *global* transformations - an operation that is applied to all of the pixel values at once.
-- *local* transformations - an operation that is applied one pixel at a time, usually dependent on the *neighborhood* of this pixel
-- *neighborhood* - an area of pixels that is centered around one pixel. The smallest neighborhood is 3 pixels by 3 pixels = 9 pixels total, which form a "moat" around the center pixel.
+- **transformation** - performing a numeric operation on the pixel values of an image
+- **global** transformations - an operation that is applied to all of the pixel values at once. Also known as **point operations**.
+- **local transformations** - an operation that is applied one pixel at a time, usually dependent on the *neighborhood* of this pixel. 
+- **filtering** - a specific type of *local transformation* that uses a pixel value and the value of its neighboring pixels
+- **neighborhood** - an area of pixels that is centered around one pixel. The smallest neighborhood is 3 pixels by 3 pixels = 9 pixels total, which form a "moat" around the center pixel.
 
 ---
 # What are some problems with Microscope Images?
 
-- Noise
-- Exposure - dynamic range was too low
+- Noise (often from Exposure)
 - Uneven Illumination
+- Overexposure
 
 ---
 # First Do No Harm
 
-- Do as little as possible to images
-- Be Transparent
+- Do as little as possible to images when preprocessing them.
+- Be Transparent and share your workflow
 
 ---
 # Histograms
@@ -111,7 +112,7 @@ class: center, middle, inverse, title-slide
 ]
 
 .pull-right[
-  ![](image/mean_filter.png)
+  ![](image/week2/mean_filter.png)
 ]
 
 
@@ -119,12 +120,12 @@ class: center, middle, inverse, title-slide
 ---
 # Smoothing our image out
 
-![](image/applying_filter.png)
+![](image/week2/applying_filter.png)
 ---
 # What about the edges?
 
 .pull-right[
-![](image/borders.png)
+![](image/week2/borders.png)
 ]
 
 ---
@@ -136,13 +137,13 @@ class: center, middle, inverse, title-slide
 ]
 
 .pull-right[
-  ![](image/median_filtering.png)
+  ![](image/week2/median_filtering.png)
 ]
 
 ---
 # Mean vs Median: One ignores the "extreme" values
 
-![](image/median_vs_mean.png)
+![](image/week2/median_vs_mean.png)
 
 ---
 # Variations: Gaussian Filters
@@ -151,7 +152,7 @@ class: center, middle, inverse, title-slide
 - Avoids "blockiness"
 
 .pull-right[
-   ![](image/gaussian_filter.png)
+   ![](image/week2/gaussian_filter.png)
 ]
 
 ---
@@ -181,6 +182,7 @@ Please read these sections before the lab.
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
+"ratio": "16:9",
 "highlightStyle": "github",
 "highlightLines": true,
 "countIncrementalSlides": false

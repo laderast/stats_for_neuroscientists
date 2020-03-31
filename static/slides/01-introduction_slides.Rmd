@@ -46,6 +46,12 @@ options(htmltools.dir.version = FALSE)
 .pull-right[<img src="image/week1/ted.jpg" width = 500>]
 
 ---
+# Class Facilitator/TA
+
+- Meet Sam Papadakis from the Fair Lab
+- She will be helping me faciliate online sessions
+
+---
 # Introduction Overview
 
 - Introduction to Zoom
@@ -69,17 +75,15 @@ options(htmltools.dir.version = FALSE)
 - Let's do a quick guided tour
 
 ---
+
+<iframe width="1000" height = "600" src="https://www.youtube.com/embed/5iap0Ffl5Lg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
 # Letting me Know
 
 When we're doing the activity, use the hands up in Zoom to indicate that you're finished.
 
 If you have questions, please ask them in chat.
-
----
-# Class Facilitator/TA
-
-- Meet Sam Papadakis from the Fair Lab
-- She will be 
 
 ---
 # Rules for Interaction
@@ -98,19 +102,22 @@ During Labs:
 
 - Work within your breakout group to solve 
 - Share screens to talk about issues
-- I
-
+- We'll pop in to each discussion group to help you out
 
 ---
 # Sharing Your Screen
 
-
+<img src = "image/week1/screen sharing.jpg" width = 800>
 
 ---
 # Breakout Rooms
 
 - I'll divide the class into breakout rooms for discussion and labs
 - I'll ask each room for a summary
+
+---
+# Let's try the Breakout Rooms
+
 - Let's try it
     - Icebreaker: What is your favorite thing to add to Ramen (or oatmeal)?
 
@@ -122,7 +129,8 @@ During Labs:
 ---
 class: center, middle
 
-# Let's look at the website
+# Let's look at the website:
+## http://stats4neuro.netlify.com
 
 ---
 class: center, middle
@@ -223,7 +231,7 @@ I want to see you thinking and observing about the data.
 
 - Learning R can be a difficult, but rewarding process
 - Be patient with yourself, don't beat yourself up
-- We'll try to make it a fun process
+- We'll try to make it a fun process for you
 
 ---
 # R-Bootcamp
