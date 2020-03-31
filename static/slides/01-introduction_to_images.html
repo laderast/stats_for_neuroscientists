@@ -4,7 +4,7 @@
     <title>Introduction to RStudio Projects/Image Data</title>
     <meta charset="utf-8" />
     <meta name="author" content="Ted Laderas" />
-    <meta name="date" content="2020-03-30" />
+    <meta name="date" content="2020-03-31" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -13,7 +13,7 @@ class: center, middle, inverse, title-slide
 
 # Introduction to RStudio Projects/Image Data
 ### Ted Laderas
-### 2020-03-30
+### 2020-03-31
 
 ---
 
@@ -21,6 +21,12 @@ class: center, middle, inverse, title-slide
 
 
 
+
+# Reminder
+
+If you want to look at my speaker notes in the presentation, open the link to the presentation and type in "p" to get into presenter mode
+
+Press "p" to get out of presenter mode or you can just reload the presentation
 
 # Learning Objectives
 
@@ -33,10 +39,15 @@ class: center, middle, inverse, title-slide
 ---
 # RStudio Cloud
 
+&lt;img src= "image/week1/rstudio.jpg" width = 800&gt;
+
+???
+
 - Web based version of RStudio
 - All software is installed for you
 
 ---
+
 &lt;img src="image/week1/project1.jpg" width=800&gt;
 
 ???
@@ -172,7 +183,13 @@ We want the first 100 columns and the last 100 rows of our image. How do we refe
 
 - The `51:100` and `1:50` are called **sequences**. They are a short hand for *every number between* 51 and 100 (including 51 and 100).
 
-- Question: What does the sequence `1:50` refer to? Is this sequence referring to the rows or columns?
+
+---
+# Your Turn
+
+Question: What does the sequence `1:50` refer to? Is this sequence referring to the rows or columns?
+
+Place answer in chat.
 
 ---
 
@@ -184,9 +201,11 @@ We want the first 100 columns and the last 100 rows of our image. How do we refe
 - Our subset is the bottom left.
 
 ---
-# Check yourself
+# Your Turn
 
 If we have a 200 x 200 pixel image, how do we refer to the top right quadrant? (use the format `image[a:b, x:y]`)
+
+Place answer in cha
 
 ---
 # Intensity
@@ -209,13 +228,20 @@ These numeric values can either be:
 - File size can be larger than integer-valued images
 
 ---
-&lt;img src="image/week1/histogram.jpg" width=800&gt;
+&lt;img src="image/week1/histogram2.jpg" width=800&gt;
 
 ???
 
 One of our most useful tools for understanding an image is the **intensity histogram**.
 
 Our x-axis is our intensity value, and our y-axis are the number of pixels in our image that have that particular intensity value.
+
+--- 
+&lt;img src="image/week1/histogram2.jpg" width=800&gt;
+
+???
+
+Each box represents the number of pixels in that intensity range
 
 ---
 # What can you tell from this histogram?
@@ -233,6 +259,10 @@ Our x-axis is our intensity value, and our y-axis are the number of pixels in ou
 .pull-right[
 ![](01-introduction_to_images_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 ]
+---
+
+&lt;img src="image/week1/overexposure.JPG" width = 800&gt;
+
 ---
 # Color images 
 
@@ -254,6 +284,17 @@ Color images are usually represented by three different intensity values, that a
 - To do this, we will need to process each channel separately, and then combine the results in the end.
 
 ---
+# Accessing layers
+
+If an image has multiple channels, you'll access them with an additional entry for the image
+
+```
+image[100:150, 1:50, 2]
+                     ^
+                     this refers to channel 2!
+```
+
+---
 class: center, middle
 
 # Image Processing Workflow
@@ -262,6 +303,12 @@ class: center, middle
 &lt;img src="image/week1/analysis-flowchart.png" width = 900&gt;
 
 ,footnote[https://petebankhead.gitbooks.io/imagej-intro/content/chapters/colors/colors.html]
+
+???
+
+The first five weeks of class we'll focus on *image processing* - getting our images to the point that we can quantify them. 
+
+The last five weeks of class we'll talk about spatial statistics and experimental design.
 
 ---
 # Reading 

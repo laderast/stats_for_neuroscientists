@@ -262,6 +262,7 @@ Class is Pass/Fail
 - In-class labs and assignments will be done with [RStudio.cloud](http://rstudio.cloud)
 - We'll take a guided tour of RStudio Cloud next class
 - Invite to the class workspace will be sent out before Thursday
+- Links to the Labs will be sent out day of class via Sakai
 - Submissions of notebooks will be via Sakai (we will talk about this)
 
 ---

@@ -30,6 +30,12 @@ mono_light(
 )
 ```
 
+# Reminder
+
+If you want to look at my speaker notes in the presentation, open the link to the presentation and type in "p" to get into presenter mode
+
+Press "p" to get out of presenter mode or you can just reload the presentation
+
 # Learning Objectives
 
 - **Understand** the Structure of an RStudio Project
@@ -41,10 +47,15 @@ mono_light(
 ---
 # RStudio Cloud
 
+<img src= "image/week1/rstudio.jpg" width = 800>
+
+???
+
 - Web based version of RStudio
 - All software is installed for you
 
 ---
+
 <img src="image/week1/project1.jpg" width=800>
 
 ???
@@ -190,7 +201,13 @@ plot(image[1:100, 101:200])
 
 - The `51:100` and `1:50` are called **sequences**. They are a short hand for *every number between* 51 and 100 (including 51 and 100).
 
-- Question: What does the sequence `1:50` refer to? Is this sequence referring to the rows or columns?
+
+---
+# Your Turn
+
+Question: What does the sequence `1:50` refer to? Is this sequence referring to the rows or columns?
+
+Place answer in chat.
 
 ---
 
@@ -202,9 +219,11 @@ plot(image[1:100, 101:200])
 - Our subset is the bottom left.
 
 ---
-# Check yourself
+# Your Turn
 
 If we have a 200 x 200 pixel image, how do we refer to the top right quadrant? (use the format `image[a:b, x:y]`)
+
+Place answer in cha
 
 ---
 # Intensity
@@ -227,13 +246,20 @@ These numeric values can either be:
 - File size can be larger than integer-valued images
 
 ---
-<img src="image/week1/histogram.jpg" width=800>
+<img src="image/week1/histogram2.jpg" width=800>
 
 ???
 
 One of our most useful tools for understanding an image is the **intensity histogram**.
 
 Our x-axis is our intensity value, and our y-axis are the number of pixels in our image that have that particular intensity value.
+
+--- 
+<img src="image/week1/histogram2.jpg" width=800>
+
+???
+
+Each box represents the number of pixels in that intensity range
 
 ---
 # What can you tell from this histogram?
@@ -256,6 +282,10 @@ hist(image)
 ```
 ]
 ---
+
+<img src="image/week1/overexposure.JPG" width = 800>
+
+---
 # Color images 
 
 Color images are usually represented by three different intensity values, that are stored in separate *layers* within the file: 
@@ -276,6 +306,17 @@ Color images are usually represented by three different intensity values, that a
 - To do this, we will need to process each channel separately, and then combine the results in the end.
 
 ---
+# Accessing layers
+
+If an image has multiple channels, you'll access them with an additional entry for the image
+
+```
+image[100:150, 1:50, 2]
+                     ^
+                     this refers to channel 2!
+```
+
+---
 class: center, middle
 
 # Image Processing Workflow
@@ -284,6 +325,12 @@ class: center, middle
 <img src="image/week1/analysis-flowchart.png" width = 900>
 
 ,footnote[https://petebankhead.gitbooks.io/imagej-intro/content/chapters/colors/colors.html]
+
+???
+
+The first five weeks of class we'll focus on *image processing* - getting our images to the point that we can quantify them. 
+
+The last five weeks of class we'll talk about spatial statistics and experimental design.
 
 ---
 # Reading 
