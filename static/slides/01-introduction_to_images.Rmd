@@ -36,13 +36,20 @@ If you want to look at my speaker notes in the presentation, open the link to th
 
 Press "p" to get out of presenter mode or you can just reload the presentation
 
+---
+
 # Learning Objectives
 
 - **Understand** the Structure of an RStudio Project
 - **Understand** how confocal microscope images are acquired by a system
 - **Learn** about how images are represented 
 - **Learn** about the types of numeric values we can use as intensities in an image
-- **Learn** about histograms 
+- **Learn** about histograms and what they can tell us about an image
+
+---
+class: center, middle
+
+Let's talk about RStudio Cloud paths
 
 ---
 # RStudio Cloud
@@ -154,15 +161,17 @@ plot(image)
 # Subsetting an Image
 
 .pull-left[
-If we wanted to get the bottom left quadrant of the photo, we want a subimage of 100 x 100 pixels. 
+<img src = "image/week1/kid_example.png" width = 600>
 ]
 
 .pull-right[
-```{r echo=FALSE}
-plot(image)
-plot(image[1:100, 101:200])
-```
+
+<img src = "image/week1/small_image.png" width = 300>
 ]
+
+???
+
+If we wanted to get the bottom left quadrant of the photo, we want a subimage of 100 x 100 pixels. 
 
 Well, we can use technique called *subsetting* to get this quadrant.
 
@@ -201,11 +210,16 @@ plot(image[1:100, 101:200])
 
 - The `51:100` and `1:50` are called **sequences**. They are a short hand for *every number between* 51 and 100 (including 51 and 100).
 
-
 ---
 # Your Turn
 
-Question: What does the sequence `1:50` refer to? Is this sequence referring to the rows or columns?
+Question: What does the sequence `1:50` refer to in the statement 
+
+```
+image[1:50,51:100]
+```
+
+? Is this sequence referring to the rows or columns?
 
 Place answer in chat.
 
@@ -223,7 +237,7 @@ Place answer in chat.
 
 If we have a 200 x 200 pixel image, how do we refer to the top right quadrant? (use the format `image[a:b, x:y]`)
 
-Place answer in cha
+Place answer in chat
 
 ---
 # Intensity
