@@ -90,7 +90,7 @@ If you have questions, please ask them in chat.
 
 Open the chat window (if we are in full screen, press the escape key, and then click on the chat icon)
 
-<img src="image/week1/zoom_chat.jpg>
+<img src="image/week1/zoom_chat.jpg" width = 800>
 
 Type in Chat:
 
