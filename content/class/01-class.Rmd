@@ -73,6 +73,8 @@ I'm glad to hear that the expectations for the course are clear. You all have en
 
 > Probably talking about over exposure in regards to histograms.
 
+I agree that this was unclear. We'll be looking at an overexposed photo in the lab today.
+
 > I think the very end when we went over the way the file directory is set up was the teeniest bit confusing. I liked the graphic that was shown with arrows pointing to different folders, that helped. I think it would have been really nice if that could have been accompanied by a screen sharing and some clicking around in Rstudio for those (like me) who are totally new to the platform. But it seems that we will cover that in lab so maybe I'm jumping the gun a bit
 
 We will be discussing this more in lab today. We'll start up with a short tour of the RStudio Interface and how it relates to the project.
