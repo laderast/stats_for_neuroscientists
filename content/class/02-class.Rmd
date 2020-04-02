@@ -18,3 +18,8 @@ editor_options:
 
 ## Lab Workspace
 
+The link to join the RStudio Cloud workspace should have been mailed out.
+
+## Post Lab Survey
+
+https://ohsu.ca1.qualtrics.com/jfe/form/SV_3mUwdOd7UNieuqh
