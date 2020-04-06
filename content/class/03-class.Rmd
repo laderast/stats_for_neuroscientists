@@ -1,0 +1,95 @@
+---
+title: "Lecture: Preprocessing and filtering images"
+linktitle: "3. Lecture: Preprocessing and filtering iamges"
+date: "2020-03-31"
+class_date: "2020-03-31"
+output:
+  blogdown::html_page:
+    toc: true
+menu:
+  class:
+    parent: Class sessions
+    weight: 1
+type: docs
+weight: 1
+# pdf: 
+# thumb: 
+editor_options: 
+  chunk_output_type: console
+---
+
+## Slides
+
+### Class Introduction
+
+Open the class introduction slides in a separate window: <a href="https://stats4neuro.netlify.com/slides/01-introduction_slides#1" target="_blank">https://stats4neuro.netlify.com/slides/01-introduction_slides#1</a>
+
+```{r echo=FALSE}
+knitr::include_url('https://stats4neuro.netlify.com/slides/01-introduction_slides#1')
+```
+
+### Introduction to Images
+
+Open these slides in a separate window: <a href="https://stats4neuro.netlify.com/slides/01-introduction_to_images#1" target="_blank">https://stats4neuro.netlify.com/slides/01-introduction_to_images#1</a>
+
+To view my speaker notes, press "p".
+
+```{r echo=FALSE}
+knitr::include_url('https://stats4neuro.netlify.com/slides/01-introduction_to_images#1')
+``````
+
+### Post-Class
+
+Please fill out the following survey and we will discuss the results during the next lecture. All responses will be anonymous.
+
+- Clearest Point: What was the most clear part of the lecture?
+- Muddiest Point: What was the most unclear part of the lecture to you?
+- Anything Else: Is there something you'd like me to know?
+
+https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap
+
+
+## Survey and Responses
+
+### Clearest Points
+
+> The project structure of an RStudio project was a really helpful place to start that would have been definitely helpful and I wish someone had emphasized that in my early understanding of things when I was learning Python.
+
+Thanks! It's part of the fundamentals and I'd like to set you all up for success.
+
+> how to segment an image to get only a subset of colums/rows
+
+Glad this was clear. 
+
+> Logistics of the course
+
+> Everything was pretty clear in general, getting set up with zoom and what the class expectations are etc. I really like the clarity of the website for the class, it's designed nicely and is easy and intuitive to navigate.
+
+> format of the class
+
+I'm glad to hear that the expectations for the course are clear. You all have enough stress in your lives right now to have to deal with someone with unclear expectations.
+
+### Muddiest Points (and answers)
+
+> Probably talking about over exposure in regards to histograms.
+
+I agree that this was unclear. We'll be looking at an overexposed photo in the lab today.
+
+> I think the very end when we went over the way the file directory is set up was the teeniest bit confusing. I liked the graphic that was shown with arrows pointing to different folders, that helped. I think it would have been really nice if that could have been accompanied by a screen sharing and some clicking around in Rstudio for those (like me) who are totally new to the platform. But it seems that we will cover that in lab so maybe I'm jumping the gun a bit
+
+We will be discussing this more in lab today. We'll start up with a short tour of the RStudio Interface and how it relates to the project.
+
+> I don't quite get the utility of transformed images, when would you do this and why?
+
+> I'm a little unclear on the decimal image values. Is this an R thing? Because I think ImageJ uses integers? Or is it that Image J just represents decimals as integers in the histogram?
+
+These are two very good questions. We will need to transform our images for many reasons. One reason is that we need to expand and standardize the dynamic range of measured values, and this often means transforming the integers in the acquired image into a decimal value (0 to 1). 
+
+We'll see more about image transformations and filters next week. In short, they will help us in correcting for issues in the images data, such as uneven illumination, or photobleaching.
+
+> Are the images to be analyzed/ processed "stock" images given to everyone or will we use our own images if we have any for assignments?
+
+We will try to get to your data when we can, perhaps for a final project. 
+
+I know it is frustrating to learn on "stock" images, but these examples will help you clearly understand how the algorithms work.
+
