@@ -23,3 +23,56 @@ The link to join the RStudio Cloud workspace should have been mailed out.
 ## Post Lab Survey
 
 https://ohsu.ca1.qualtrics.com/jfe/form/SV_3mUwdOd7UNieuqh
+
+## Muddiest Points
+
+> I'm wondering about the distinction between <- and = to assign a value to a variable. It seemed like maybe that was outside the scope of what we had time to cover today, and maybe it will become clear in the future as we work in R more, but I'm curious what the difference is and why you wouldn't want to use = to assign a variable a value.
+
+Here's a post by Colin Fay about why we use `<-` instead of `=`: https://colinfay.me/r-assignment/ 
+
+The TLDR: The original versions of `R` couldn't even use `=` for assignment (it was used to check equivalence of objects). Nowadays, we mostly use it because of readablility.
+
+For example, we can do this:
+
+```
+new_value = sqrt(x=4)
+```
+which takes a little more mental effort to read than:
+
+```
+new_value <- sqrt(x=4)
+```
+
+> Honestly, the thing I have been struggling with most is importing/exporting/loading data/file paths etc. 
+
+Yes, it's difficult to wrap your head around file paths. If you follow the convention for the projects, (having a `data` folder), it makes it much easier to manage. If you can spare the disk space, it's better to copy the images you need into a `data` folder, so you can zip up the project folder and share it with people.
+
+Jenny Bryan (who has thought about this a lot more than I have), has a great discussion about why organizing your project is good. Highly recommended: https://rstats.wtf/project-oriented-workflow.html
+
+> I also missed what the histogram notation meant (`xlim=c(1,0)`, etc)
+
+Ah. So `xlim` sets the limits of the x axis. Here, we're setting our axis limits to 0 and 1.
+
+> When you are uploading your own images into your project, do they always have to be .tif files or are there other formats that are compatible?	
+
+If we look at the documentation for `readImage()`:
+
+```
+library(EBImage)
+?readImage
+```
+
+There's info about the image types that `EBImage` accepts: `jpeg` `.png` and `.tiff`. So those are the 3 main image types.
+
+> I understand that print(image_1) displays several parameters about image_1. Does "frames.total" mean the total number of channels included in the image? What does "frames.render" mean?	
+
+```
+library(EBImage)
+?`Image-class`
+```
+
+This is from here: https://www.bioconductor.org/packages/release/bioc/vignettes/EBImage/inst/doc/EBImage-introduction.html
+
+> The “frames.total” and “frames.render” fields shown by the object summary correspond to the total number of frames contained in the image, and to the number of rendered frames. These numbers can be accessed using the function `numberOfFrames` by specifying the `type` argument.
+
+So, `frames.total` is the total number of frames in the image, while `frames.render` is the total number of rendered image. This is different because 
