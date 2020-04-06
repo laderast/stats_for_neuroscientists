@@ -4,7 +4,7 @@
     <title>Introduction to Image Preprocessing</title>
     <meta charset="utf-8" />
     <meta name="author" content="Ted Laderas" />
-    <meta name="date" content="2020-03-31" />
+    <meta name="date" content="2020-04-06" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -13,7 +13,7 @@ class: center, middle, inverse, title-slide
 
 # Introduction to Image Preprocessing
 ### Ted Laderas
-### 2020-03-31
+### 2020-04-06
 
 ---
 
@@ -46,7 +46,8 @@ class: center, middle, inverse, title-slide
 
 - Noise (often from Exposure)
 - Uneven Illumination
-- Overexposure
+- Overexposure/Photobleaching
+- Part of your reading: [Fluoresecence Microscopy: Avoiding the Pitfalls.](https://jcs.biologists.org/content/joces/120/10/1703.full.pdf)
 
 ---
 # First Do No Harm
@@ -55,44 +56,46 @@ class: center, middle, inverse, title-slide
 - Be Transparent and share your workflow
 
 ---
-# Histograms
+# Point operations
 
-.pull-left[image]
+```
+image + 0.2
+```
 
-.pull-right[histogram]
+```
+image * 2
+```
 
----
-# Point Operations on Image
+???
 
-- Image too dark - try adding a value to the image
-- 
+- Point operations, also known as **global** operations, are mathematical operations that operate on all of the pixels in an image
+- We can do things like add a value (0.1) to all pixels, or subtract values.
 
 ---
 # Normalization
 
 - Scale depth of image to fit minimums and maximums of image
 
-.pull-left[]
+.pull-left[&lt;img src="image/week2/darker_image.png" width= 400&gt;]
 
-.pull-right[]
+.pull-right[&lt;img src="image/week2/lighter_image.png" width = 400&gt;]
 
 ---
 # Compare Histograms
 
-.pull-left[]
+.pull-left[&lt;img src="image/week2/hist_darker.png" width = 400 &gt;]
 
-.pull-right[]
-
----
-# Log Transformation
-
-- Sometimes we want to change the skewedness of an image's histogram
-- Emphasize lower values, de-emphasize smaller values
+.pull-right[&lt;img src="image/week2/hist_lighter.png" width = 400 &gt;]
 
 ---
-# Masking
+&lt;img src = "image/week2/masking.JPG" width = 800&gt;
 
-- We can use multiplication using a mask to remove irrelevant featres. 
+???
+
+- One type of point operation that is very useful is *masking*, where a "region of interest" is defined in our image.
+- We may want to remove certain parts of the image, because they are not an area of the image that we are intersted in
+- You can define a region of interest mathematically, or by drawing it in manually
+- Everything not in the region of interest gets zeroed out (becomes black)
 
 ---
 # Noise in fluoresence microscopy
@@ -103,30 +106,46 @@ class: center, middle, inverse, title-slide
 - Can we fix this? Yes, we can, with *filters*!
 
 ---
+&lt;img src="image/week2/neighborhood.JPG" width = 800&gt;
+
+???
+
+- The first concept we need to define with a filter is a *neighborhood*.
+- The neighborhood is defined as the pixels that surround a pixel of interest (including the pixel of interest)
+- We utilize intensity values of the pixels in the neighborhood to transform the intensity value of our pixel of interest
+- Neighborhoods can have different shapes, square, circular, or other shapes
+- The matrix on the right is our image before filtering. We're using integer values here just because it's easier
+- The pixel of interest is in green, and its 3x3 neighborhood are those pixels that surround it
+
+---
+
 # Filtering using a mean filter
 
 .pull-left[
 - Applying an operation using values around a pixel, or the pixel neighborhood
 - Take all nine values in a neighborhood, multiply by 1/9, and then add them
 - The "1/9" is known as a weight
+- They're also called *convolutional* filters
 ]
 
 .pull-right[
   ![](image/week2/mean_filter.png)
 ]
 
-
+.footnote[https://petebankhead.gitbooks.io/imagej-intro/content/chapters/filters/filters.html]
 
 ---
-# Smoothing our image out
+&lt;img src="image/week2/mean_filter1.JPG" width=800&gt;
 
-![](image/week2/applying_filter.png)
+---
+&lt;img src="image/week2/mean_filter_your_turn.JPG" width =800&gt;
 ---
 # What about the edges?
 
-.pull-right[
-![](image/week2/borders.png)
-]
+&lt;img src="image/week2/filter_edges.JPG" width =800&gt;
+
+---
+&lt;img src="image/week2/borders.png" width=800&gt;
 
 ---
 # Variations: Median Filtering
@@ -140,6 +159,7 @@ class: center, middle, inverse, title-slide
   ![](image/week2/median_filtering.png)
 ]
 
+.footnote[https://petebankhead.gitbooks.io/imagej-intro/content/chapters/filters/filters.html]
 ---
 # Mean vs Median: One ignores the "extreme" values
 
@@ -151,15 +171,13 @@ class: center, middle, inverse, title-slide
 - Neighborhood and its weight are defined by 2-D *gaussian* functions around a point
 - Avoids "blockiness"
 
-.pull-right[
    ![](image/week2/gaussian_filter.png)
-]
 
 ---
 # What about Photoshop?
 
 - Almost all effects in photoshop are global or local manipulations on an image.
-
+- Neighborhoods are defined differently (also known as "brushes")
 
 ---
 # Take home points
@@ -169,7 +187,7 @@ class: center, middle, inverse, title-slide
 - We assess the effects of *global operations* by looking at the histogram
 - **Local operations**: filtering, including mean filtering, median filtering, and gaussian filtering
 - We assess the effects of local operations by examining the image and seeing the effect of the filter on downstream operations
-- Neighborhoods define which pixel values we incorporate into a local operation
+- **Neighborhoods** define which pixel values we incorporate into a local operation
 
 ---
 # Reading
