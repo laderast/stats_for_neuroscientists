@@ -24,11 +24,13 @@ editor_options:
 
 Open the class introduction slides in a separate window: <a href="https://stats4neuro.netlify.com/slides/02-image_preprocessing#1" target="_blank">https://stats4neuro.netlify.com/slides/02-image_preprocessing#1</a>
 
+Remember, you can hit `p` to open up the preview mode and see the slides.
+
 ```{r echo=FALSE}
 knitr::include_url('https://stats4neuro.netlify.com/slides/02-image_preprocessing#1')
 ```
 
-### Post-Class
+## Post-Class
 
 Please fill out the following survey and we will discuss the results during the next lecture. All responses will be anonymous.
 

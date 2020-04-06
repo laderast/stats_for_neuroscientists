@@ -10,6 +10,7 @@ lessons:
   - title: '**Lab 1: Intro to RStudio/Loading Images**'
     date: "April 2"
     assignment: "01-problem-set"
+    class: "02-class"
 
   - title: "Notebook 1 Due"
     date: "April 9"
