@@ -58,6 +58,8 @@ mono_light(
 
 - Do as little as possible to images when preprocessing them.
 - Be Transparent and share your workflow
+- A fine balance between denoising and losing structures in your data
+- Always assess the impact of your method!
 
 ---
 # Point operations
