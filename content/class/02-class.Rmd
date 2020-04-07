@@ -76,3 +76,25 @@ This is from here: https://www.bioconductor.org/packages/release/bioc/vignettes/
 > The “frames.total” and “frames.render” fields shown by the object summary correspond to the total number of frames contained in the image, and to the number of rendered frames. These numbers can be accessed using the function `numberOfFrames` by specifying the `type` argument.
 
 So, `frames.total` is the total number of frames in the image, while `frames.render` is the total number of rendered image. This is different because 
+
+> Is there a difference in the way R runs a code based on the spacing? for example starting on the next line 
+
+```
+hist(  x = image_1,
+       xlim = c(0,1)
+     )
+``` 
+
+> vs 
+
+```
+hist(x = image_1, xlim = c(0,1))
+``` 
+
+> Is the spacing just to read it better later?
+
+The short answer is yes, it's really for readability. I try to follow the R Style Code guide, so the code is easier to understand. http://adv-r.had.co.nz/Style.html
+
+There is a shortcut in R that tries to format your code to make it more legible. I can't remember what it is, but I'll update this when I find it.
+
+If you're interested in how R decides whether the next line a continuation of the previous one, this is the best one I have found so far (apologies, I hate linking to "Dummies"): https://www.dummies.com/programming/r/how-to-structure-your-code-in-r/

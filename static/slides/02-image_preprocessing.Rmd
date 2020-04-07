@@ -27,14 +27,14 @@ mono_light(
 
 # Sharing Session
 
-- For 10 minutes a class, we'll discuss assignments
+- For 10 minutes before lecture, we'll discuss assignments, or past muddiest points
 
 ---
 # Learning Objectives
 
 - **Learn** about *histograms* and **use** them to understand the distribution of values in an image
 - **Learn** about *numerical transformations* on image data and how to **apply** them to images
-- Learn about *filters* and their application to image processing
+- **Learn** about *filters* and **apply** them to images
 
 ---
 # Glossary
@@ -261,3 +261,10 @@ Please read these sections before the lab.
 - [Fluoresecence Microscopy: Avoiding the Pitfalls.](https://jcs.biologists.org/content/joces/120/10/1703.full.pdf)
 - [Processing and Analysis](https://petebankhead.gitbooks.io/imagej-intro/content/chapters/processing_and_analysis/processing_and_analysis.html)
 - [Point Operations](https://petebankhead.gitbooks.io/imagej-intro/content/chapters/point_operations/point_operations.html)
+
+---
+# Survey
+
+Remember to take the survey!
+
+https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap
