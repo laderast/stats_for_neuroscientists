@@ -34,8 +34,7 @@ mono_light(
 
 - **Learn** about *histograms* and **use** them to understand the distribution of values in an image
 - **Learn** about *numerical transformations* on image data and how to **apply** them to images
-- **Learn** about *log transformation* and **assess** its effect on image data
-- Learn about *filtering* and *denoising* images
+- Learn about *filters* and their application to image processing
 
 ---
 # Glossary
@@ -144,31 +143,61 @@ image * 2
 
 ---
 <img src="image/week2/mean_filter_your_turn.JPG" width =800>
----
-# What about the edges?
 
+---
+.pull-left[<img src="image/week2/small_image1.png" width=400>]
+
+.pull-right[<img src="image/week2/mean_filter.png" width=400>]
+
+???
+
+What is the result of this? The image seems a little more smoothed out and blurry.
+
+Again, this will help us smooth out the edges of our nuclei, which will help us measure them in a consistent manner.
+
+---
 <img src="image/week2/filter_edges.JPG" width =800>
+
+???
+
+You may have noticed that we haven't accounted for the edge pixels. How do we calculate them?
+
+Here's one strategy: filling in a row of zeroes for the top edge.
 
 ---
 <img src="image/week2/borders.png" width=800>
 
+.footnote[https://petebankhead.gitbooks.io/imagej-intro/content/chapters/filters/filters.html]
+
+???
+
+There are other strategies that you might use.
 ---
 # Variations: Median Filtering
 
-.pull-left[
-- Sort all values, and return the center value
-- "ignores" extreme values in a neighborhood.
-]
-
-.pull-right[
-  ![](image/week2/median_filtering.png)
-]
+<img src="image/week2/median_filtering.png" width = 700>
 
 .footnote[https://petebankhead.gitbooks.io/imagej-intro/content/chapters/filters/filters.html]
+
+???
+
+- Sort all values in a neighborhood, and return the center value
+- "ignores" extreme values in a neighborhood.
+
 ---
-# Mean vs Median: One ignores the "extreme" values
+.pull-left[<img src="image/week2/small_image1.png" width=400>]
+
+.pull-right[<img src="image/week2/median_filter.png" width=400>]
+
+---
 
 ![](image/week2/median_vs_mean.png)
+
+???
+
+- Median filtering has one strength above mean filtering. 
+- Median filtering ignores the *extreme* values in a neighborhood
+- That means it can help reduce noise in images, as you can see in the example above.
 
 ---
 # Variations: Gaussian Filters
@@ -177,6 +206,16 @@ image * 2
 - Avoids "blockiness"
 
    ![](image/week2/gaussian_filter.png)
+
+---
+
+.pull-left[<img src="image/week2/small_image1.png" width=400>]
+
+.pull-right[<img src="image/week2/gaussian.png" width=400>]
+
+???
+
+Here is a gaussian filter with a slightly larger sigma. 
 
 ---
 # What about Photoshop?
@@ -195,9 +234,28 @@ image * 2
 - **Neighborhoods** define which pixel values we incorporate into a local operation
 
 ---
+# When to use what filter & transformation
+
+These are the main ones to consider at this point.
+
+- *normalization* - your image is dim, and you want it to be comparable
+- *masking* - there are structures in your image that you want the algorithm to ignore
+- *mean filtering* - Median is probably preferable in most situations
+- *median filtering* - Your images are noisy!
+- *gaussian filtering* - can be used in illumination correction, and the weights can be fine turned
+
+---
+# The Lab
+
+- Looking at global operations
+- Looking at filtering operations
+- Later on: assessing their impact on downstream analysis
+
+---
 # Reading
 
 Please read these sections before the lab.
 
+- [Fluoresecence Microscopy: Avoiding the Pitfalls.](https://jcs.biologists.org/content/joces/120/10/1703.full.pdf)
 - [Processing and Analysis](https://petebankhead.gitbooks.io/imagej-intro/content/chapters/processing_and_analysis/processing_and_analysis.html)
 - [Point Operations](https://petebankhead.gitbooks.io/imagej-intro/content/chapters/point_operations/point_operations.html)

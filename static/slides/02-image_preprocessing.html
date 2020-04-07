@@ -4,7 +4,7 @@
     <title>Introduction to Image Preprocessing</title>
     <meta charset="utf-8" />
     <meta name="author" content="Ted Laderas" />
-    <meta name="date" content="2020-04-06" />
+    <meta name="date" content="2020-04-07" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -13,7 +13,7 @@ class: center, middle, inverse, title-slide
 
 # Introduction to Image Preprocessing
 ### Ted Laderas
-### 2020-04-06
+### 2020-04-07
 
 ---
 
@@ -139,31 +139,61 @@ image * 2
 
 ---
 &lt;img src="image/week2/mean_filter_your_turn.JPG" width =800&gt;
----
-# What about the edges?
 
+---
+.pull-left[&lt;img src="image/week2/small_image1.png" width=400&gt;]
+
+.pull-right[&lt;img src="image/week2/mean_filter.png" width=400&gt;]
+
+???
+
+What is the result of this? The image seems a little more smoothed out and blurry.
+
+Again, this will help us smooth out the edges of our nuclei, which will help us measure them in a consistent manner.
+
+---
 &lt;img src="image/week2/filter_edges.JPG" width =800&gt;
+
+???
+
+You may have noticed that we haven't accounted for the edge pixels. How do we calculate them?
+
+Here's one strategy: filling in a row of zeroes for the top edge.
 
 ---
 &lt;img src="image/week2/borders.png" width=800&gt;
 
+.footnote[https://petebankhead.gitbooks.io/imagej-intro/content/chapters/filters/filters.html]
+
+???
+
+There are other strategies that you might use.
 ---
 # Variations: Median Filtering
 
-.pull-left[
-- Sort all values, and return the center value
-- "ignores" extreme values in a neighborhood.
-]
-
-.pull-right[
-  ![](image/week2/median_filtering.png)
-]
+&lt;img src="image/week2/median_filtering.png" width = 700&gt;
 
 .footnote[https://petebankhead.gitbooks.io/imagej-intro/content/chapters/filters/filters.html]
+
+???
+
+- Sort all values in a neighborhood, and return the center value
+- "ignores" extreme values in a neighborhood.
+
 ---
-# Mean vs Median: One ignores the "extreme" values
+.pull-left[&lt;img src="image/week2/small_image1.png" width=400&gt;]
+
+.pull-right[&lt;img src="image/week2/median_filter.png" width=400&gt;]
+
+---
 
 ![](image/week2/median_vs_mean.png)
+
+???
+
+- Median filtering has one strength above mean filtering. 
+- Median filtering ignores the *extreme* values in a neighborhood
+- That means it can help reduce noise in images, as you can see in the example above.
 
 ---
 # Variations: Gaussian Filters
@@ -172,6 +202,16 @@ image * 2
 - Avoids "blockiness"
 
    ![](image/week2/gaussian_filter.png)
+
+---
+
+.pull-left[&lt;img src="image/week2/small_image1.png" width=400&gt;]
+
+.pull-right[&lt;img src="image/week2/gaussian.png" width=400&gt;]
+
+???
+
+Here is a gaussian filter with a slightly larger sigma. 
 
 ---
 # What about Photoshop?
@@ -190,10 +230,29 @@ image * 2
 - **Neighborhoods** define which pixel values we incorporate into a local operation
 
 ---
+# When to use what filter &amp; transformation
+
+These are the main ones to consider at this point.
+
+- *normalization* - your image is dim, and you want it to be comparable
+- *masking* - there are structures in your image that you want the algorithm to ignore
+- *mean filtering* - Median is probably preferable in most situations
+- *median filtering* - Your images are noisy!
+- *gaussian filtering* - can be used in illumination correction, and the weights can be fine turned
+
+---
+# The Lab
+
+- Looking at global operations
+- Looking at filtering operations
+- Later on: assessing their impact on downstream analysis
+
+---
 # Reading
 
 Please read these sections before the lab.
 
+- [Fluoresecence Microscopy: Avoiding the Pitfalls.](https://jcs.biologists.org/content/joces/120/10/1703.full.pdf)
 - [Processing and Analysis](https://petebankhead.gitbooks.io/imagej-intro/content/chapters/processing_and_analysis/processing_and_analysis.html)
 - [Point Operations](https://petebankhead.gitbooks.io/imagej-intro/content/chapters/point_operations/point_operations.html)
     </textarea>
