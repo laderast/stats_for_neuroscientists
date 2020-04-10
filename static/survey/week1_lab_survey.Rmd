@@ -1,0 +1,43 @@
+---
+title: "Qualtrics Lab Survey Week 1"
+author: "Ted Laderas"
+date: "4/9/2020"
+output: html_document
+params: 
+  survey_name: "NEUS 643 Lab Survey"
+  week: "Lecture Week 1"
+---
+
+```{r setup, include=FALSE}
+library(qualtRics)
+library(DT)
+library(tidyverse)
+```
+
+```{r}
+surveys <- all_surveys()
+survey_id <- surveys %>% filter(name == params$survey_name) %>%
+  pull(id)
+
+lab_survey_week1 <- fetch_survey(survey_id, verbose=TRUE) %>%
+  filter(Q1 == params$week) %>% select(pacing = Q2_4, 
+                                       clearest_points = Q7, 
+                                       muddiest_points= Q3, 
+                                       other_stuff=Q4)
+```
+
+## Muddiest points
+
+```{r}
+lab_survey_week1 %>% 
+  select(muddiest_points) %>% 
+  DT::datatable()
+```
+
+## Clearest Points
+
+```{r}
+lab_survey_week1 %>%
+  select(clearest_points) %>%
+  DT::datatable()
+```

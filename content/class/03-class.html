@@ -24,7 +24,10 @@ editor_options:
 <li><a href="#slides">Slides</a><ul>
 <li><a href="#image-preprocessing">Image Preprocessing</a></li>
 </ul></li>
-<li><a href="#post-class">Post-Class</a></li>
+<li><a href="#post-class">Post-Class</a><ul>
+<li><a href="#muddiest-points">Muddiest Points</a></li>
+<li><a href="#clearest-points">Clearest Points</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -47,4 +50,98 @@ editor_options:
 <li>Anything Else: Is there something you’d like me to know?</li>
 </ul>
 <p><a href="https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap" class="uri">https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap</a></p>
+<div id="muddiest-points" class="section level3">
+<h3>Muddiest Points</h3>
+<div id="theme-gaussian-filters" class="section level4">
+<h4>Theme: Gaussian Filters</h4>
+<blockquote>
+<p>how gaussian function actually operates in the image (mathematically).</p>
+</blockquote>
+<blockquote>
+<p>Not sure if I fully understand the Gaussian filter. Does it apply weights to a neighborhood? How does the algorithm assign weight for each pixel using Gaussian distribution?</p>
+</blockquote>
+<blockquote>
+<p>I would like to know more about Gaussian filtering and how it is actually performed mathematically</p>
+</blockquote>
+<blockquote>
+<p>Gaussian filtering…and how do you choose which filter to use/if to use one at all?</p>
+</blockquote>
+<p>Thanks for the feedback. I was very vague about what the Gaussian Filter actually looks like.</p>
+<p>Hopefully, this page will provide you with an example of what the filter looks like and how to apply it.</p>
+<p><a href="https://homepages.inf.ed.ac.uk/rbf/HIPR2/gsmooth.htm" class="uri">https://homepages.inf.ed.ac.uk/rbf/HIPR2/gsmooth.htm</a></p>
+</div>
+<div id="theme-examples-needed-hard-to-see-what-the-filters-are-for" class="section level4">
+<h4>Theme: Examples needed (hard to see what the filters are for)</h4>
+<blockquote>
+<p>I think the only thing I felt was muddy, and this is probably because it was outside the scope of the lecture, is how to implement the various types of filters in your images.</p>
+</blockquote>
+<blockquote>
+<p>It was over all pretty clear, I think it would be helpful to have an example image that made it easier to understand why we would want to apply certain filters</p>
+</blockquote>
+<blockquote>
+<p>The “real life/in lab” application of each filter was a bit unclear, but they might be easier to understand once we use them in lab.</p>
+</blockquote>
+<p>I fully agree that it’s hard to see what these filters are <em>for</em> from just the lecture. Hopefully the lab has cleared things up for you.</p>
+</div>
+<div id="other-muddy-points" class="section level4">
+<h4>Other Muddy Points</h4>
+<blockquote>
+<p>Would there ever be an instance where you would apply a local operation to the entire image or multiple neighborhoods within an image?</p>
+</blockquote>
+<p>Theoretically, you can use masking and <em>regions of interest</em> to selectively apply filters to only parts of the image.</p>
+<p>Local operations are actually applied to the entire image - it’s just that each value is calculated based on the neighborhood of each pixel.</p>
+<blockquote>
+<p>how do you selection the neighboring pixels when filtering an image.</p>
+</blockquote>
+<p>The definition of a neighborhood in a filter is dependent on what you want the filter to do. We’ve seen in the lab that large sigma sizes (which correspond to larger neighborhoods) can oversmooth the image, and lose definition. So there is a relationship between how big your neighborhood is for your filter and the size of the structures you want to detect.</p>
+<blockquote>
+<p>Masks. It is was pretty clear, but I am not 100% confident in them.</p>
+</blockquote>
+<blockquote>
+<p>What the actual operations were manipulating (intensity values?)</p>
+</blockquote>
+<p>Yes, we are manipulating intensity values.</p>
+</div>
+</div>
+<div id="clearest-points" class="section level3">
+<h3>Clearest Points</h3>
+<div id="theme-filters" class="section level4">
+<h4>Theme: Filters</h4>
+<blockquote>
+<p>Mean filter vs median filter</p>
+</blockquote>
+<blockquote>
+<p>I thought the explanation of how filters work was good, showing the 3x3 matrix and talking about how mean and median filters work</p>
+</blockquote>
+<blockquote>
+<p>The filters (median, mean, gaussian)</p>
+</blockquote>
+<blockquote>
+<p>Mean and Median filtering and finding the average of a pixel with neighboring pixels</p>
+</blockquote>
+<blockquote>
+<p>That median filters are better than mean filters</p>
+</blockquote>
+<blockquote>
+<p>I think your visuals and explanation of convolutional filters was great as far as what the result of each variation looks like.</p>
+</blockquote>
+<blockquote>
+<p>Mean Filtering</p>
+</blockquote>
+<blockquote>
+<p>Each of the filters and processing methods we talked about were well-defined and it was easy to follow what they were doing to pixels in an image.</p>
+</blockquote>
+<p>Thank you, everyone. I worked very hard on the filter slides and how to present this topic and I’m glad it made sense.</p>
+</div>
+<div id="other-clearest-points" class="section level4">
+<h4>Other Clearest Points</h4>
+<blockquote>
+<p>Normalization of an image.</p>
+</blockquote>
+<blockquote>
+<p>It was over all pretty clear, I think it would be helpful to have an example image that made it easier to understand why we would want to apply certain filters</p>
+</blockquote>
+<p>I’m hoping that now you’ve had the lab you’ll have a better idea of what the filters are for. I think that the next lab, when we <em>binarize</em> the image, will hopefully make the impact of filtering and transforming the image even more clear.</p>
+</div>
+</div>
 </div>

@@ -40,3 +40,80 @@ Please fill out the following survey and we will discuss the results during the 
 
 https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap
 
+### Muddiest Points
+
+#### Theme: Gaussian Filters
+
+> how gaussian function actually operates in the image (mathematically).
+
+> Not sure if I fully understand the Gaussian filter. Does it apply weights to a neighborhood? How does the algorithm assign weight for each pixel using Gaussian distribution?
+
+>	I would like to know more about Gaussian filtering and how it is actually performed mathematically
+
+>	Gaussian filtering...and how do you choose which filter to use/if to use one at all?
+
+Thanks for the feedback. I was very vague about what the Gaussian Filter actually looks like.
+
+Hopefully, this page will provide you with an example of what the filter looks like and how to apply it.
+
+https://homepages.inf.ed.ac.uk/rbf/HIPR2/gsmooth.htm
+
+#### Theme: Examples needed (hard to see what the filters are for)
+
+>	I think the only thing I felt was muddy, and this is probably because it was outside the scope of the lecture, is how to implement the various types of filters in your images.
+
+> It was over all pretty clear, I think it would be helpful to have an example image that made it easier to understand why we would want to apply certain filters
+
+> The "real life/in lab" application of each filter was a bit unclear, but they might be easier to understand once we use them in lab.
+
+I fully agree that it's hard to see what these filters are *for* from just the lecture. Hopefully the lab has cleared things up for you.
+
+#### Other Muddy Points
+
+> Would there ever be an instance where you would apply a local operation to the entire image or multiple neighborhoods within an image?
+
+Theoretically, you can use masking and *regions of interest* to selectively apply filters to only parts of the image. 
+
+Local operations are actually applied to the entire image - it's just that each value is calculated based on the neighborhood of each pixel.
+
+>	how do you selection the neighboring pixels when filtering an image.
+
+The definition of a neighborhood in a filter is dependent on what you want the filter to do. We've seen in the lab that large sigma sizes (which correspond to larger neighborhoods) can oversmooth the image, and lose definition. So there is a relationship between how big your neighborhood is for your filter and the size of the structures you want to detect.
+
+
+>	Masks. It is was pretty clear, but I am not 100% confident in them.
+
+
+>	What the actual operations were manipulating (intensity values?)
+
+Yes, we are manipulating intensity values.
+
+### Clearest Points
+
+#### Theme: Filters
+
+> Mean filter vs median filter
+
+> I thought the explanation of how filters work was good, showing the 3x3 matrix and talking about how mean and median filters work
+
+> The filters (median, mean, gaussian)
+
+> Mean and Median filtering and finding the average of a pixel with neighboring pixels
+
+> That median filters are better than mean filters
+
+> I think your visuals and explanation of convolutional filters was great as far as what the result of each variation looks like.
+
+> Mean Filtering
+
+> Each of the filters and processing methods we talked about were well-defined and it was easy to follow what they were doing to pixels in an image.
+
+Thank you, everyone. I worked very hard on the filter slides and how to present this topic and I'm glad it made sense.
+
+#### Other Clearest Points
+
+> Normalization of an image.
+
+> It was over all pretty clear, I think it would be helpful to have an example image that made it easier to understand why we would want to apply certain filters
+
+I'm hoping that now you've had the lab you'll have a better idea of what the filters are for. I think that the next lab, when we *binarize* the image, will hopefully make the impact of filtering and transforming the image even more clear.
