@@ -22,13 +22,15 @@ lessons:
 
   - title: '**Lab 2: Image Operations/Filtering Images**'
     date: "April 9"
-    assignment: "02-problem-set"
+    class: "04-class"
 
   - title: "**Notebook 2 due**"
     date: "April 16"
 
   - title: "**Lecture 3: Binarizing Images**"
     date: "April 14"
+    class: "05-class"
+    reading: "03-reading"
     
   - title: "**Lab 3: Binarizing Image Lab**"
     date: "April 16"
