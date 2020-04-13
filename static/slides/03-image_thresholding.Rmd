@@ -1,40 +1,169 @@
 ---
 title: "Week 3: Image Thresholding"
-subtitle: "NEUS"
+subtitle: "NEUS643"
 author: "Ted Laderas"
 date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
+    css: xaringan-themer.css
     nature:
+      ratio: '16:9'
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
 ---
-class: center, middle
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 ```
-# Image Thresholding
+
+```{r xaringan-themer, include = FALSE}
+library(xaringanthemer)
+mono_light(
+  base_color = "midnightblue",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Droid Mono"),
+  link_color = "deepskyblue1",
+  text_font_size = "28px"
+)
+```
+
+---
+# Review of Last Session
+
+
+---
+# Issues in Microscopy
+
+- 
+
+---
+class: center, middle
+# Image Thresholding and Binarization
 
 ---
 # Learning Objectives
 
-- **Select** a *region of interest* in an image
-- **Select** an *image threshold* to *binarize* an image
-- Apply *Otsu's method* to select a threshold on an image
-- Apply *erosion* and *dilation* to a binarized image
+- **Learn** about *manual* and *adaptive* thresholding on an image to *binarize* it
+- **Learn** about *Otsu's method* to select a threshold on an image
+- **Learn** about *erosion* and *dilation* to fix artefacts in a binarized image
+- **Learn** about the *watershed* algorithm to binarized images
 
 ---
 # Glossary
 
-- *Region of Interest* - Part of an image where you want the analysis to concentrate on
-- *Binarized image* - an image whose intensities have been reduced to two values: 0 and 1.
-- *Threshold* - a cutoff determined from a histogram. Those values that are above the cutoff become 1, and those below become 2
-- *erosion* - reduce 
-- *dilation* - 
-- *adaptive thresholding*
+- **Region of Interest** - Part of an image where you want the analysis to concentrate on
+- **Binarized image** - an image whose intensities have been reduced to two values: 0 and 1.
+- **Threshold** - a cutoff that determines which intensity values become zero and which become 1. Those values that are above the cutoff become 0, and those above become 1
+- **Otsu's Method** - A automated method for deciding a threshold
+---
+# Glossary Part 2
+
+- **adaptive thresholding** - applying a different threshold value to different regions of the image based on local values
+- **erosion** - applying a minimum value filter to an image - results in reducing the border around an image
+- **dilation** -  
 - *watershed thresholding*
+
+---
+# Thresholding
+
+.pull-left[<img src="image/week3/raw_image.png">]
+.pull-right[<img src="image/week3/binarized.png">]
+
+???
+
+**Segmenting** structures in image (also known as *object detection*) requires binarized images.
+
+When we binarize, we take out all of the shades of grey in our image and make it black and white.
+
+---
+<img src = "image/week3/thresholding.JPG" width = 800>
+
+???
+
+So how do we decide the threshold for determining what is black and what is white?
+
+---
+<img src = "image/week3/manual.JPG" width = 800>
+
+???
+
+One way to do it is to do it manually - careful inspection of the image's histogram.
+
+---
+# Manual Example
+
+.pull-left[<img src = "image/week3/manual_example.png" width = 400>]
+
+.pull-right[<img src = "image/week3/manual_example2.png" width = 400>]
+
+???
+
+---
+# Otsu's Threshold
+
+<img src="image/week3/otsu.gif" width = 600>
+
+.footnote[By Lucas(CA) - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=67144384]
+
+???
+
+Otsu's method is a way of deciding a threshold based on maximizing the variability between the 0-valued pixels and the 1 valued-pixels.
+
+In this gif, we can see the variability plotted as a curve. Once we have this curve, we can find its maximum using calculus, and the maximum is our threshold.
+
+---
+# Otsu's Threshold
+
+.pull-left[<img src = "image/week3/otsu-histogram.png" width = 400>]
+
+.pull-right[<img src = "image/week3/otsu_image.png" width = 400>]
+
+---
+
+<img src="image/week3/adaptive_1.JPG" width = 800>
+
+???
+
+Much like filtering, we can use *neighborhoods* around a pixel to decide a threshold. This can help in situations where the illumination is uneven. This method is called *adaptive thresholding*.
+
+We need to decide the size of our neighborhood. Then we build a "local" histogram from that and apply a thresholding algorithm to that local histogram. 
+
+---
+
+<img src="image/week3/adaptive_2.JPG" width = 800>
+
+???
+
+Here's another neighborhood and the mini histogram
+
+In R, that neighborhood can be varied by both height and width.
+
+---
+# More about adaptive thresholding
+
+http://hanzratech.in/2015/01/21/adaptive-thresholding.html
+
+---
+# Adaptive Example
+
+.pull-left[<img src = "image/week3/otsu_image.png" width = 400>
+Otsu's Threshold]
+
+.pull-right[<img src = "image/week3/adaptive_image.png" width = 400>
+Adaptive Threshold]
+
+---
+# Now what?
+
+- Examine binarized images for artefacts introduced in preprocessing
+- Attempt to fix these artefacts
+- Dilation and Erosion (manual)
+- Watershed algorithm (automated)
+
+---
+# Lab Next time
 
 ---
 # Reading:
