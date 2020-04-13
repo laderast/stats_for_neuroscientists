@@ -1,5 +1,5 @@
 ---
-title: "Qualtrics Lab Survey Week 1"
+title: "Qualtrics Dashboard"
 author: "Ted Laderas"
 date: "4/9/2020"
 output: html_document
@@ -14,30 +14,29 @@ library(DT)
 library(tidyverse)
 ```
 
+## Breakdown of Students who have Done Class Surveys
+
 ```{r}
+survey_name <- "NEUS 643 Class Survey"
+
 surveys <- all_surveys()
-survey_id <- surveys %>% filter(name == params$survey_name) %>%
+survey_id <- surveys %>% filter(name == survey_name) %>%
   pull(id)
 
-lab_survey_week1 <- fetch_survey(survey_id, verbose=TRUE) %>%
-  filter(Q1 == params$week) %>% select(
-                                       clearest_points = Q2, 
-                                       muddiest_points= Q3, 
-                                       other_stuff=Q4)
+fetch_survey(survey_id, verbose=TRUE) %>%
+  group_by(Q1) %>% summarize(count = n()) %>% DT::datatable()
 ```
 
-## Muddiest points
+## Breakdown of Students who have Done Lab Surveys
 
 ```{r}
-lab_survey_week1 %>% 
-  select(muddiest_points) %>% 
-  DT::datatable()
+survey_name <- "NEUS 643 Lab Survey"
+
+surveys <- all_surveys()
+survey_id <- surveys %>% filter(name == survey_name) %>%
+  pull(id)
+
+fetch_survey(survey_id, verbose=TRUE) %>%
+  group_by(Q1) %>% summarize(count = n()) %>% DT::datatable()
 ```
 
-## Clearest Points
-
-```{r}
-lab_survey_week1 %>%
-  select(clearest_points) %>%
-  DT::datatable()
-```
