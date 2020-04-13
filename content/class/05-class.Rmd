@@ -22,7 +22,7 @@ editor_options:
 
 ### Image Thresholding
 
-Open the class introduction slides in a separate window: <a href="'https://stats4neuro.netlify.com/slides/03-image_thresholding#1" target="_blank">'https://stats4neuro.netlify.com/slides/03-image_thresholding#1</a>
+Open the class introduction slides in a separate window: <a href="https://stats4neuro.netlify.com/slides/03-image_thresholding#1" target="_blank">https://stats4neuro.netlify.com/slides/03-image_thresholding#1</a>
 
 Remember, you can hit `p` to open up the preview mode and see the slides.
 
