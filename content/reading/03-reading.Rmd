@@ -1,0 +1,16 @@
+---
+title: "Week 3: Image Thresholding"
+linktitle: "Week 3. Image Thresholding"
+date: "2020-04-14"
+read_date: "2020-04-14"
+menu:
+  reading:
+    parent: Readings
+    weight: 2
+type: docs
+---
+
+## Required
+
+- [Detection By Thresholding](https://petebankhead.gitbooks.io/imagej-intro/content/chapters/thresholding/thresholding.html)
+- [Binary Images](https://petebankhead.gitbooks.io/imagej-intro/content/chapters/binary/binary.html)
