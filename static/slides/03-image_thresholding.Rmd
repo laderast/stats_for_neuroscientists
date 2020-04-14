@@ -28,8 +28,6 @@ mono_light(
   text_font_size = "28px"
 )
 ```
-
----
 # Review of Lab Session
 
 - Any questions about lab?
@@ -43,7 +41,6 @@ class: center, middle
 - **Learn** about *manual* and *adaptive* thresholding on an image to *binarize* it
 - **Learn** about *Otsu's method* to select a threshold on an image
 - **Learn** about *erosion* and *dilation* to fix artefacts in a binarized image
-- **Learn** about the *watershed* algorithm to binarized images
 
 ---
 # Glossary
@@ -57,8 +54,7 @@ class: center, middle
 
 - **adaptive thresholding** - applying a different threshold value to different regions of the image based on local values
 - **erosion** - applying a minimum value filter to an image - results in reducing the border around an image
-- **dilation** -  
-- *watershed thresholding*
+- **dilation** - applying a maximum value filter to an image
 
 ---
 # Thresholding
@@ -169,9 +165,9 @@ Adaptive Threshold]
 ---
 # Dilation
 
-- .pull-left[<img src = "image/week3/otsu_image.png" width = 400>
-Otsu Threshold Image]
-- .pull-right[<img src = "image/week3/dilated_image.png" width = 400> Dilated image]
+.pull-left[Otsu Threshold Image<img src = "image/week3/otsu_image.png" width = 400>
+]
+.pull-right[Dilated image<img src = "image/week3/dilated_image.png" width = 400> ]
 
 
 ---
@@ -185,18 +181,18 @@ Otsu Threshold Image]
 ---
 # Erosion
 
-- .pull-left[<img src = "image/week3/otsu_image.png" width = 400>
-Otsu Threshold Image]
-- .pull-right[<img src = "image/week3/eroded_image.png" width = 400> Eroded image]
+.pull-left[Otsu Threshold Image<img src = "image/week3/otsu_image.png" width = 400>
+]
+.pull-right[Eroded image<img src = "image/week3/eroded_image.png" width = 400> ]
 
 ---
 # Opening
 
 - *erosion* followed by *dilation*
 
-- .pull-left[<img src = "image/week3/otsu_image.png" width = 400>
-Otsu Threshold Image]
-- .pull-right[<img src = "image/week3/opened_image.png" width = 400> Opened image]
+.pull-left[Otsu Threshold Image<img src = "image/week3/otsu_image.png" width = 400>
+]
+.pull-right[Opened image<img src = "image/week3/opened_image.png" width = 400> ]
 
 ---
 # Closing
@@ -217,6 +213,13 @@ Which operation is more appropriate?
 
 Did the operations fix issues or create them?
 
+---
+# Your neighborhood's shape matters
+
+.pull-left[<img src="image/week3/art3.gif" width=400> image before opening with circular neighborhood ]
+.pull-right[<img src="image/week3/art3opn1.gif" width=400> image after opening with circular neighborhood ]
+
+.footnote[https://homepages.inf.ed.ac.uk/rbf/HIPR2/open.htm]
 ---
 # Lab Next time
 
