@@ -134,7 +134,7 @@ In R, that neighborhood can be varied by both height and width.
 ---
 # More about adaptive thresholding
 
-http://hanzratech.in/2015/01/21/adaptive-thresholding.html
+http://homepages.inf.ed.ac.uk/rbf/HIPR2/adpthrsh.htm
 
 ---
 # Adaptive Example
