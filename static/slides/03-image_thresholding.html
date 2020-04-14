@@ -4,7 +4,7 @@
     <title>Week 3: Image Thresholding</title>
     <meta charset="utf-8" />
     <meta name="author" content="Ted Laderas" />
-    <meta name="date" content="2020-04-13" />
+    <meta name="date" content="2020-04-14" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -14,7 +14,7 @@ class: center, middle, inverse, title-slide
 # Week 3: Image Thresholding
 ## NEUS643
 ### Ted Laderas
-### 2020-04-13
+### 2020-04-14
 
 ---
 
@@ -23,14 +23,9 @@ class: center, middle, inverse, title-slide
 
 
 ---
-# Review of Last Session
+# Review of Lab Session
 
-
----
-# Issues in Microscopy
-
-- 
-
+- Any questions about lab?
 ---
 class: center, middle
 # Image Thresholding and Binarization
@@ -153,10 +148,74 @@ Adaptive Threshold]
 - Examine binarized images for artefacts introduced in preprocessing
 - Attempt to fix these artefacts
 - Dilation and Erosion (manual)
-- Watershed algorithm (automated)
+
+---
+&lt;img src="image/week3/dilation.JPG" width = 800&gt;
+
+???
+
+- One thing we can do to fix our images is an operation called *dilation*.
+- *dilation* is a maximum filter on a neighborhood. 
+- When the filter is on the edge of an object that is black and white, it will expand the object at its edges
+- *dilation* can be really good at fixing "holes" in our objects
+
+---
+# Dilation
+
+- .pull-left[&lt;img src = "image/week3/otsu_image.png" width = 400&gt;
+Otsu Threshold Image]
+- .pull-right[&lt;img src = "image/week3/dilated_image.png" width = 400&gt; Dilated image]
+
+
+---
+&lt;img src="image/week3/erosion.JPG" width = 800&gt;
+
+???
+
+- The reverse operation is called *erosion*, where the object is a minimum filter
+- The result is that the object becomes smaller at the edges
+
+---
+# Erosion
+
+- .pull-left[&lt;img src = "image/week3/otsu_image.png" width = 400&gt;
+Otsu Threshold Image]
+- .pull-right[&lt;img src = "image/week3/eroded_image.png" width = 400&gt; Eroded image]
+
+---
+# Opening
+
+- *erosion* followed by *dilation*
+
+- .pull-left[&lt;img src = "image/week3/otsu_image.png" width = 400&gt;
+Otsu Threshold Image]
+- .pull-right[&lt;img src = "image/week3/opened_image.png" width = 400&gt; Opened image]
+
+---
+# Closing
+
+- *dilation* followed by *erosion*
+
+.pull-left[&lt;img src = "image/week3/otsu_image.png" width = 400&gt;
+Otsu Threshold Image]
+.pull-right[&lt;img src = "image/week3/closed_image.png" width = 400&gt; Opened image]
+
+
+---
+# Discussion
+
+In breakout rooms, compare the opened and closed images.
+
+Which operation is more appropriate?
+
+Did the operations fix issues or create them?
 
 ---
 # Lab Next time
+
+- Region of Interest
+- Thresholding testing
+- Erosion/Dilation
 
 ---
 # Reading:
@@ -165,6 +224,13 @@ Please read these sections before the lab.
 
 - [Detection By Thresholding](https://petebankhead.gitbooks.io/imagej-intro/content/chapters/thresholding/thresholding.html)
 - [Binary Images](https://petebankhead.gitbooks.io/imagej-intro/content/chapters/binary/binary.html)
+
+---
+# Survey
+
+Fill out the survey: 
+
+https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
