@@ -25,6 +25,7 @@ editor_options:
 <li><a href="#image-thresholding">Image Thresholding</a></li>
 </ul></li>
 <li><a href="#post-class">Post-Class</a></li>
+<li><a href="#muddiest-points">Muddiest Points</a></li>
 </ul>
 </div>
 
@@ -47,4 +48,27 @@ editor_options:
 <li>Anything Else: Is there something you’d like me to know?</li>
 </ul>
 <p><a href="https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap" class="uri">https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap</a></p>
+</div>
+<div id="muddiest-points" class="section level2">
+<h2>Muddiest Points</h2>
+<blockquote>
+<p>how Otsu’s filter actually works. And examples of filter shapes at the end making different images would have helped clarify that - it didn’t make a ton of intuitive sense how that would work</p>
+</blockquote>
+<p>Here’s a page that describes exactly how Otsu’s method is calculated:</p>
+<p><a href="http://www.labbookpages.co.uk/software/imgProc/otsuThreshold.html" class="uri">http://www.labbookpages.co.uk/software/imgProc/otsuThreshold.html</a></p>
+<p>We will cover filter shapes in lab.</p>
+<blockquote>
+<p>still a little bit unclear on when neighborhoods overlap vs are non-overlapping. The way I’m thinking about it is that a neighborhood by definition is non-overlapping in normal thresholding, but adaptive thresholding uses overlapping neighborhoods? I think i’m going in circles and confusing myself more.</p>
+</blockquote>
+<p>Normal thresholding doesn’t use neighborhoods at all - it’s an absolute threshold that is applied to all of the pixels.</p>
+<p>Here’s another explanation for <em>adaptive</em> thresholding that hopefully will fill in the gaps: <a href="http://homepages.inf.ed.ac.uk/rbf/HIPR2/adpthrsh.htm" class="uri">http://homepages.inf.ed.ac.uk/rbf/HIPR2/adpthrsh.htm</a></p>
+<blockquote>
+<p>The math behind Otsu’s and Dilation and Erosion</p>
+</blockquote>
+<blockquote>
+<p>On the idea of adaptive threshold: is each pixel in the image going to have a different threshold? For example on slide 14 of the lecture slides, the 4, highlighted in green, in the teal box will have a different threshold than the 4 to the left because that pixel will have different neighboring pixel values.</p>
+</blockquote>
+<blockquote>
+<p>I’m still a little confused about the calculations behind erosion and dilation. (e.g. examples shown in slide 18 and 20)</p>
+</blockquote>
 </div>

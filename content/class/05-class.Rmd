@@ -40,3 +40,24 @@ Please fill out the following survey and we will discuss the results during the 
 
 https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap
 
+## Muddiest Points
+
+> how Otsu's filter actually works. And examples of filter shapes at the end making different images would have helped clarify that - it didn't make a ton of intuitive sense how that would work
+
+Here's a page that describes exactly how Otsu's method is calculated: 
+
+http://www.labbookpages.co.uk/software/imgProc/otsuThreshold.html
+
+We will cover filter shapes in lab.
+
+>	still a little bit unclear on when neighborhoods overlap vs are non-overlapping. The way I'm thinking about it is that a neighborhood by definition is non-overlapping in normal thresholding, but adaptive thresholding uses overlapping neighborhoods? I think i'm going in circles and confusing myself more.
+
+Normal thresholding doesn't use neighborhoods at all - it's an absolute threshold that is applied to all of the pixels. 
+
+Here's another explanation for *adaptive* thresholding that hopefully will fill in the gaps: http://homepages.inf.ed.ac.uk/rbf/HIPR2/adpthrsh.htm
+
+>	The math behind Otsu's and Dilation and Erosion
+
+>	On the idea of adaptive threshold: is each pixel in the image going to have a different threshold? For example on slide 14 of the lecture slides, the 4, highlighted in green, in the teal box will have a different threshold than the 4 to the left because that pixel will have different neighboring pixel values.
+
+> I'm still a little confused about the calculations behind erosion and dilation. (e.g. examples shown in slide 18 and 20)
