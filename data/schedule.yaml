@@ -35,11 +35,12 @@ lessons:
   - title: "**Lab 3: Binarizing Image Lab**"
     date: "April 16"
 
-  - title: "**Notebook 2 due**"
+  - title: "**Notebook 3 due**"
     date: "April 23"
 
   - title: "**Lecture 4: Image Segmentation Part 1: Identifying Nuclei**"
     date: "April 21"
+    class: "07-class"
     
   - title: "**Lab 4: Image Segmentation Part 1**"
     date: "April 23"
