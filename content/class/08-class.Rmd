@@ -1,0 +1,46 @@
+---
+title: "Discussion: Pitfalls of Microscopy"
+linktitle: "8. Discussion: Pitfalls of Microscopy"
+date: "2020-04-22"
+class_date: "2020-04-22"
+output:
+  blogdown::html_page:
+    toc: true
+menu:
+  class:
+    parent: Class sessions
+    weight: 2
+type: docs
+weight: 3
+# pdf: 
+# thumb: 
+editor_options: 
+  chunk_output_type: console
+---
+
+## Discussion
+
+We will be discussing the following article:
+
+- Fluoresecence Microscopy: Avoiding the Pitfalls. https://jcs.biologists.org/content/joces/120/10/1703.full.pdf
+
+Pick two of the pitfalls. 
+
+For each pitfall that you picked, be prepared to discuss the following.
+
+1. In your opinion, is this pitfall an issue when acquiring microscopy images?
+
+2. If you have had any experience with this pitfall, what did you do to overcome it?
+
+3. (Optional): Do you have any images that show this pitfall? Share them with the class
+
+## Post-Class
+
+Please fill out the following survey and we will discuss the results during the next lecture. All responses will be anonymous.
+
+- Clearest Point: What was the most clear part of the lecture?
+- Muddiest Point: What was the most unclear part of the lecture to you?
+- Anything Else: Is there something you'd like me to know?
+
+https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap
+

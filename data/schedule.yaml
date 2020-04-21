@@ -43,14 +43,20 @@ lessons:
     class: "07-class"
     reading: "04-reading"
     
-  - title: "**Lab 4: Image Segmentation Part 1**"
+  - title: "**Discussion: Microscopy Pitfalls**"
     date: "April 23"
+    class: "08-class"
 
-  - title: "**Lecture 5: Image Segmentation Part 2: Cell Bodies**"
+  - title: "Notebook 3 Due"
     date: "April 28"
     
-  - title: "**Lab 5: Image Segmentation Part 2**"
+  - title: "**Lab 4: Image Segmentation Part 1**"
+    date: "April 28"
+    
+  - title: "**Lecture 5: Image Segmentation Part 2: Cell Bodies**"
     date: "April 30"
+
+  - title: "**Lab 5: Image Segmentation Part 2**"
 
   - title: '<span class="fake-header-table">Part 2: Spatial Statistics</span>'
     header: true
