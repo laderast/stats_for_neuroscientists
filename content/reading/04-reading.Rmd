@@ -1,0 +1,21 @@
+---
+title: "Week 4: Image Segmentation"
+linktitle: "Week 4: Image Segmentation"
+date: "2020-04-21"
+read_date: "2020-04-21"
+menu:
+  reading:
+    parent: Readings
+    weight: 2
+type: docs
+---
+
+## Required
+
+- [Detection By Thresholding](https://petebankhead.gitbooks.io/imagej-intro/content/chapters/thresholding/thresholding.html)
+
+- [RMarkdown for Scientists](https://rmd4sci.njtierney.com/)
+
+Here is a reference about RMarkdown that my friend Nick wrote. It's really helpful and I will be putting together some short videos about it. 
+
+- [Video about changing your notebook to a document]( https://ohsu.box.com/s/2fy82kfiy5jgrrr6fz0hjdianf9n7srh) (Requires Box Access)

@@ -41,6 +41,7 @@ lessons:
   - title: "**Lecture 4: Image Segmentation Part 1: Identifying Nuclei**"
     date: "April 21"
     class: "07-class"
+    reading: "04-reading"
     
   - title: "**Lab 4: Image Segmentation Part 1**"
     date: "April 23"

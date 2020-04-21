@@ -89,6 +89,7 @@ imageData(mask)[105:115, 77:87]
 
 ???
 
+We transform our binary matrix into a label matrix - each object has a specific label (number), and all pixels that belong to that object have the same value as the label.
 
 
 ---
@@ -134,6 +135,10 @@ If our closest non-zero pixel is on a diagonal, we have to apply the Pythagorean
 
 Adapted from https://www.mathworks.com/company/newsletters/articles/the-watershed-transform-strategies-for-image-segmentation.html
 
+
+---
+
+<img src = "image/week4/distance3.JPG" width = 800>
 
 ---
 # Distance Transform
