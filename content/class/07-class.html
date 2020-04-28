@@ -25,6 +25,7 @@ editor_options:
 <li><a href="#image-thresholding">Image Thresholding</a></li>
 </ul></li>
 <li><a href="#post-class">Post-Class</a></li>
+<li><a href="#muddiest-points">Muddiest Points</a></li>
 </ul>
 </div>
 
@@ -47,4 +48,32 @@ editor_options:
 <li>Anything Else: Is there something you’d like me to know?</li>
 </ul>
 <p><a href="https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap" class="uri">https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap</a></p>
+</div>
+<div id="muddiest-points" class="section level2">
+<h2>Muddiest Points</h2>
+<blockquote>
+<p>I was a little bit confused about the watershed algorithm. When you are setting the boundaries around objects, are you able to set up variable boundaries? (ie. set up a border between object x and y, which is different from the border between x and z)? - to achieve better separation for example.</p>
+</blockquote>
+<p>The boundaries are determined by when each valley is flooded by another valley - you basically define the boundary right before the flooding (building a dam).</p>
+<blockquote>
+<p>Do these segementations only work you start from a binarized image? and when is it better to use distance transformation versus the watershed algorithm?</p>
+</blockquote>
+<p>Ok. watershed only works on distance mapping, as it has to traverse a continuous surface, not a discontinuous surface like the binarized image.</p>
+<blockquote>
+<p>the 3D representation of the nearest neighbor map. I liked the explanation of watershed algorithms, but I was initially confused what the 3D representation was – this got cleared up in the end though so I think it makes sense now</p>
+</blockquote>
+<blockquote>
+<p>As far as the watershed segmenting, I’m still a little muddy on the 3D representation</p>
+</blockquote>
+<blockquote>
+<p>I’m still working on understanding the watershed algorithm and how it is extrapolating a 2D image into 3D.</p>
+</blockquote>
+<blockquote>
+<p>the plot of the distance matrix didn’t make as much sense - wouldn’t there be a gradient on the exterior of the image also?</p>
+</blockquote>
+<p>Yes. I understand this was confusing. Hopefully the lab will clarify this. The <code>distmap()</code> function is what is creating the 3D surface.</p>
+<blockquote>
+<p>Can you do the watershed segmentation to separate the boundaries and then apply a filter to round out the boundaries and get a better estimate of the area/size?</p>
+</blockquote>
+<p>Because the output of the watershed is a labeled image, it doesn’t make sense to filter after the segmentation, as you will lose the labels for each of the objects.</p>
 </div>

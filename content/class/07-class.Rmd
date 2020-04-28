@@ -40,3 +40,26 @@ Please fill out the following survey and we will discuss the results during the 
 
 https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap
 
+## Muddiest Points
+
+> I was a little bit confused about the watershed algorithm. When you are setting the boundaries around objects, are you able to set up variable boundaries? (ie. set up a border between object x and y, which is different from the border between x and z)? - to achieve better separation for example.
+
+The boundaries are determined by when each valley is flooded by another valley - you basically define the boundary right before the flooding (building a dam).
+
+> Do these segementations only work you start from a binarized image? and when is it better to use distance transformation versus the watershed algorithm?
+
+Ok. watershed only works on distance mapping, as it has to traverse a continuous surface, not a discontinuous surface like the binarized image.
+
+> the 3D representation of the nearest neighbor map. I liked the explanation of watershed algorithms, but I was initially confused what the 3D representation was -- this got cleared up in the end though so I think it makes sense now
+
+> As far as the watershed segmenting, I'm still a little muddy on the 3D representation
+
+> I'm still working on understanding the watershed algorithm and how it is extrapolating a 2D image into 3D.
+
+> the plot of the distance matrix didn't make as much sense - wouldn't there be a gradient on the exterior of the image also?
+
+Yes. I understand this was confusing. Hopefully the lab will clarify this. The `distmap()` function is what is creating the 3D surface.
+
+> Can you do the watershed segmentation to separate the boundaries and then apply a filter to round out the boundaries and get a better estimate of the area/size?
+
+Because the output of the watershed is a labeled image, it doesn't make sense to filter after the segmentation, as you will lose the labels for each of the objects.
