@@ -49,6 +49,7 @@ lessons:
     
   - title: "**Lab 4: Image Segmentation Part 1**"
     date: "April 28"
+    class: "09-class"
     
   - title: "**Lecture 5: Image Segmentation Part 2: Cell Bodies**"
     date: "April 30"
