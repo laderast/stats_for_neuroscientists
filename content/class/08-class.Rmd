@@ -44,3 +44,25 @@ Please fill out the following survey and we will discuss the results during the 
 
 https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap
 
+
+### Muddiest Points
+
+> honestly it was all very clear. I liked this a lot. It was great to hear from different people with different expertise. Also cool to learn about Ted's background and AFM
+
+>	Undersampling and how camera binning related to it.
+
+>	I think I still am trying to reconcile the nuance between flurophore and detector saturation because on the face they both seem like overexposure to lose features. I am guessing the former relates to too many cells brightly expressing the fluorophore whereas detector is simply the user has turned the laser up to high but there is nothing inherently wrong about the image though.
+
+### Clearest Points
+
+> I liked the article a lot, was very helpful
+
+> I enjoyed the discussion of the microscopy pitfalls paper
+
+> It was very helpful the hear the issues that people have come across while imaging, and how they approached troubleshooting them.
+
+> Cross talk and saturation and some methods people have used to deal with these problems.
+
+> I liked the discussion
+
+> I found it really helpful that were sharing their examples of each type of issue. As someone who hasn't done very much imaging at all I found the descriptions in the text helpful but also having real examples really made things visually tangible.
