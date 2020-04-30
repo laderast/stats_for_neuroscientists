@@ -1,0 +1,3906 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Image Segmentation 2: Finding Cell Bodies</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ted Laderas" />
+    <meta name="date" content="2020-04-30" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Image Segmentation 2: Finding Cell Bodies
+## NEUS643: Week 5
+### Ted Laderas
+### 2020-04-30
+
+---
+
+
+
+
+
+
+
+class: center, middle
+
+# Finding cell bodies from segmented nuclei
+
+
+---
+# Finding boundaries
+
+.pull-left[
+![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+
+???
+
+
+---
+&lt;img src="image/week5/voronoi1.JPG" width = 800&gt;
+
+???
+
+A voronoi diagram is a special way to partition a space given a set of seeds, or centers. These seeds in our case is the labeled image of our nuclei. But in other applications, these could be spatial features of importance, such as hospitals
+
+---
+&lt;img src="image/week5/voronoi2.JPG" width = 800&gt;
+
+???
+
+The voronoi diagram has some really special properties. For any point on the plane, the *region* that the voronoi diagram is in specifies the *closest* seed, or center.
+
+In this case, we have three points, but our orange point is closest to the region it's in.
+
+---
+&lt;img src="image/week5/voronoi3.JPG" width = 800&gt;
+
+---
+&lt;img src="image/week5/voronoi4.JPG" width = 800&gt;
+
+---
+# How do we find them?
+
+&lt;img src="image/week5/cone.png" width = 800&gt;
+
+???
+
+http://datagenetics.com/blog/may12017/index.html
+
+---
+&lt;img src="image/week5/cones_side.png" width = 800&gt;
+
+???
+
+http://datagenetics.com/blog/may12017/index.html
+
+---
+&lt;img src="image/week5/anim3.gif" width =800&gt;
+
+???
+
+http://datagenetics.com/blog/may12017/index.html
+
+
+---
+&lt;img src="image/week5/anim4.gif" width =800&gt;
+
+???
+
+http://datagenetics.com/blog/may12017/index.html
+
+---
+# Another view
+
+&lt;img src="image/week5/fortune.gif" width = 500&gt;
+
+
+---
+# Lambda
+
+
+
+---
+.pull-left[
+![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+
+???
+
+So, let's apply Voronoi tesselation to our image. It requires a labeled image of nuclei as the seeds.
+
+---
+
+.pull-left[
+![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+---
+# Masking can help
+
+.pull-left[
+![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+Thresholded, opened region of interest
+]
+
+---
+# Masking before Voronoi
+
+.pull-left[
+![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+]
+
+---
+# Masking before Voronoi
+
+.pull-left[
+![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+]
+
+
+---
+# Compare the two
+
+.pull-left[
+![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+non-masked
+]
+
+.pull-right[
+![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+masked version
+]
+---
+# Are they accurate?
+
+What are some things that the boundaries are dependent on?
+
+???
+
+---
+#Compute Features
+
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#qqueybrimu .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#qqueybrimu .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qqueybrimu .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#qqueybrimu .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#qqueybrimu .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qqueybrimu .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#qqueybrimu .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#qqueybrimu .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#qqueybrimu .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#qqueybrimu .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#qqueybrimu .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#qqueybrimu .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qqueybrimu .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#qqueybrimu .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#qqueybrimu .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#qqueybrimu .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#qqueybrimu .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#qqueybrimu .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#qqueybrimu .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qqueybrimu .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#qqueybrimu .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#qqueybrimu .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#qqueybrimu .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#qqueybrimu .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qqueybrimu .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#qqueybrimu .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#qqueybrimu .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#qqueybrimu .gt_left {
+  text-align: left;
+}
+
+#qqueybrimu .gt_center {
+  text-align: center;
+}
+
+#qqueybrimu .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#qqueybrimu .gt_font_normal {
+  font-weight: normal;
+}
+
+#qqueybrimu .gt_font_bold {
+  font-weight: bold;
+}
+
+#qqueybrimu .gt_font_italic {
+  font-style: italic;
+}
+
+#qqueybrimu .gt_super {
+  font-size: 65%;
+}
+
+#qqueybrimu .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="qqueybrimu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">b.mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">b.sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">b.mad</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">b.q001</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">b.q005</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">b.q05</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">b.q095</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">b.q099</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_right">0.16604632</td>
+      <td class="gt_row gt_right">0.20496361</td>
+      <td class="gt_row gt_right">0.047825806</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.052419355</td>
+      <td class="gt_row gt_right">0.6572581</td>
+      <td class="gt_row gt_right">0.7580645</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05506167</td>
+      <td class="gt_row gt_right">0.06629981</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.1935484</td>
+      <td class="gt_row gt_right">0.2177419</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.11792915</td>
+      <td class="gt_row gt_right">0.11530973</td>
+      <td class="gt_row gt_right">0.029891129</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.040322581</td>
+      <td class="gt_row gt_right">0.3064516</td>
+      <td class="gt_row gt_right">0.3314919</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09587325</td>
+      <td class="gt_row gt_right">0.09086334</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.036290323</td>
+      <td class="gt_row gt_right">0.2568548</td>
+      <td class="gt_row gt_right">0.2836290</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05544004</td>
+      <td class="gt_row gt_right">0.07587742</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2298387</td>
+      <td class="gt_row gt_right">0.2596774</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07997661</td>
+      <td class="gt_row gt_right">0.13220875</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.3568548</td>
+      <td class="gt_row gt_right">0.6854839</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04099462</td>
+      <td class="gt_row gt_right">0.06316251</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1975806</td>
+      <td class="gt_row gt_right">0.2137097</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04380118</td>
+      <td class="gt_row gt_right">0.06768350</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004274194</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2096774</td>
+      <td class="gt_row gt_right">0.2419355</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06680284</td>
+      <td class="gt_row gt_right">0.08708171</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2580645</td>
+      <td class="gt_row gt_right">0.2758468</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03839046</td>
+      <td class="gt_row gt_right">0.06733400</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2195565</td>
+      <td class="gt_row gt_right">0.2580645</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04220455</td>
+      <td class="gt_row gt_right">0.06746654</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2338710</td>
+      <td class="gt_row gt_right">0.2580645</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07136187</td>
+      <td class="gt_row gt_right">0.09306853</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2774194</td>
+      <td class="gt_row gt_right">0.3079032</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05659581</td>
+      <td class="gt_row gt_right">0.06798424</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2056452</td>
+      <td class="gt_row gt_right">0.2338710</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05631409</td>
+      <td class="gt_row gt_right">0.07043149</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2258065</td>
+      <td class="gt_row gt_right">0.2459677</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06200090</td>
+      <td class="gt_row gt_right">0.08338776</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2419355</td>
+      <td class="gt_row gt_right">0.2701613</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06643055</td>
+      <td class="gt_row gt_right">0.09052291</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2580645</td>
+      <td class="gt_row gt_right">0.2903226</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05142671</td>
+      <td class="gt_row gt_right">0.07120598</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2060484</td>
+      <td class="gt_row gt_right">0.2298387</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04924574</td>
+      <td class="gt_row gt_right">0.06851362</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2177419</td>
+      <td class="gt_row gt_right">0.2459677</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05185932</td>
+      <td class="gt_row gt_right">0.07876237</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2379032</td>
+      <td class="gt_row gt_right">0.2580645</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05844323</td>
+      <td class="gt_row gt_right">0.08210650</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2459677</td>
+      <td class="gt_row gt_right">0.2741935</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.12541268</td>
+      <td class="gt_row gt_right">0.19378026</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.006774194</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.6209677</td>
+      <td class="gt_row gt_right">0.6250000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05249151</td>
+      <td class="gt_row gt_right">0.07658938</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2379032</td>
+      <td class="gt_row gt_right">0.2620968</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06357574</td>
+      <td class="gt_row gt_right">0.07900582</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2258065</td>
+      <td class="gt_row gt_right">0.2459677</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08491031</td>
+      <td class="gt_row gt_right">0.12152752</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.3296371</td>
+      <td class="gt_row gt_right">0.4879032</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08289848</td>
+      <td class="gt_row gt_right">0.10070349</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.3064516</td>
+      <td class="gt_row gt_right">0.3387097</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04529326</td>
+      <td class="gt_row gt_right">0.07104820</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2258065</td>
+      <td class="gt_row gt_right">0.2459677</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05698244</td>
+      <td class="gt_row gt_right">0.11869201</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.3419355</td>
+      <td class="gt_row gt_right">0.5564516</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09389244</td>
+      <td class="gt_row gt_right">0.10534901</td>
+      <td class="gt_row gt_right">0.023912903</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2862903</td>
+      <td class="gt_row gt_right">0.3037500</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04904234</td>
+      <td class="gt_row gt_right">0.05759090</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.1895161</td>
+      <td class="gt_row gt_right">0.2137097</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06745914</td>
+      <td class="gt_row gt_right">0.08926052</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2620968</td>
+      <td class="gt_row gt_right">0.2862903</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.10664175</td>
+      <td class="gt_row gt_right">0.14361278</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.4596774</td>
+      <td class="gt_row gt_right">0.5318145</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04136714</td>
+      <td class="gt_row gt_right">0.06491045</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2056452</td>
+      <td class="gt_row gt_right">0.2338710</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.10793689</td>
+      <td class="gt_row gt_right">0.12180860</td>
+      <td class="gt_row gt_right">0.023912903</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.036290323</td>
+      <td class="gt_row gt_right">0.3669355</td>
+      <td class="gt_row gt_right">0.4072581</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05180720</td>
+      <td class="gt_row gt_right">0.08612221</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2782258</td>
+      <td class="gt_row gt_right">0.3104839</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03401432</td>
+      <td class="gt_row gt_right">0.05523244</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1883065</td>
+      <td class="gt_row gt_right">0.2304032</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07719298</td>
+      <td class="gt_row gt_right">0.09394063</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2701613</td>
+      <td class="gt_row gt_right">0.2983871</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.12301543</td>
+      <td class="gt_row gt_right">0.16488455</td>
+      <td class="gt_row gt_right">0.023912903</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.5173387</td>
+      <td class="gt_row gt_right">0.6814516</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06279685</td>
+      <td class="gt_row gt_right">0.08863468</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2500000</td>
+      <td class="gt_row gt_right">0.2842339</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07726913</td>
+      <td class="gt_row gt_right">0.09234853</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2620968</td>
+      <td class="gt_row gt_right">0.2895968</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07908899</td>
+      <td class="gt_row gt_right">0.10121785</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.3014113</td>
+      <td class="gt_row gt_right">0.3346774</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07776184</td>
+      <td class="gt_row gt_right">0.08981389</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2540323</td>
+      <td class="gt_row gt_right">0.2762097</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05868538</td>
+      <td class="gt_row gt_right">0.06366289</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.2213710</td>
+      <td class="gt_row gt_right">0.2483065</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04896609</td>
+      <td class="gt_row gt_right">0.08308855</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2661290</td>
+      <td class="gt_row gt_right">0.3024194</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05354930</td>
+      <td class="gt_row gt_right">0.08036810</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2459677</td>
+      <td class="gt_row gt_right">0.2829032</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.13645370</td>
+      <td class="gt_row gt_right">0.11812249</td>
+      <td class="gt_row gt_right">0.062771371</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.066532258</td>
+      <td class="gt_row gt_right">0.3203629</td>
+      <td class="gt_row gt_right">0.3808468</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05028104</td>
+      <td class="gt_row gt_right">0.06436211</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2137097</td>
+      <td class="gt_row gt_right">0.2419355</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04856355</td>
+      <td class="gt_row gt_right">0.05826873</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.1774194</td>
+      <td class="gt_row gt_right">0.2050000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07796004</td>
+      <td class="gt_row gt_right">0.09033801</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2540323</td>
+      <td class="gt_row gt_right">0.2766532</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04571106</td>
+      <td class="gt_row gt_right">0.06865748</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2217742</td>
+      <td class="gt_row gt_right">0.2540323</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05137107</td>
+      <td class="gt_row gt_right">0.08450918</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2580645</td>
+      <td class="gt_row gt_right">0.2943548</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07504753</td>
+      <td class="gt_row gt_right">0.08576113</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2540323</td>
+      <td class="gt_row gt_right">0.2826210</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05274062</td>
+      <td class="gt_row gt_right">0.08100941</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2701613</td>
+      <td class="gt_row gt_right">0.3033065</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06098540</td>
+      <td class="gt_row gt_right">0.06714026</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2056452</td>
+      <td class="gt_row gt_right">0.2378226</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06062354</td>
+      <td class="gt_row gt_right">0.08147414</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2419355</td>
+      <td class="gt_row gt_right">0.2635887</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05276999</td>
+      <td class="gt_row gt_right">0.07445355</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2258065</td>
+      <td class="gt_row gt_right">0.2436290</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04960051</td>
+      <td class="gt_row gt_right">0.07301015</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2217742</td>
+      <td class="gt_row gt_right">0.2500000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05621828</td>
+      <td class="gt_row gt_right">0.07553656</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2338710</td>
+      <td class="gt_row gt_right">0.2680645</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08744749</td>
+      <td class="gt_row gt_right">0.09164136</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.036290323</td>
+      <td class="gt_row gt_right">0.2790323</td>
+      <td class="gt_row gt_right">0.3170968</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07421559</td>
+      <td class="gt_row gt_right">0.10683301</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.3028226</td>
+      <td class="gt_row gt_right">0.3266129</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06521778</td>
+      <td class="gt_row gt_right">0.05761187</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.1693548</td>
+      <td class="gt_row gt_right">0.1814516</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08472992</td>
+      <td class="gt_row gt_right">0.06627820</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.028830645</td>
+      <td class="gt_row gt_right">0.044354839</td>
+      <td class="gt_row gt_right">0.2056452</td>
+      <td class="gt_row gt_right">0.2305242</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05660698</td>
+      <td class="gt_row gt_right">0.08338528</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2540323</td>
+      <td class="gt_row gt_right">0.2741935</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.13923343</td>
+      <td class="gt_row gt_right">0.12888757</td>
+      <td class="gt_row gt_right">0.083695161</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.068548387</td>
+      <td class="gt_row gt_right">0.3655242</td>
+      <td class="gt_row gt_right">0.3951613</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06495241</td>
+      <td class="gt_row gt_right">0.11799462</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004395161</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.3812500</td>
+      <td class="gt_row gt_right">0.4475806</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08039972</td>
+      <td class="gt_row gt_right">0.09806435</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2782258</td>
+      <td class="gt_row gt_right">0.2983871</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04478372</td>
+      <td class="gt_row gt_right">0.08679821</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2933468</td>
+      <td class="gt_row gt_right">0.3586694</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07382407</td>
+      <td class="gt_row gt_right">0.10404513</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.015322581</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.3306452</td>
+      <td class="gt_row gt_right">0.3758065</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04772517</td>
+      <td class="gt_row gt_right">0.07177530</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.005241935</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2217742</td>
+      <td class="gt_row gt_right">0.2528226</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05274099</td>
+      <td class="gt_row gt_right">0.07413082</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004556452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2137097</td>
+      <td class="gt_row gt_right">0.2419355</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.11085576</td>
+      <td class="gt_row gt_right">0.12559312</td>
+      <td class="gt_row gt_right">0.023912903</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.3467742</td>
+      <td class="gt_row gt_right">0.3709677</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03647923</td>
+      <td class="gt_row gt_right">0.06973277</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2459677</td>
+      <td class="gt_row gt_right">0.2782258</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07542989</td>
+      <td class="gt_row gt_right">0.08347453</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2459677</td>
+      <td class="gt_row gt_right">0.2627823</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04403564</td>
+      <td class="gt_row gt_right">0.05292924</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.1854839</td>
+      <td class="gt_row gt_right">0.2096774</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06729221</td>
+      <td class="gt_row gt_right">0.09919607</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2862903</td>
+      <td class="gt_row gt_right">0.3274194</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03763611</td>
+      <td class="gt_row gt_right">0.05284959</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1693548</td>
+      <td class="gt_row gt_right">0.1940726</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09274194</td>
+      <td class="gt_row gt_right">0.10323034</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2943548</td>
+      <td class="gt_row gt_right">0.3185484</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06229687</td>
+      <td class="gt_row gt_right">0.10227249</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.3225806</td>
+      <td class="gt_row gt_right">0.3562903</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08393285</td>
+      <td class="gt_row gt_right">0.09619142</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2741935</td>
+      <td class="gt_row gt_right">0.3024194</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09254649</td>
+      <td class="gt_row gt_right">0.08939518</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.036290323</td>
+      <td class="gt_row gt_right">0.2558468</td>
+      <td class="gt_row gt_right">0.2785887</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04775943</td>
+      <td class="gt_row gt_right">0.06479959</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.1895161</td>
+      <td class="gt_row gt_right">0.2137097</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04498372</td>
+      <td class="gt_row gt_right">0.07212584</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2459677</td>
+      <td class="gt_row gt_right">0.2822581</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.12802419</td>
+      <td class="gt_row gt_right">0.13154550</td>
+      <td class="gt_row gt_right">0.035869355</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.044354839</td>
+      <td class="gt_row gt_right">0.3566532</td>
+      <td class="gt_row gt_right">0.3858468</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05590054</td>
+      <td class="gt_row gt_right">0.07767367</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2502016</td>
+      <td class="gt_row gt_right">0.3104839</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07875247</td>
+      <td class="gt_row gt_right">0.10707556</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.3145161</td>
+      <td class="gt_row gt_right">0.3556452</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.18986524</td>
+      <td class="gt_row gt_right">0.18114090</td>
+      <td class="gt_row gt_right">0.095651613</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.084677419</td>
+      <td class="gt_row gt_right">0.4838710</td>
+      <td class="gt_row gt_right">0.5487903</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.13943548</td>
+      <td class="gt_row gt_right">0.17399510</td>
+      <td class="gt_row gt_right">0.035869355</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.040322581</td>
+      <td class="gt_row gt_right">0.5566532</td>
+      <td class="gt_row gt_right">0.6089113</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06256180</td>
+      <td class="gt_row gt_right">0.08940812</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2701613</td>
+      <td class="gt_row gt_right">0.2903226</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04366825</td>
+      <td class="gt_row gt_right">0.06237976</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.1935484</td>
+      <td class="gt_row gt_right">0.2137097</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06400383</td>
+      <td class="gt_row gt_right">0.07002459</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.1975806</td>
+      <td class="gt_row gt_right">0.2137097</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05330606</td>
+      <td class="gt_row gt_right">0.05727011</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.1770161</td>
+      <td class="gt_row gt_right">0.1935484</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06352673</td>
+      <td class="gt_row gt_right">0.06827736</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2056452</td>
+      <td class="gt_row gt_right">0.2245565</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05754976</td>
+      <td class="gt_row gt_right">0.07246428</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2258065</td>
+      <td class="gt_row gt_right">0.2500000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06347512</td>
+      <td class="gt_row gt_right">0.08110732</td>
+      <td class="gt_row gt_right">0.008967339</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.022177419</td>
+      <td class="gt_row gt_right">0.2580645</td>
+      <td class="gt_row gt_right">0.3024194</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07393612</td>
+      <td class="gt_row gt_right">0.10792805</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.3024194</td>
+      <td class="gt_row gt_right">0.4311694</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.12503278</td>
+      <td class="gt_row gt_right">0.13312109</td>
+      <td class="gt_row gt_right">0.065760484</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.048387097</td>
+      <td class="gt_row gt_right">0.3540323</td>
+      <td class="gt_row gt_right">0.3669355</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07421071</td>
+      <td class="gt_row gt_right">0.08585357</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2620968</td>
+      <td class="gt_row gt_right">0.2782258</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06617103</td>
+      <td class="gt_row gt_right">0.06777930</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2096774</td>
+      <td class="gt_row gt_right">0.2338710</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08867959</td>
+      <td class="gt_row gt_right">0.09961614</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.036290323</td>
+      <td class="gt_row gt_right">0.2463710</td>
+      <td class="gt_row gt_right">0.4931855</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07299958</td>
+      <td class="gt_row gt_right">0.07034812</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2048387</td>
+      <td class="gt_row gt_right">0.2264516</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07657008</td>
+      <td class="gt_row gt_right">0.13196459</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.3991935</td>
+      <td class="gt_row gt_right">0.4732258</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05155392</td>
+      <td class="gt_row gt_right">0.07191124</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2379032</td>
+      <td class="gt_row gt_right">0.2930242</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06281922</td>
+      <td class="gt_row gt_right">0.07875267</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2500000</td>
+      <td class="gt_row gt_right">0.2920161</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09241431</td>
+      <td class="gt_row gt_right">0.07247590</td>
+      <td class="gt_row gt_right">0.029891129</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.048387097</td>
+      <td class="gt_row gt_right">0.2217742</td>
+      <td class="gt_row gt_right">0.2338710</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04745255</td>
+      <td class="gt_row gt_right">0.08856106</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2911290</td>
+      <td class="gt_row gt_right">0.3387097</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04584321</td>
+      <td class="gt_row gt_right">0.06168807</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.1955645</td>
+      <td class="gt_row gt_right">0.2177419</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05852964</td>
+      <td class="gt_row gt_right">0.07103244</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2177419</td>
+      <td class="gt_row gt_right">0.2477823</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05989145</td>
+      <td class="gt_row gt_right">0.07027430</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2014113</td>
+      <td class="gt_row gt_right">0.2209274</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.11745425</td>
+      <td class="gt_row gt_right">0.13150586</td>
+      <td class="gt_row gt_right">0.041847581</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.036290323</td>
+      <td class="gt_row gt_right">0.3669355</td>
+      <td class="gt_row gt_right">0.4030242</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.12150778</td>
+      <td class="gt_row gt_right">0.11351458</td>
+      <td class="gt_row gt_right">0.095651613</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.072580645</td>
+      <td class="gt_row gt_right">0.2961694</td>
+      <td class="gt_row gt_right">0.3024194</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04955245</td>
+      <td class="gt_row gt_right">0.06324986</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.010604839</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2016129</td>
+      <td class="gt_row gt_right">0.2258065</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06723716</td>
+      <td class="gt_row gt_right">0.07076352</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2080645</td>
+      <td class="gt_row gt_right">0.2258065</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06914395</td>
+      <td class="gt_row gt_right">0.06838238</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2016129</td>
+      <td class="gt_row gt_right">0.2212903</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06234419</td>
+      <td class="gt_row gt_right">0.06682750</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2016129</td>
+      <td class="gt_row gt_right">0.2177419</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06140334</td>
+      <td class="gt_row gt_right">0.06912373</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2096774</td>
+      <td class="gt_row gt_right">0.2370968</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07730357</td>
+      <td class="gt_row gt_right">0.08401402</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2379032</td>
+      <td class="gt_row gt_right">0.2583871</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04927674</td>
+      <td class="gt_row gt_right">0.07295316</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2419355</td>
+      <td class="gt_row gt_right">0.2985081</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04742329</td>
+      <td class="gt_row gt_right">0.08065983</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2661290</td>
+      <td class="gt_row gt_right">0.3049194</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06171496</td>
+      <td class="gt_row gt_right">0.07653495</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2298387</td>
+      <td class="gt_row gt_right">0.2640726</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.10069598</td>
+      <td class="gt_row gt_right">0.14891431</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.4401210</td>
+      <td class="gt_row gt_right">0.5000000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08646837</td>
+      <td class="gt_row gt_right">0.10184343</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.3016129</td>
+      <td class="gt_row gt_right">0.3279032</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06340138</td>
+      <td class="gt_row gt_right">0.05713776</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.1854839</td>
+      <td class="gt_row gt_right">0.2031452</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05055147</td>
+      <td class="gt_row gt_right">0.07342943</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2217742</td>
+      <td class="gt_row gt_right">0.2431048</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06241323</td>
+      <td class="gt_row gt_right">0.08483725</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2459677</td>
+      <td class="gt_row gt_right">0.2782258</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06537075</td>
+      <td class="gt_row gt_right">0.06553672</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.2056452</td>
+      <td class="gt_row gt_right">0.2217742</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04886224</td>
+      <td class="gt_row gt_right">0.06621388</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1909274</td>
+      <td class="gt_row gt_right">0.2137097</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04956671</td>
+      <td class="gt_row gt_right">0.07242518</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2298387</td>
+      <td class="gt_row gt_right">0.2925806</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.15880566</td>
+      <td class="gt_row gt_right">0.17830558</td>
+      <td class="gt_row gt_right">0.047825806</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.052419355</td>
+      <td class="gt_row gt_right">0.5155242</td>
+      <td class="gt_row gt_right">0.5625403</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06529308</td>
+      <td class="gt_row gt_right">0.06900466</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2137097</td>
+      <td class="gt_row gt_right">0.2379032</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06618605</td>
+      <td class="gt_row gt_right">0.07814786</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2177419</td>
+      <td class="gt_row gt_right">0.2381048</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05730638</td>
+      <td class="gt_row gt_right">0.07648721</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2272177</td>
+      <td class="gt_row gt_right">0.2540323</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05966249</td>
+      <td class="gt_row gt_right">0.06273445</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.1935484</td>
+      <td class="gt_row gt_right">0.2096774</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08697027</td>
+      <td class="gt_row gt_right">0.09273522</td>
+      <td class="gt_row gt_right">0.029891129</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.2782258</td>
+      <td class="gt_row gt_right">0.3061290</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04707384</td>
+      <td class="gt_row gt_right">0.05844738</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.1935484</td>
+      <td class="gt_row gt_right">0.2137097</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08274972</td>
+      <td class="gt_row gt_right">0.11414309</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.3245968</td>
+      <td class="gt_row gt_right">0.4068548</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07560484</td>
+      <td class="gt_row gt_right">0.07730888</td>
+      <td class="gt_row gt_right">0.023912903</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.2284274</td>
+      <td class="gt_row gt_right">0.2419355</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05007222</td>
+      <td class="gt_row gt_right">0.05937773</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.1945565</td>
+      <td class="gt_row gt_right">0.2177419</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05117372</td>
+      <td class="gt_row gt_right">0.06365328</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2070565</td>
+      <td class="gt_row gt_right">0.2373790</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04135330</td>
+      <td class="gt_row gt_right">0.08863297</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.3145161</td>
+      <td class="gt_row gt_right">0.3642339</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08155207</td>
+      <td class="gt_row gt_right">0.09170752</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2725806</td>
+      <td class="gt_row gt_right">0.2912903</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09818458</td>
+      <td class="gt_row gt_right">0.16508952</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.5403226</td>
+      <td class="gt_row gt_right">0.5403226</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.02965692</td>
+      <td class="gt_row gt_right">0.05011052</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.1653226</td>
+      <td class="gt_row gt_right">0.1881855</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03823343</td>
+      <td class="gt_row gt_right">0.06706438</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2137097</td>
+      <td class="gt_row gt_right">0.2687903</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04460796</td>
+      <td class="gt_row gt_right">0.06813453</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2137097</td>
+      <td class="gt_row gt_right">0.2419355</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.11628622</td>
+      <td class="gt_row gt_right">0.10558099</td>
+      <td class="gt_row gt_right">0.041847581</td>
+      <td class="gt_row gt_right">0.016814516</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.048387097</td>
+      <td class="gt_row gt_right">0.3070565</td>
+      <td class="gt_row gt_right">0.3299597</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05165977</td>
+      <td class="gt_row gt_right">0.06623712</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2096774</td>
+      <td class="gt_row gt_right">0.2298387</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06431796</td>
+      <td class="gt_row gt_right">0.07386583</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.014798387</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2379032</td>
+      <td class="gt_row gt_right">0.2634274</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04176177</td>
+      <td class="gt_row gt_right">0.06573337</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2016129</td>
+      <td class="gt_row gt_right">0.2379032</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07430524</td>
+      <td class="gt_row gt_right">0.10179603</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.3024194</td>
+      <td class="gt_row gt_right">0.3306452</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08400893</td>
+      <td class="gt_row gt_right">0.15004892</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.4524194</td>
+      <td class="gt_row gt_right">0.6532258</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07843007</td>
+      <td class="gt_row gt_right">0.09213248</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2620968</td>
+      <td class="gt_row gt_right">0.2741935</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03178489</td>
+      <td class="gt_row gt_right">0.05616271</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.1854839</td>
+      <td class="gt_row gt_right">0.2177419</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.13402089</td>
+      <td class="gt_row gt_right">0.10112397</td>
+      <td class="gt_row gt_right">0.122553629</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.110887097</td>
+      <td class="gt_row gt_right">0.2953629</td>
+      <td class="gt_row gt_right">0.3104839</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04559140</td>
+      <td class="gt_row gt_right">0.06122349</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2016129</td>
+      <td class="gt_row gt_right">0.2419355</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05370836</td>
+      <td class="gt_row gt_right">0.06962822</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2177419</td>
+      <td class="gt_row gt_right">0.2500000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.10510128</td>
+      <td class="gt_row gt_right">0.08254705</td>
+      <td class="gt_row gt_right">0.053804032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.060483871</td>
+      <td class="gt_row gt_right">0.2459677</td>
+      <td class="gt_row gt_right">0.2580645</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.12454179</td>
+      <td class="gt_row gt_right">0.18053543</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.5421371</td>
+      <td class="gt_row gt_right">0.5685484</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.02784832</td>
+      <td class="gt_row gt_right">0.04309449</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1451613</td>
+      <td class="gt_row gt_right">0.1839113</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04465625</td>
+      <td class="gt_row gt_right">0.05927683</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.1854839</td>
+      <td class="gt_row gt_right">0.2095968</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.11869542</td>
+      <td class="gt_row gt_right">0.11413101</td>
+      <td class="gt_row gt_right">0.053804032</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.052419355</td>
+      <td class="gt_row gt_right">0.3225806</td>
+      <td class="gt_row gt_right">0.3508065</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.10616103</td>
+      <td class="gt_row gt_right">0.13508381</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.4274194</td>
+      <td class="gt_row gt_right">0.4677419</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05056554</td>
+      <td class="gt_row gt_right">0.07028843</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2177419</td>
+      <td class="gt_row gt_right">0.2431048</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05955618</td>
+      <td class="gt_row gt_right">0.07393605</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2342742</td>
+      <td class="gt_row gt_right">0.2670968</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05792044</td>
+      <td class="gt_row gt_right">0.08672196</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2661290</td>
+      <td class="gt_row gt_right">0.2983871</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06172524</td>
+      <td class="gt_row gt_right">0.09013356</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2862903</td>
+      <td class="gt_row gt_right">0.3099194</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08400538</td>
+      <td class="gt_row gt_right">0.08233075</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.2338710</td>
+      <td class="gt_row gt_right">0.2459677</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03439965</td>
+      <td class="gt_row gt_right">0.05331527</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1693548</td>
+      <td class="gt_row gt_right">0.1935484</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05044803</td>
+      <td class="gt_row gt_right">0.08246923</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2441532</td>
+      <td class="gt_row gt_right">0.3165726</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09395476</td>
+      <td class="gt_row gt_right">0.08465514</td>
+      <td class="gt_row gt_right">0.029891129</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.044354839</td>
+      <td class="gt_row gt_right">0.2419355</td>
+      <td class="gt_row gt_right">0.2661290</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03649099</td>
+      <td class="gt_row gt_right">0.06472275</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.2096774</td>
+      <td class="gt_row gt_right">0.2500000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.12376449</td>
+      <td class="gt_row gt_right">0.12992570</td>
+      <td class="gt_row gt_right">0.047825806</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.015725806</td>
+      <td class="gt_row gt_right">0.048387097</td>
+      <td class="gt_row gt_right">0.3669355</td>
+      <td class="gt_row gt_right">0.4112903</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07759183</td>
+      <td class="gt_row gt_right">0.07903596</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.017137097</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.2419355</td>
+      <td class="gt_row gt_right">0.2741935</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06106763</td>
+      <td class="gt_row gt_right">0.07956048</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2379032</td>
+      <td class="gt_row gt_right">0.2833871</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08045573</td>
+      <td class="gt_row gt_right">0.08973720</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.011491935</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2506048</td>
+      <td class="gt_row gt_right">0.2745565</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06811060</td>
+      <td class="gt_row gt_right">0.08166351</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2562500</td>
+      <td class="gt_row gt_right">0.2843145</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.11755500</td>
+      <td class="gt_row gt_right">0.17427973</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.5322581</td>
+      <td class="gt_row gt_right">0.6270161</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05785194</td>
+      <td class="gt_row gt_right">0.08538003</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2580645</td>
+      <td class="gt_row gt_right">0.2962097</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05876737</td>
+      <td class="gt_row gt_right">0.08499516</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2669355</td>
+      <td class="gt_row gt_right">0.2983871</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03326989</td>
+      <td class="gt_row gt_right">0.05915483</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2056452</td>
+      <td class="gt_row gt_right">0.2580645</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06468285</td>
+      <td class="gt_row gt_right">0.11115898</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.3548387</td>
+      <td class="gt_row gt_right">0.4011290</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05410632</td>
+      <td class="gt_row gt_right">0.06041738</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.1814516</td>
+      <td class="gt_row gt_right">0.2020565</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06854839</td>
+      <td class="gt_row gt_right">0.08127878</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.015080645</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2580645</td>
+      <td class="gt_row gt_right">0.2822581</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06038812</td>
+      <td class="gt_row gt_right">0.07900131</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2338710</td>
+      <td class="gt_row gt_right">0.2500000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07574616</td>
+      <td class="gt_row gt_right">0.07344017</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.016935484</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.2217742</td>
+      <td class="gt_row gt_right">0.2379032</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06016916</td>
+      <td class="gt_row gt_right">0.07174759</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2137097</td>
+      <td class="gt_row gt_right">0.2375403</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03580763</td>
+      <td class="gt_row gt_right">0.05998984</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1935484</td>
+      <td class="gt_row gt_right">0.2298387</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07865294</td>
+      <td class="gt_row gt_right">0.07885774</td>
+      <td class="gt_row gt_right">0.029891129</td>
+      <td class="gt_row gt_right">0.010161290</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.2193548</td>
+      <td class="gt_row gt_right">0.2358065</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08425654</td>
+      <td class="gt_row gt_right">0.08011890</td>
+      <td class="gt_row gt_right">0.029891129</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.036290323</td>
+      <td class="gt_row gt_right">0.2306452</td>
+      <td class="gt_row gt_right">0.2741935</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06557394</td>
+      <td class="gt_row gt_right">0.08682983</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2741935</td>
+      <td class="gt_row gt_right">0.3111290</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07734003</td>
+      <td class="gt_row gt_right">0.07894371</td>
+      <td class="gt_row gt_right">0.023912903</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2137097</td>
+      <td class="gt_row gt_right">0.2496774</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05895286</td>
+      <td class="gt_row gt_right">0.08094628</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2459677</td>
+      <td class="gt_row gt_right">0.2841935</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04186217</td>
+      <td class="gt_row gt_right">0.05065835</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.1693548</td>
+      <td class="gt_row gt_right">0.2056452</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07407186</td>
+      <td class="gt_row gt_right">0.09492099</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2909274</td>
+      <td class="gt_row gt_right">0.3225806</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03716939</td>
+      <td class="gt_row gt_right">0.05863293</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1911290</td>
+      <td class="gt_row gt_right">0.2137097</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03387645</td>
+      <td class="gt_row gt_right">0.05820747</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.1907258</td>
+      <td class="gt_row gt_right">0.2244355</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04237754</td>
+      <td class="gt_row gt_right">0.06517953</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2149194</td>
+      <td class="gt_row gt_right">0.2429839</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06824222</td>
+      <td class="gt_row gt_right">0.11581455</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.3548387</td>
+      <td class="gt_row gt_right">0.4226613</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07934352</td>
+      <td class="gt_row gt_right">0.09022316</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2693548</td>
+      <td class="gt_row gt_right">0.3070968</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04418264</td>
+      <td class="gt_row gt_right">0.07419722</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2419355</td>
+      <td class="gt_row gt_right">0.2959274</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03527452</td>
+      <td class="gt_row gt_right">0.05284488</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1693548</td>
+      <td class="gt_row gt_right">0.1895161</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06750299</td>
+      <td class="gt_row gt_right">0.08254598</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2419355</td>
+      <td class="gt_row gt_right">0.2641129</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06147996</td>
+      <td class="gt_row gt_right">0.07654676</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2379032</td>
+      <td class="gt_row gt_right">0.2733871</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05567618</td>
+      <td class="gt_row gt_right">0.08535546</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.006653226</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2661290</td>
+      <td class="gt_row gt_right">0.3024194</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08933590</td>
+      <td class="gt_row gt_right">0.10094484</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.2943548</td>
+      <td class="gt_row gt_right">0.3442339</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04367920</td>
+      <td class="gt_row gt_right">0.07399422</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2459677</td>
+      <td class="gt_row gt_right">0.2919355</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.12163746</td>
+      <td class="gt_row gt_right">0.18057522</td>
+      <td class="gt_row gt_right">0.029891129</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.5443548</td>
+      <td class="gt_row gt_right">0.5443548</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04917069</td>
+      <td class="gt_row gt_right">0.08452155</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2568548</td>
+      <td class="gt_row gt_right">0.3435887</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04470026</td>
+      <td class="gt_row gt_right">0.05727556</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.1792339</td>
+      <td class="gt_row gt_right">0.1975806</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05663616</td>
+      <td class="gt_row gt_right">0.07632398</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2346774</td>
+      <td class="gt_row gt_right">0.2566129</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05954301</td>
+      <td class="gt_row gt_right">0.07373988</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2298387</td>
+      <td class="gt_row gt_right">0.2565323</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03870333</td>
+      <td class="gt_row gt_right">0.05389386</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1653226</td>
+      <td class="gt_row gt_right">0.1774194</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05222361</td>
+      <td class="gt_row gt_right">0.07181877</td>
+      <td class="gt_row gt_right">0.008967339</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2298387</td>
+      <td class="gt_row gt_right">0.2500000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.10560409</td>
+      <td class="gt_row gt_right">0.10097294</td>
+      <td class="gt_row gt_right">0.038858468</td>
+      <td class="gt_row gt_right">0.012701613</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.042338710</td>
+      <td class="gt_row gt_right">0.2913306</td>
+      <td class="gt_row gt_right">0.3179435</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04000551</td>
+      <td class="gt_row gt_right">0.05456738</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004838710</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1653226</td>
+      <td class="gt_row gt_right">0.1814516</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09537315</td>
+      <td class="gt_row gt_right">0.09196600</td>
+      <td class="gt_row gt_right">0.029891129</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.040322581</td>
+      <td class="gt_row gt_right">0.2661290</td>
+      <td class="gt_row gt_right">0.2808468</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07339473</td>
+      <td class="gt_row gt_right">0.09917345</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2983871</td>
+      <td class="gt_row gt_right">0.3420968</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05762879</td>
+      <td class="gt_row gt_right">0.08667069</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.006370968</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2741935</td>
+      <td class="gt_row gt_right">0.3058065</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03312055</td>
+      <td class="gt_row gt_right">0.05902884</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1989919</td>
+      <td class="gt_row gt_right">0.2540726</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08402354</td>
+      <td class="gt_row gt_right">0.08781993</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.036290323</td>
+      <td class="gt_row gt_right">0.2580645</td>
+      <td class="gt_row gt_right">0.2907258</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05266251</td>
+      <td class="gt_row gt_right">0.06212580</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.1780242</td>
+      <td class="gt_row gt_right">0.1975806</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07558831</td>
+      <td class="gt_row gt_right">0.10269414</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2937500</td>
+      <td class="gt_row gt_right">0.3271774</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05637388</td>
+      <td class="gt_row gt_right">0.09138965</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004596774</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.3064516</td>
+      <td class="gt_row gt_right">0.3416129</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09453960</td>
+      <td class="gt_row gt_right">0.12047288</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.3745968</td>
+      <td class="gt_row gt_right">0.4014516</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03909606</td>
+      <td class="gt_row gt_right">0.05975759</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2056452</td>
+      <td class="gt_row gt_right">0.2338710</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05763757</td>
+      <td class="gt_row gt_right">0.08760137</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2774194</td>
+      <td class="gt_row gt_right">0.3145161</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06678236</td>
+      <td class="gt_row gt_right">0.07786557</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2379032</td>
+      <td class="gt_row gt_right">0.2706452</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04259633</td>
+      <td class="gt_row gt_right">0.08000173</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2661290</td>
+      <td class="gt_row gt_right">0.3218145</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03436471</td>
+      <td class="gt_row gt_right">0.06344198</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2221774</td>
+      <td class="gt_row gt_right">0.2912097</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.10227273</td>
+      <td class="gt_row gt_right">0.11449405</td>
+      <td class="gt_row gt_right">0.029891129</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.036290323</td>
+      <td class="gt_row gt_right">0.3185484</td>
+      <td class="gt_row gt_right">0.3434677</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04304891</td>
+      <td class="gt_row gt_right">0.06175822</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1975806</td>
+      <td class="gt_row gt_right">0.2107258</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03949838</td>
+      <td class="gt_row gt_right">0.05255508</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1572581</td>
+      <td class="gt_row gt_right">0.1814516</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06449566</td>
+      <td class="gt_row gt_right">0.07339912</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2177419</td>
+      <td class="gt_row gt_right">0.2422177</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05549576</td>
+      <td class="gt_row gt_right">0.08584894</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2661290</td>
+      <td class="gt_row gt_right">0.3024194</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06473031</td>
+      <td class="gt_row gt_right">0.08148037</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2717742</td>
+      <td class="gt_row gt_right">0.3091935</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08202497</td>
+      <td class="gt_row gt_right">0.09673435</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.3104839</td>
+      <td class="gt_row gt_right">0.3508065</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04695948</td>
+      <td class="gt_row gt_right">0.07560186</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.005241935</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2500000</td>
+      <td class="gt_row gt_right">0.2891129</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05809201</td>
+      <td class="gt_row gt_right">0.09241773</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.3106855</td>
+      <td class="gt_row gt_right">0.3557258</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.10648980</td>
+      <td class="gt_row gt_right">0.17290509</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.6209677</td>
+      <td class="gt_row gt_right">0.6209677</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05425450</td>
+      <td class="gt_row gt_right">0.06238159</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2056452</td>
+      <td class="gt_row gt_right">0.2258065</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05256146</td>
+      <td class="gt_row gt_right">0.08470125</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2715726</td>
+      <td class="gt_row gt_right">0.3021774</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.12919355</td>
+      <td class="gt_row gt_right">0.17583003</td>
+      <td class="gt_row gt_right">0.038858468</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.034274194</td>
+      <td class="gt_row gt_right">0.5443548</td>
+      <td class="gt_row gt_right">0.5443548</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04131213</td>
+      <td class="gt_row gt_right">0.07644644</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2665323</td>
+      <td class="gt_row gt_right">0.3428226</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04391741</td>
+      <td class="gt_row gt_right">0.07554668</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2459677</td>
+      <td class="gt_row gt_right">0.2903226</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08526786</td>
+      <td class="gt_row gt_right">0.10142888</td>
+      <td class="gt_row gt_right">0.023912903</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2983871</td>
+      <td class="gt_row gt_right">0.3185484</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06480562</td>
+      <td class="gt_row gt_right">0.09326841</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2983871</td>
+      <td class="gt_row gt_right">0.3225806</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06371589</td>
+      <td class="gt_row gt_right">0.10954934</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.3588710</td>
+      <td class="gt_row gt_right">0.3984677</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06967805</td>
+      <td class="gt_row gt_right">0.10384160</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.007258065</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.3306452</td>
+      <td class="gt_row gt_right">0.3709677</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08111205</td>
+      <td class="gt_row gt_right">0.09376082</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2774194</td>
+      <td class="gt_row gt_right">0.3177419</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05506962</td>
+      <td class="gt_row gt_right">0.07170705</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2217742</td>
+      <td class="gt_row gt_right">0.2612903</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05188172</td>
+      <td class="gt_row gt_right">0.08933487</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2862903</td>
+      <td class="gt_row gt_right">0.3331452</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05916379</td>
+      <td class="gt_row gt_right">0.08598927</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2631048</td>
+      <td class="gt_row gt_right">0.3064516</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07489126</td>
+      <td class="gt_row gt_right">0.07391223</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.036290323</td>
+      <td class="gt_row gt_right">0.2403226</td>
+      <td class="gt_row gt_right">0.2756452</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06356866</td>
+      <td class="gt_row gt_right">0.09341644</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.2862903</td>
+      <td class="gt_row gt_right">0.3562500</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.10158189</td>
+      <td class="gt_row gt_right">0.11348068</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.3346774</td>
+      <td class="gt_row gt_right">0.3463710</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04405668</td>
+      <td class="gt_row gt_right">0.08496645</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2969758</td>
+      <td class="gt_row gt_right">0.3548387</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04254569</td>
+      <td class="gt_row gt_right">0.06105697</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2016129</td>
+      <td class="gt_row gt_right">0.2177419</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05326825</td>
+      <td class="gt_row gt_right">0.05715924</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.1653226</td>
+      <td class="gt_row gt_right">0.1792339</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04112540</td>
+      <td class="gt_row gt_right">0.07402734</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2500000</td>
+      <td class="gt_row gt_right">0.2822581</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05143947</td>
+      <td class="gt_row gt_right">0.10018117</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.3338710</td>
+      <td class="gt_row gt_right">0.4435484</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05398797</td>
+      <td class="gt_row gt_right">0.09897340</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.3354839</td>
+      <td class="gt_row gt_right">0.3988710</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04856701</td>
+      <td class="gt_row gt_right">0.06870682</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2056452</td>
+      <td class="gt_row gt_right">0.2217742</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08461961</td>
+      <td class="gt_row gt_right">0.10315038</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.3467742</td>
+      <td class="gt_row gt_right">0.3750000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05917314</td>
+      <td class="gt_row gt_right">0.06893859</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2096774</td>
+      <td class="gt_row gt_right">0.2498387</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07410765</td>
+      <td class="gt_row gt_right">0.08853643</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2822581</td>
+      <td class="gt_row gt_right">0.3089919</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05415375</td>
+      <td class="gt_row gt_right">0.06556320</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2096774</td>
+      <td class="gt_row gt_right">0.2436694</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09999830</td>
+      <td class="gt_row gt_right">0.18302219</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.6467742</td>
+      <td class="gt_row gt_right">0.7298387</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05300772</td>
+      <td class="gt_row gt_right">0.08399138</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2715726</td>
+      <td class="gt_row gt_right">0.3139919</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.11612309</td>
+      <td class="gt_row gt_right">0.19682088</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.6967742</td>
+      <td class="gt_row gt_right">0.7500000</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04430919</td>
+      <td class="gt_row gt_right">0.06972667</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2217742</td>
+      <td class="gt_row gt_right">0.2568952</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07306980</td>
+      <td class="gt_row gt_right">0.11169938</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.3427419</td>
+      <td class="gt_row gt_right">0.3951613</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07604035</td>
+      <td class="gt_row gt_right">0.08457854</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2580645</td>
+      <td class="gt_row gt_right">0.2838710</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07475757</td>
+      <td class="gt_row gt_right">0.13117616</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.4425403</td>
+      <td class="gt_row gt_right">0.5201613</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05896561</td>
+      <td class="gt_row gt_right">0.08632595</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2645161</td>
+      <td class="gt_row gt_right">0.3020968</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05346128</td>
+      <td class="gt_row gt_right">0.08003071</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.003467742</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2338710</td>
+      <td class="gt_row gt_right">0.2620968</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07489382</td>
+      <td class="gt_row gt_right">0.10019852</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.3306452</td>
+      <td class="gt_row gt_right">0.3662097</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05042207</td>
+      <td class="gt_row gt_right">0.08138774</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2661290</td>
+      <td class="gt_row gt_right">0.3050806</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06476815</td>
+      <td class="gt_row gt_right">0.09970479</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.3074597</td>
+      <td class="gt_row gt_right">0.3427419</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04162624</td>
+      <td class="gt_row gt_right">0.06342323</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1939516</td>
+      <td class="gt_row gt_right">0.2217742</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09417003</td>
+      <td class="gt_row gt_right">0.08942874</td>
+      <td class="gt_row gt_right">0.029891129</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.040322581</td>
+      <td class="gt_row gt_right">0.2620968</td>
+      <td class="gt_row gt_right">0.2936694</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06968514</td>
+      <td class="gt_row gt_right">0.08094571</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2540323</td>
+      <td class="gt_row gt_right">0.2973790</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08062959</td>
+      <td class="gt_row gt_right">0.10977284</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.000000000</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.3104839</td>
+      <td class="gt_row gt_right">0.3484677</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08053660</td>
+      <td class="gt_row gt_right">0.10853307</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.3266129</td>
+      <td class="gt_row gt_right">0.3524597</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04949001</td>
+      <td class="gt_row gt_right">0.07655303</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2459677</td>
+      <td class="gt_row gt_right">0.2983871</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08980393</td>
+      <td class="gt_row gt_right">0.10015957</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.036290323</td>
+      <td class="gt_row gt_right">0.3088710</td>
+      <td class="gt_row gt_right">0.3561290</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05285552</td>
+      <td class="gt_row gt_right">0.09264991</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.3064516</td>
+      <td class="gt_row gt_right">0.3567742</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07465753</td>
+      <td class="gt_row gt_right">0.08904770</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2774194</td>
+      <td class="gt_row gt_right">0.3093548</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.11957280</td>
+      <td class="gt_row gt_right">0.15500207</td>
+      <td class="gt_row gt_right">0.029891129</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.036290323</td>
+      <td class="gt_row gt_right">0.4693548</td>
+      <td class="gt_row gt_right">0.5408065</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08090753</td>
+      <td class="gt_row gt_right">0.09927750</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.3042339</td>
+      <td class="gt_row gt_right">0.3357661</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04379220</td>
+      <td class="gt_row gt_right">0.05731300</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1693548</td>
+      <td class="gt_row gt_right">0.1883468</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09932185</td>
+      <td class="gt_row gt_right">0.11194474</td>
+      <td class="gt_row gt_right">0.026902016</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.038306452</td>
+      <td class="gt_row gt_right">0.3469758</td>
+      <td class="gt_row gt_right">0.3830645</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.13341771</td>
+      <td class="gt_row gt_right">0.14112350</td>
+      <td class="gt_row gt_right">0.083695161</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.064516129</td>
+      <td class="gt_row gt_right">0.4000000</td>
+      <td class="gt_row gt_right">0.4314516</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05988286</td>
+      <td class="gt_row gt_right">0.10147282</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.3290323</td>
+      <td class="gt_row gt_right">0.3830645</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.14380836</td>
+      <td class="gt_row gt_right">0.12793857</td>
+      <td class="gt_row gt_right">0.089673387</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.084677419</td>
+      <td class="gt_row gt_right">0.3808468</td>
+      <td class="gt_row gt_right">0.4233065</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08466232</td>
+      <td class="gt_row gt_right">0.09878614</td>
+      <td class="gt_row gt_right">0.023912903</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2862903</td>
+      <td class="gt_row gt_right">0.3051613</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08283814</td>
+      <td class="gt_row gt_right">0.10042827</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.011451613</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2975806</td>
+      <td class="gt_row gt_right">0.3198387</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09506885</td>
+      <td class="gt_row gt_right">0.11228083</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.3362903</td>
+      <td class="gt_row gt_right">0.3688710</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06527778</td>
+      <td class="gt_row gt_right">0.10100842</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.3189516</td>
+      <td class="gt_row gt_right">0.4054435</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07854640</td>
+      <td class="gt_row gt_right">0.09318598</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2661290</td>
+      <td class="gt_row gt_right">0.3087500</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03794230</td>
+      <td class="gt_row gt_right">0.05513958</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1693548</td>
+      <td class="gt_row gt_right">0.1895161</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.15928870</td>
+      <td class="gt_row gt_right">0.25108022</td>
+      <td class="gt_row gt_right">0.023912903</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.040322581</td>
+      <td class="gt_row gt_right">0.8104839</td>
+      <td class="gt_row gt_right">0.9928629</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.08696944</td>
+      <td class="gt_row gt_right">0.15025805</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.011451613</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.4758065</td>
+      <td class="gt_row gt_right">0.6296774</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09074934</td>
+      <td class="gt_row gt_right">0.10320429</td>
+      <td class="gt_row gt_right">0.023912903</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.032258065</td>
+      <td class="gt_row gt_right">0.3032258</td>
+      <td class="gt_row gt_right">0.3445161</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06436822</td>
+      <td class="gt_row gt_right">0.14150857</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.4705645</td>
+      <td class="gt_row gt_right">0.6048387</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05833554</td>
+      <td class="gt_row gt_right">0.08382249</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.2620968</td>
+      <td class="gt_row gt_right">0.2836694</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07223869</td>
+      <td class="gt_row gt_right">0.08313613</td>
+      <td class="gt_row gt_right">0.017934677</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.2419355</td>
+      <td class="gt_row gt_right">0.2642742</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.05905770</td>
+      <td class="gt_row gt_right">0.06173742</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.1774194</td>
+      <td class="gt_row gt_right">0.1898387</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03445644</td>
+      <td class="gt_row gt_right">0.04709114</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1491935</td>
+      <td class="gt_row gt_right">0.1690726</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07873995</td>
+      <td class="gt_row gt_right">0.09077002</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.2782258</td>
+      <td class="gt_row gt_right">0.2980645</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04311902</td>
+      <td class="gt_row gt_right">0.07288037</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.2338710</td>
+      <td class="gt_row gt_right">0.2698387</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06417220</td>
+      <td class="gt_row gt_right">0.11210528</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.3354839</td>
+      <td class="gt_row gt_right">0.5517339</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.07731717</td>
+      <td class="gt_row gt_right">0.13489756</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.4247984</td>
+      <td class="gt_row gt_right">0.5696371</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.09047379</td>
+      <td class="gt_row gt_right">0.13997450</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.4627016</td>
+      <td class="gt_row gt_right">0.5314516</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03473217</td>
+      <td class="gt_row gt_right">0.04461823</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.1441532</td>
+      <td class="gt_row gt_right">0.1693548</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.19194795</td>
+      <td class="gt_row gt_right">0.27811155</td>
+      <td class="gt_row gt_right">0.053804032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.064516129</td>
+      <td class="gt_row gt_right">0.9314516</td>
+      <td class="gt_row gt_right">0.9354839</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.02638646</td>
+      <td class="gt_row gt_right">0.04096334</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.1330645</td>
+      <td class="gt_row gt_right">0.1532258</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.18364639</td>
+      <td class="gt_row gt_right">0.08185557</td>
+      <td class="gt_row gt_right">0.089673387</td>
+      <td class="gt_row gt_right">0.027338710</td>
+      <td class="gt_row gt_right">0.068145161</td>
+      <td class="gt_row gt_right">0.181451613</td>
+      <td class="gt_row gt_right">0.3270161</td>
+      <td class="gt_row gt_right">0.3431452</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.06596727</td>
+      <td class="gt_row gt_right">0.13074918</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.4157258</td>
+      <td class="gt_row gt_right">0.6238710</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04184760</td>
+      <td class="gt_row gt_right">0.04449614</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.024193548</td>
+      <td class="gt_row gt_right">0.1633065</td>
+      <td class="gt_row gt_right">0.2231855</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04019109</td>
+      <td class="gt_row gt_right">0.04977211</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.1532258</td>
+      <td class="gt_row gt_right">0.1708065</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04397799</td>
+      <td class="gt_row gt_right">0.04840463</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.020161290</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.1657258</td>
+      <td class="gt_row gt_right">0.2416935</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.01941951</td>
+      <td class="gt_row gt_right">0.03069850</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.1048387</td>
+      <td class="gt_row gt_right">0.1451613</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.02361406</td>
+      <td class="gt_row gt_right">0.02697769</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.1064516</td>
+      <td class="gt_row gt_right">0.1344355</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.04103095</td>
+      <td class="gt_row gt_right">0.04006968</td>
+      <td class="gt_row gt_right">0.011956452</td>
+      <td class="gt_row gt_right">0.015040323</td>
+      <td class="gt_row gt_right">0.016129032</td>
+      <td class="gt_row gt_right">0.028225806</td>
+      <td class="gt_row gt_right">0.1348790</td>
+      <td class="gt_row gt_right">0.2008468</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_right">0.03355659</td>
+      <td class="gt_row gt_right">0.03611521</td>
+      <td class="gt_row gt_right">0.005978226</td>
+      <td class="gt_row gt_right">0.004032258</td>
+      <td class="gt_row gt_right">0.008064516</td>
+      <td class="gt_row gt_right">0.012096774</td>
+      <td class="gt_row gt_right">0.1129032</td>
+      <td class="gt_row gt_right">0.1383871</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+
+???
+
+Combine these with the nuclei information and do statistics on them!
+
+---
+
+# Lab
+
+- Testing the accuracy of Voronoi Tessellations
+- Compare the voronoi tessellation to Beta-Catenin stain
+
+---
+# Reading
+
+[Voronoi Tessellations](http://datagenetics.com/blog/may12017/index.html)
+
+[Limits of applicability of the Voronoi Tessellation Determined by Centers of Cell Nuclei to Epithelium Methodology](https://www.frontiersin.org/articles/10.3389/fphys.2016.00551/full)
+
+---
+# Class Survey
+
+Remember to take the survey!
+
+https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
