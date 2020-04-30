@@ -11,7 +11,7 @@ menu:
     parent: Class sessions
     weight: 2
 type: docs
-weight: 3
+weight: 10
 # pdf: 
 # thumb: 
 editor_options: 

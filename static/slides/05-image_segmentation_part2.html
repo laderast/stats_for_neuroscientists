@@ -101,10 +101,11 @@ http://datagenetics.com/blog/may12017/index.html
 
 &lt;img src="image/week5/fortune.gif" width = 500&gt;
 
+???
 
----
-# Lambda
+Here is a gif of another way of calculating the regions that was developed by Fortune.
 
+http://datagenetics.com/blog/may12017/index.html
 
 
 ---
@@ -131,8 +132,6 @@ So, let's apply Voronoi tesselation to our image. It requires a labeled image of
 ]
 
 ---
-# Masking can help
-
 .pull-left[
 ![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 ]
@@ -142,9 +141,15 @@ So, let's apply Voronoi tesselation to our image. It requires a labeled image of
 Thresholded, opened region of interest
 ]
 
----
-# Masking before Voronoi
+???
 
+Clearly, letting voronoi go without restrictions isn't optimal. 
+
+Remember masks? we can limit the areas in the image that the voronoi regions can spread to by adding a mask for the cellular stain.
+
+We're using another image in the stack to do this. I thresholded at a low value, (0.05), applied opening with a brush size of 5, and then filled in any black holes in the image.
+
+---
 .pull-left[
 ![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 ]
@@ -153,8 +158,11 @@ Thresholded, opened region of interest
 ![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 ]
 
+???
+
+You can see the voronoi regions when thhe mask is applied. The regions don't spread beyond the mask, thus making the cells in the mask have reasonable cellular boundaries.
+
 ---
-# Masking before Voronoi
 
 .pull-left[
 ![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
@@ -164,10 +172,11 @@ Thresholded, opened region of interest
 ![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 ]
 
+???
+
+Here's the final result after masking.
 
 ---
-# Compare the two
-
 .pull-left[
 ![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 non-masked
@@ -177,6 +186,13 @@ non-masked
 ![](05-image_segmentation_part2_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 masked version
 ]
+
+???
+
+Okay, let's get into discussion groups and compare these two versions. 
+
+Are there any shortcomings of using the masked version?
+
 ---
 # Are they accurate?
 
@@ -191,7 +207,7 @@ What are some things that the boundaries are dependent on?
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#qqueybrimu .gt_table {
+#gcrpxpwlvr .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -214,7 +230,7 @@ What are some things that the boundaries are dependent on?
   border-left-color: #D3D3D3;
 }
 
-#qqueybrimu .gt_heading {
+#gcrpxpwlvr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -226,7 +242,7 @@ What are some things that the boundaries are dependent on?
   border-right-color: #D3D3D3;
 }
 
-#qqueybrimu .gt_title {
+#gcrpxpwlvr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -236,7 +252,7 @@ What are some things that the boundaries are dependent on?
   border-bottom-width: 0;
 }
 
-#qqueybrimu .gt_subtitle {
+#gcrpxpwlvr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -246,13 +262,13 @@ What are some things that the boundaries are dependent on?
   border-top-width: 0;
 }
 
-#qqueybrimu .gt_bottom_border {
+#gcrpxpwlvr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qqueybrimu .gt_col_headings {
+#gcrpxpwlvr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -267,7 +283,7 @@ What are some things that the boundaries are dependent on?
   border-right-color: #D3D3D3;
 }
 
-#qqueybrimu .gt_col_heading {
+#gcrpxpwlvr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -287,7 +303,7 @@ What are some things that the boundaries are dependent on?
   overflow-x: hidden;
 }
 
-#qqueybrimu .gt_column_spanner_outer {
+#gcrpxpwlvr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -299,15 +315,15 @@ What are some things that the boundaries are dependent on?
   padding-right: 4px;
 }
 
-#qqueybrimu .gt_column_spanner_outer:first-child {
+#gcrpxpwlvr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qqueybrimu .gt_column_spanner_outer:last-child {
+#gcrpxpwlvr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qqueybrimu .gt_column_spanner {
+#gcrpxpwlvr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -319,7 +335,7 @@ What are some things that the boundaries are dependent on?
   width: 100%;
 }
 
-#qqueybrimu .gt_group_heading {
+#gcrpxpwlvr .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -341,7 +357,7 @@ What are some things that the boundaries are dependent on?
   vertical-align: middle;
 }
 
-#qqueybrimu .gt_empty_group_heading {
+#gcrpxpwlvr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -356,19 +372,19 @@ What are some things that the boundaries are dependent on?
   vertical-align: middle;
 }
 
-#qqueybrimu .gt_striped {
+#gcrpxpwlvr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qqueybrimu .gt_from_md > :first-child {
+#gcrpxpwlvr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qqueybrimu .gt_from_md > :last-child {
+#gcrpxpwlvr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qqueybrimu .gt_row {
+#gcrpxpwlvr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -387,7 +403,7 @@ What are some things that the boundaries are dependent on?
   overflow-x: hidden;
 }
 
-#qqueybrimu .gt_stub {
+#gcrpxpwlvr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -399,7 +415,7 @@ What are some things that the boundaries are dependent on?
   padding-left: 12px;
 }
 
-#qqueybrimu .gt_summary_row {
+#gcrpxpwlvr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -409,7 +425,7 @@ What are some things that the boundaries are dependent on?
   padding-right: 5px;
 }
 
-#qqueybrimu .gt_first_summary_row {
+#gcrpxpwlvr .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -419,7 +435,7 @@ What are some things that the boundaries are dependent on?
   border-top-color: #D3D3D3;
 }
 
-#qqueybrimu .gt_grand_summary_row {
+#gcrpxpwlvr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -429,7 +445,7 @@ What are some things that the boundaries are dependent on?
   padding-right: 5px;
 }
 
-#qqueybrimu .gt_first_grand_summary_row {
+#gcrpxpwlvr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -439,7 +455,7 @@ What are some things that the boundaries are dependent on?
   border-top-color: #D3D3D3;
 }
 
-#qqueybrimu .gt_table_body {
+#gcrpxpwlvr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -448,7 +464,7 @@ What are some things that the boundaries are dependent on?
   border-bottom-color: #D3D3D3;
 }
 
-#qqueybrimu .gt_footnotes {
+#gcrpxpwlvr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -462,13 +478,13 @@ What are some things that the boundaries are dependent on?
   border-right-color: #D3D3D3;
 }
 
-#qqueybrimu .gt_footnote {
+#gcrpxpwlvr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#qqueybrimu .gt_sourcenotes {
+#gcrpxpwlvr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -482,46 +498,46 @@ What are some things that the boundaries are dependent on?
   border-right-color: #D3D3D3;
 }
 
-#qqueybrimu .gt_sourcenote {
+#gcrpxpwlvr .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#qqueybrimu .gt_left {
+#gcrpxpwlvr .gt_left {
   text-align: left;
 }
 
-#qqueybrimu .gt_center {
+#gcrpxpwlvr .gt_center {
   text-align: center;
 }
 
-#qqueybrimu .gt_right {
+#gcrpxpwlvr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qqueybrimu .gt_font_normal {
+#gcrpxpwlvr .gt_font_normal {
   font-weight: normal;
 }
 
-#qqueybrimu .gt_font_bold {
+#gcrpxpwlvr .gt_font_bold {
   font-weight: bold;
 }
 
-#qqueybrimu .gt_font_italic {
+#gcrpxpwlvr .gt_font_italic {
   font-style: italic;
 }
 
-#qqueybrimu .gt_super {
+#gcrpxpwlvr .gt_super {
   font-size: 65%;
 }
 
-#qqueybrimu .gt_footnote_marks {
+#gcrpxpwlvr .gt_footnote_marks {
   font-style: italic;
   font-size: 65%;
 }
 </style>
-<div id="qqueybrimu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+<div id="gcrpxpwlvr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
   
   <thead class="gt_col_headings">
     <tr>

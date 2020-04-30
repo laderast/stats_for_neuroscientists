@@ -158,10 +158,11 @@ http://datagenetics.com/blog/may12017/index.html
 
 <img src="image/week5/fortune.gif" width = 500>
 
+???
 
----
-# Lambda
+Here is a gif of another way of calculating the regions that was developed by Fortune.
 
+http://datagenetics.com/blog/may12017/index.html
 
 
 ---
@@ -196,8 +197,6 @@ plot(res2)
 ]
 
 ---
-# Masking can help
-
 .pull-left[
 ```{r echo=FALSE}
 plot(cell_image)
@@ -212,9 +211,15 @@ plot(cell_mask)
 Thresholded, opened region of interest
 ]
 
----
-# Masking before Voronoi
+???
 
+Clearly, letting voronoi go without restrictions isn't optimal. 
+
+Remember masks? we can limit the areas in the image that the voronoi regions can spread to by adding a mask for the cellular stain.
+
+We're using another image in the stack to do this. I thresholded at a low value, (0.05), applied opening with a brush size of 5, and then filled in any black holes in the image.
+
+---
 .pull-left[
 ```{r echo=FALSE}
 plot(nuc_image)
@@ -227,8 +232,11 @@ plot(colorLabels(test))
 ```
 ]
 
+???
+
+You can see the voronoi regions when thhe mask is applied. The regions don't spread beyond the mask, thus making the cells in the mask have reasonable cellular boundaries.
+
 ---
-# Masking before Voronoi
 
 .pull-left[
 ```{r echo=FALSE}
@@ -242,10 +250,11 @@ plot(res)
 ```
 ]
 
+???
+
+Here's the final result after masking.
 
 ---
-# Compare the two
-
 .pull-left[
 ```{r echo=FALSE}
 plot(res2)
@@ -259,6 +268,13 @@ plot(res)
 ```
 masked version
 ]
+
+???
+
+Okay, let's get into discussion groups and compare these two versions. 
+
+Are there any shortcomings of using the masked version?
+
 ---
 # Are they accurate?
 
