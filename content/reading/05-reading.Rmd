@@ -1,0 +1,18 @@
+---
+title: "Week 5: Image Segmentation using Voronoi Tessellation"
+linktitle: "Week 5: Image Segmentation using Voronoi Tessellation"
+date: "2020-04-30"
+read_date: "2020-04-30"
+menu:
+  reading:
+    parent: Readings
+    weight: 2
+type: docs
+---
+
+## Required
+
+[Voronoi Tessellations](http://datagenetics.com/blog/may12017/index.html)
+
+[Limits of applicability of the Voronoi Tessellation Determined by Centers of Cell Nuclei to Epithelium Methodology](https://www.frontiersin.org/articles/10.3389/fphys.2016.00551/full)
+

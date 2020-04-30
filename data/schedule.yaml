@@ -53,6 +53,8 @@ lessons:
     
   - title: "**Lecture 5: Image Segmentation Part 2: Cell Bodies**"
     date: "April 30"
+    class: "10-class"
+    reading: "05-reading"
 
   - title: "**Lab 5: Image Segmentation Part 2**"
 
