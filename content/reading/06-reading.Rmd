@@ -1,0 +1,23 @@
+---
+title: "Week 6: Experimental Design and Intro Stats Reading"
+linktitle: "Week 6: Experimental Design and Intro Stats Reading"
+date: "2020-05-12"
+read_date: "2020-05-12"
+menu:
+  reading:
+    parent: Readings
+    weight: 2
+type: docs
+---
+
+## Required
+
+## More on Experimental Design
+
+- [A beginner’s guide to rigor and reproducibility in fluorescence imaging experiments](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6080651/)
+
+## For Next Session
+
+- [Review of Visualization](https://tladeras.shinyapps.io/dataLiteracyTutorial/) - interactive tutorial
+- [Statistics in 30 Minutes](https://www.youtube.com/watch?v=kyjlxsLW1Is) - video
+- [Sampling](https://moderndive.com/7-sampling.html) and [Confidence Intervals](https://moderndive.com/8-confidence-intervals.html)
