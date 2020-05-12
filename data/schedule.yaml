@@ -57,12 +57,17 @@ lessons:
     reading: "05-reading"
 
   - title: "**Lab 5: Image Segmentation Part 2**"
+    date: "May 3"
+
+  - title: "**Review Session**"
 
   - title: '<span class="fake-header-table">Part 2: Spatial Statistics</span>'
     header: true
 
-  - title: "**Lecture: Introduction to Statistical Concepts**"
-    date: "May 5"
+  - title: "**Lecture: Introduction to Metadata and Experimental Design"
+    date: "May 12"
+    class: "12-class"
+    reading: "06-reading"
 
-  - title: "**Lecture: Introduction to Visual Inference**"
-    date: "May 7"
+  - title: "**Lecture: Introduction to Statistical Concepts**"
+    date: "May 14"
