@@ -9,7 +9,7 @@ output:
 menu:
   class:
     parent: Class sessions
-    weight: 2
+    weight: 10
 type: docs
 weight: 10
 # pdf: 
