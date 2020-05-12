@@ -96,6 +96,11 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6080651/
 - Effect size drives your choice of number of replicates
 
 ---
+# Checklist for a Microscopy Experiment
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6080651/table/T1/?report=objectonly
+
+---
 # Biological versus Technical Replicates
 
 - Biological Replicates (Different sample)

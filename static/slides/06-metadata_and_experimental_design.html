@@ -1,0 +1,3465 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Metadata and Experimental Design</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ted Laderas" />
+    <meta name="date" content="2020-05-12" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Metadata and Experimental Design
+## NEUS 643
+### Ted Laderas
+### 2020-05-12
+
+---
+
+
+
+
+
+
+# Learning Objectives
+
+- **Understand** the basic experimental design process
+- **Learn** the role of metadata in good experimental design
+- **Understand** the role of metadata in data and file management
+- **Learn** basic file management processes using metadata files
+
+---
+&lt;img src="image/week6/variability.JPG" width = 800&gt;
+
+???
+
+This is the general framework that we will use when we talk about statistics. There is an observed effect. This observed effect has two sources of variability: *biological variability*, which is what we want to study, and *technical variability*.
+
+Our overall goal is to separate out the effects due to *biological variability* from the *technical variability*. But to do so, we need to keep track of these details.
+
+---
+# Experimental Process
+
+&lt;img src="image/week6/experimental_design.jpg" width= 300&gt;
+
+???
+
+Let's talk about the overal process of designing, implementing, and analyzing a microscopy experiment. This diagram is from the reading.
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6080651/
+
+---
+# Effect Size is Critical
+
+- Need to know an estimate of the effect size in your experiment
+  - I.e, what nuclei size difference do you want to detect?
+  - Estimate from pilot experiments
+- Effect size drives your choice of number of replicates
+
+---
+# Checklist for a Microscopy Experiment
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6080651/table/T1/?report=objectonly
+
+---
+# Biological versus Technical Replicates
+
+- Biological Replicates (Different sample)
+  - Good for estimating biological variability
+- Technical Replicates (Different aliquots)
+  - Good for estimating technical variability
+
+---
+class: center, middle
+# Without metadata, all is lost
+
+---
+&lt;img src="image/week6/confounding1.JPG" width = 800&gt;
+
+???
+
+What is the motivation for being meticulous for your metadata? Say you have an experiment, and you definitely notice there is a difference between cells that undergo a treatment and controls. 
+
+---
+&lt;img src="image/week6/confounding2.JPG" width = 800&gt;
+
+???
+
+This is the worst case scenario, where the technical variability cannot be separated from the biological variability. 
+
+We cannot separate the instrument effect (the cleaning) from the biologic effect in these cases because all of the treatment samples were processed in subsequent days and the control samples were processed in subsequent days.
+
+---
+&lt;img src="image/week6/confounding3.JPG" width=800&gt;
+
+???
+
+One of our weapons against technical variability is randomization.
+
+---
+# What is Metadata?
+
+- Information you need to process images and make sense of them in analysis
+- How the experiment was run
+- Conditions of experiment
+- Information about samples
+
+---
+# Types of Metadata
+
+- Data about experiments
+  - Experimental conditions
+      - Date/Time Run 
+      - Location on Plate 
+      - Operator
+  - Biological covariates 
+      - Treatment/Control Status
+      - Cell Line
+  - File Location of Images
+
+---
+# Example Metadata File
+
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#zsbwocfvze .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#zsbwocfvze .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zsbwocfvze .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#zsbwocfvze .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#zsbwocfvze .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zsbwocfvze .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zsbwocfvze .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#zsbwocfvze .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#zsbwocfvze .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#zsbwocfvze .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#zsbwocfvze .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#zsbwocfvze .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#zsbwocfvze .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#zsbwocfvze .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#zsbwocfvze .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#zsbwocfvze .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#zsbwocfvze .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#zsbwocfvze .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#zsbwocfvze .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zsbwocfvze .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#zsbwocfvze .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zsbwocfvze .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#zsbwocfvze .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zsbwocfvze .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zsbwocfvze .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#zsbwocfvze .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zsbwocfvze .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#zsbwocfvze .gt_left {
+  text-align: left;
+}
+
+#zsbwocfvze .gt_center {
+  text-align: center;
+}
+
+#zsbwocfvze .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#zsbwocfvze .gt_font_normal {
+  font-weight: normal;
+}
+
+#zsbwocfvze .gt_font_bold {
+  font-weight: bold;
+}
+
+#zsbwocfvze .gt_font_italic {
+  font-style: italic;
+}
+
+#zsbwocfvze .gt_super {
+  font-size: 65%;
+}
+
+#zsbwocfvze .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="zsbwocfvze" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">image_number</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">plate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">well</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">gene</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">puro</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">image_file_names_filename_orig_dna</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">image_path_names_path_orig_dna</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">Gabra3</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A01f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">2</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">Gabra3</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A01f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">3</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">Gabra3</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A01f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">4</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">Gabra3</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A01f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">5</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">2</td>
+      <td class="gt_row gt_center">MAPK11</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A02f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">6</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">2</td>
+      <td class="gt_row gt_center">MAPK11</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A02f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">7</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">2</td>
+      <td class="gt_row gt_center">MAPK11</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A02f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">8</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">2</td>
+      <td class="gt_row gt_center">MAPK11</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A02f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">9</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">3</td>
+      <td class="gt_row gt_center">Gabra3</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A03f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">10</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">3</td>
+      <td class="gt_row gt_center">Gabra3</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A03f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+
+---
+&lt;img src="image/week6/metadata_experimental_design.JPG" width=800&gt;
+
+---
+&lt;img src="image/week6/file_organization.JPG" width=800&gt;
+
+---
+# Naming Conventions
+
+&lt;img src="image/week6/naming.png" width = 800&gt;
+
+???
+
+Having a naming convention for your files is one of the most powerful things you can do to automate them. If you design your file names so that you can decode the information automatically, you can do some pretty powerful things.
+
+This is not completely necessary if you're doing a good job with your metadata file. 
+
+https://data.broadinstitute.org/bbbc/BBBC017/
+
+---
+# File Locations
+
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#yrpfdhignb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#yrpfdhignb .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yrpfdhignb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#yrpfdhignb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#yrpfdhignb .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yrpfdhignb .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yrpfdhignb .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#yrpfdhignb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#yrpfdhignb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#yrpfdhignb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#yrpfdhignb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#yrpfdhignb .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#yrpfdhignb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#yrpfdhignb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#yrpfdhignb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#yrpfdhignb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#yrpfdhignb .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#yrpfdhignb .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#yrpfdhignb .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yrpfdhignb .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#yrpfdhignb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yrpfdhignb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#yrpfdhignb .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yrpfdhignb .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yrpfdhignb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#yrpfdhignb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yrpfdhignb .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#yrpfdhignb .gt_left {
+  text-align: left;
+}
+
+#yrpfdhignb .gt_center {
+  text-align: center;
+}
+
+#yrpfdhignb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#yrpfdhignb .gt_font_normal {
+  font-weight: normal;
+}
+
+#yrpfdhignb .gt_font_bold {
+  font-weight: bold;
+}
+
+#yrpfdhignb .gt_font_italic {
+  font-style: italic;
+}
+
+#yrpfdhignb .gt_super {
+  font-size: 65%;
+}
+
+#yrpfdhignb .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="yrpfdhignb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">image_number</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">plate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">image_file_names_filename_orig_dna</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1">image_path_names_path_orig_dna</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A01f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">2</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A01f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">3</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A01f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">4</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A01f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">5</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A02f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">6</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A02f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">7</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A02f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">8</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A02f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">9</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A03f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">10</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A03f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">11</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A03f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">12</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A03f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">13</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A04f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">14</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A04f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">15</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A04f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">16</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A04f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">17</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A05f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">18</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A05f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">19</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A05f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">20</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A05f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">21</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A06f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">22</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A06f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">23</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A06f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">24</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A06f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">25</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A07f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">26</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A07f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">27</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A07f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">28</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A07f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">29</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A08f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">30</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A08f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">31</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A08f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">32</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A08f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">33</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A09f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">34</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A09f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">35</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A09f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">36</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A09f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">37</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A10f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">38</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A10f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">39</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A10f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">40</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A10f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">41</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A11f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">42</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A11f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">43</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A11f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">44</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A11f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">45</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A12f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">46</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A12f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">47</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A12f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">48</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A12f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">49</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A13f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">50</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A13f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">51</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A13f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">52</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A13f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">53</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A14f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">54</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A14f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">55</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A14f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">56</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A14f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">57</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A15f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">58</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A15f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">59</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A15f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">60</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A15f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">61</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A16f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">62</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A16f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">63</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A16f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">64</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A16f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">65</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A17f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">66</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A17f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">67</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A17f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">68</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A17f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">69</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A18f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">70</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A18f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">71</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A18f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">72</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A18f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">73</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A19f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">74</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A19f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">75</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A19f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">76</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A19f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">77</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A20f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">78</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A20f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">79</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A20f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">80</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A20f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">81</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A21f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">82</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A21f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">83</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A21f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">84</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A21f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">85</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A22f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">86</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A22f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">87</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A22f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">88</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A22f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">89</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A23f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">90</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A23f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">91</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A23f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">92</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A23f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">93</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A24f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">94</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A24f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">95</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A24f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">96</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_A24f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">97</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B01f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">98</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B01f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">99</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B01f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">100</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B01f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">101</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B02f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">102</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B02f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">103</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B02f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">104</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B02f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">105</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B03f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">106</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B03f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">107</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B03f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">108</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B03f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">109</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B04f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">110</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B04f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">111</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B04f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">112</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B04f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">113</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B05f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">114</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B05f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">115</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B05f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">116</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B05f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">117</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B06f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">118</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B06f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">119</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B06f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">120</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B06f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">121</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B07f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">122</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B07f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">123</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B07f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">124</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B07f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">125</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B08f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">126</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B08f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">127</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B08f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">128</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B08f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">129</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B09f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">130</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B09f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">131</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B09f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">132</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B09f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">133</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B10f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">134</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B10f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">135</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B10f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">136</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B10f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">137</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B11f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">138</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B11f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">139</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B11f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">140</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B11f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">141</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B12f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">142</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B12f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">143</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B12f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">144</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B12f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">145</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B13f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">146</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B13f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">147</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B13f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">148</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B13f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">149</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B14f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">150</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B14f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">151</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B14f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">152</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B14f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">153</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B15f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">154</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B15f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">155</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B15f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">156</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B15f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">157</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B16f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">158</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B16f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">159</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B16f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">160</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B16f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">161</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B17f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">162</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B17f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">163</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B17f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">164</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B17f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">165</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B18f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">166</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B18f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">167</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B18f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">168</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B18f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">169</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B19f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">170</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B19f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">171</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B19f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">172</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B19f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">173</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B20f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">174</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B20f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">175</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B20f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">176</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B20f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">177</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B21f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">178</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B21f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">179</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B21f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">180</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B21f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">181</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B22f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">182</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B22f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">183</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B22f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">184</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B22f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">185</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B23f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">186</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B23f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">187</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B23f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">188</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B23f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">189</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B24f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">190</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B24f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">191</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B24f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">192</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_B24f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">193</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C01f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">194</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C01f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">195</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C01f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">196</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C01f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">197</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C02f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">198</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C02f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">199</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C02f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">200</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C02f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">201</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C03f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">202</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C03f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">203</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C03f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">204</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C03f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">205</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C04f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">206</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C04f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">207</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C04f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">208</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C04f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">209</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C05f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">210</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C05f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">211</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C05f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">212</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C05f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">213</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C06f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">214</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C06f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">215</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C06f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">216</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C06f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">217</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C07f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">218</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C07f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">219</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C07f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">220</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C07f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">221</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C08f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">222</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C08f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">223</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C08f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">224</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C08f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">225</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C09f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">226</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C09f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">227</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C09f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">228</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C09f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">229</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C10f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">230</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C10f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">231</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C10f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">232</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C10f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">233</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C11f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">234</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C11f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">235</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C11f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">236</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C11f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">237</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C12f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">238</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C12f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">239</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C12f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">240</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C12f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">241</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C13f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">242</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C13f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">243</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C13f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">244</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C13f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">245</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C14f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">246</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C14f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">247</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C14f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">248</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C14f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">249</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C15f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">250</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C15f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">251</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C15f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">252</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C15f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">253</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C16f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">254</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C16f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">255</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C16f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">256</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C16f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">257</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C17f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">258</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C17f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">259</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C17f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">260</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C17f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">261</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C18f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">262</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C18f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">263</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C18f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">264</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C18f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">265</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C19f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">266</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C19f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">267</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C19f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">268</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C19f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">269</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C20f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">270</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C20f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">271</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C20f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">272</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C20f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">273</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C21f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">274</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C21f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">275</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C21f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">276</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C21f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">277</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C22f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">278</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C22f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">279</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C22f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">280</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C22f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">281</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C23f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">282</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C23f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">283</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C23f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">284</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C23f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">285</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C24f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">286</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C24f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">287</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C24f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">288</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_C24f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">289</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D01f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">290</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D01f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">291</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D01f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">292</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D01f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">293</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D02f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">294</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D02f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">295</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D02f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">296</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D02f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">297</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D03f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">298</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D03f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">299</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D03f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">300</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D03f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">301</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D04f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">302</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D04f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">303</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D04f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">304</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D04f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">305</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D05f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">306</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D05f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">307</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D05f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">308</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D05f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">309</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D06f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">310</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D06f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">311</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D06f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">312</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D06f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">313</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D07f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">314</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D07f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">315</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D07f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">316</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D07f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">317</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D08f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">318</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D08f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">319</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D08f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">320</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D08f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">321</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D09f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">322</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D09f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">323</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D09f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">324</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D09f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">325</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D10f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">326</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D10f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">327</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D10f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">328</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D10f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">329</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D11f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">330</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D11f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">331</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D11f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">332</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D11f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">333</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D12f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">334</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D12f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">335</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D12f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">336</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D12f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">337</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D13f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">338</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D13f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">339</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D13f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">340</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D13f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">341</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D14f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">342</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D14f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">343</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D14f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">344</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D14f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">345</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D15f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">346</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D15f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">347</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D15f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">348</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D15f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">349</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D16f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">350</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D16f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">351</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D16f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">352</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D16f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">353</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D17f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">354</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D17f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">355</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D17f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">356</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D17f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">357</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D18f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">358</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D18f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">359</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D18f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">360</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D18f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">361</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D19f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">362</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D19f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">363</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D19f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">364</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D19f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">365</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D20f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">366</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D20f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">367</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D20f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">368</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D20f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">369</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D21f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">370</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D21f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">371</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D21f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">372</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D21f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">373</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D22f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">374</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D22f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">375</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D22f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">376</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D22f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">377</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D23f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">378</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D23f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">379</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D23f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">380</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D23f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">381</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D24f00d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">382</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D24f01d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">383</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D24f02d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_center">384</td>
+      <td class="gt_row gt_center">1</td>
+      <td class="gt_row gt_center">AS_09125_050116000001_D24f03d0.png</td>
+      <td class="gt_row gt_center">images</td>
+    </tr>
+  </tbody>
+  
+  
+</table></div>
+
+???
+
+When you are running the experiment, you will need to decide on a file location that is semi-permanent. This may be in Box, this may be in Research Data Storage, or on your computer. 
+
+Having these locations in a file will make batch processing much easier.
+
+---
+# Spatial Bias in a well plate
+
+&lt;img src="image/week6/spatial.png" height = 400&gt;
+
+???
+
+https://www.nature.com/articles/s41598-017-11940-4
+  
+---
+# Randomization
+
+.pull-left[
+![](06-metadata_and_experimental_design_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+.pull-right[
+![](06-metadata_and_experimental_design_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+]
+
+???
+
+As we mentioned, one of our weapons against technical variability is *randomization*. In this example, we have treatment (blue) and control (red).
+
+On the left side, we cannot separate spatial effects from our experimental effects. On the right, we can possibly due to randomization
+
+---
+# Randomization
+
+- Randomize experiments over dates/operators/plates
+  - Assign conditions as randomly as you can
+- If you can't, please make sure this metadata is available
+  - Be transparent
+
+---
+# Automated Tools for Metadata
+
+- If your instrument lets you keep track of these details in software, do it, and make sure you export this file
+- LabKey also has tools to do this as well
+- Keep an (updated) copy of the metadata with the data
+
+---
+# Things can change
+
+- Document any changes to how the experiment was run
+- Be transparent about how they affect the metadata file
+
+---
+# Metadata and Batch Processing
+
+- Keeping track of file locations will help you in batch processing
+- Can take a list of files and file locations and process them at once
+- May have to keep a local copy
+  - keep track of your local files
+
+---
+# Communicating with the Analyst
+
+- Well annotated metadata will make communicating with a statistician much easier
+- Allows you to communicate how the experimental design was translated to experiment
+- Remember: if it's not in the metadata, it doesn't exist to the analyst!
+
+---
+# Metadata Exercise (in Groups)
+
+.pull-left[
+- Take a look at the [experimental details](https://data.broadinstitute.org/bbbc/BBBC017/) 
+
+- Take a look at the [metadata file](https://docs.google.com/spreadsheets/d/1uHyEkxYuTKxXnQDuFI96Rts3Biwv1jV-7TFJK8y8J04/edit?usp=sharing)
+]
+
+.pull-right[Identify the following:
+
+- What is the research question?
+- Is this metadata for one plate?
+- How many replicates are there for each well? Is that reflected in the data?
+- How are the files stored? Are they in the same folder?
+- What about randomization?
+]
+---
+# Review
+
+- Metadata is critical to all stages of the experimental process
+- Metadata makes your experimental design concrete and real
+- Result = biological variability + technical variability
+- Randomization can help remove technical variability
+- Metadata can help you in the data management process
+- Metadata is critical in doing a good analysis
+
+---
+# Next Time
+
+- Review of basic statistical concepts
+- Point estimates and confidence intervals
+- Introduction to permutation analysis (there is one test)
+
+---
+# Reading
+
+## More on Experimental Design
+
+- [A beginner’s guide to rigor and reproducibility in fluorescence imaging experiments](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6080651/)
+
+## For Next Session
+
+- [Review of Visualization](https://tladeras.shinyapps.io/dataLiteracyTutorial/) - interactive tutorial
+- [Statistics in 30 Minutes](https://www.youtube.com/watch?v=kyjlxsLW1Is) - video
+- [Sampling](https://moderndive.com/7-sampling.html) and [Confidence Intervals](https://moderndive.com/8-confidence-intervals.html)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
