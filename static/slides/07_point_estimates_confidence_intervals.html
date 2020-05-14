@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Point Estimates and Confidence intervals</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ted Laderas" />
+    <meta name="date" content="2020-05-14" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Point Estimates and Confidence intervals
+## NEUS 643
+### Ted Laderas
+### 2020-05-14
+
+---
+
+
+
+
+# Learning Objectives
+
+- **Understand** point estimates as measurements
+- **Understand** that Standard Deviation and confidence intervals are not the same thing
+- **Learn** about *confidence intervals* and how we can estimate them from observed data using *bootstrapping*
+- **Learn** about *sampling with replacement*.
+- *Utilize* bootstrap distributions to estimate confidence intervals
+- **Understand** that sampling is the basis for both confidence intervals and hypothesis testing
+---
+
+# Cellular Imaging measurements
+
+- We tend to generate a lot of individual measurements from single cells, such as ~500 cells in an image
+- We can utilize this to our advantage
+- Larger data means we can do better statistics
+
+---
+
+&lt;img src="image/week6_2/01_point_estimate.JPG" width = 800&gt;
+
+---
+
+&lt;img src="image/week6_2/01_point_estimate2.JPG" width = 800&gt;
+
+---
+
+&lt;img src="image/week6_2/02_ci_definition.JPG" width = 800&gt;
+
+---
+
+&lt;img src="image/week6_2/02_ci_definition2.JPG" width = 800&gt;
+
+---
+
+&lt;img src="image/week6_2/03_ci_vs_sd.JPG" width = 800&gt;
+
+---
+
+&lt;img src="image/week6_2/03_ci_vs_sd2.JPG" width = 800&gt;
+
+---
+
+&lt;img src="image/week6_2/04_most_experiments.JPG" width = 800&gt;
+
+---
+
+&lt;img src="image/week6_2/05_why_formulas.JPG" width = 800&gt;
+
+
+---
+
+&lt;img src="image/week6_2/09_visualize.png" width = 800&gt;
+
+???
+
+https://moderndive.com/9-hypothesis-testing.html
+
+---
+
+&lt;img src="image/week6_2/06_sampling_with_replacement.JPG" width = 800&gt;
+
+---
+
+&lt;img src="image/week6_2/07_bootstrap1.JPG" width = 800&gt;
+
+---
+
+&lt;img src="image/week6_2/08_bootstrap2.JPG" width = 800&gt;
+
+---
+
+&lt;img src="image/week6_2/09_bootstrap2.JPG" width = 800&gt;
+
+---
+
+# Who Cares?
+
+- Data centric view of calculating CIs
+- Does not rely on assumptions of the data
+- Can be calculated for any dataset with enough measurements
+
+---
+
+&lt;img src="image/week6_2/10_ht.png" width=800&gt;
+
+???
+
+https://moderndive.com/9-hypothesis-testing.html
+
+We'll expand this into *hypothesis testing*. We can simulated data under a null hypothesis through permutation.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

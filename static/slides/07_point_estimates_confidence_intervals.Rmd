@@ -1,0 +1,111 @@
+---
+title: "Point Estimates and Confidence intervals"
+subtitle: "NEUS 643"  
+author: "Ted Laderas"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: xaringan-themer.css
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(tidyverse)
+```
+
+# Learning Objectives
+
+- **Understand** point estimates as measurements
+- **Understand** that Standard Deviation and confidence intervals are not the same thing
+- **Learn** about *confidence intervals* and how we can estimate them from observed data using *bootstrapping*
+- **Learn** about *sampling with replacement*.
+- *Utilize* bootstrap distributions to estimate confidence intervals
+- **Understand** that sampling is the basis for both confidence intervals and hypothesis testing
+---
+
+# Cellular Imaging measurements
+
+- We tend to generate a lot of individual measurements from single cells, such as ~500 cells in an image
+- We can utilize this to our advantage
+- Larger data means we can do better statistics
+
+---
+
+<img src="image/week6_2/01_point_estimate.JPG" width = 800>
+
+---
+
+<img src="image/week6_2/01_point_estimate2.JPG" width = 800>
+
+---
+
+<img src="image/week6_2/02_ci_definition.JPG" width = 800>
+
+---
+
+<img src="image/week6_2/02_ci_definition2.JPG" width = 800>
+
+---
+
+<img src="image/week6_2/03_ci_vs_sd.JPG" width = 800>
+
+---
+
+<img src="image/week6_2/03_ci_vs_sd2.JPG" width = 800>
+
+---
+
+<img src="image/week6_2/04_most_experiments.JPG" width = 800>
+
+---
+
+<img src="image/week6_2/05_why_formulas.JPG" width = 800>
+
+
+---
+
+<img src="image/week6_2/09_visualize.png" width = 800>
+
+???
+
+https://moderndive.com/9-hypothesis-testing.html
+
+---
+
+<img src="image/week6_2/06_sampling_with_replacement.JPG" width = 800>
+
+---
+
+<img src="image/week6_2/07_bootstrap1.JPG" width = 800>
+
+---
+
+<img src="image/week6_2/08_bootstrap2.JPG" width = 800>
+
+---
+
+<img src="image/week6_2/09_bootstrap2.JPG" width = 800>
+
+---
+
+# Who Cares?
+
+- Data centric view of calculating CIs
+- Does not rely on assumptions of the data
+- Can be calculated for any dataset with enough measurements
+
+---
+
+<img src="image/week6_2/10_ht.png" width=800>
+
+???
+
+https://moderndive.com/9-hypothesis-testing.html
+
+We'll expand this into *hypothesis testing*. We can simulated data under a null hypothesis through permutation.
