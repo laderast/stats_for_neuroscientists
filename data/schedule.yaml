@@ -69,5 +69,7 @@ lessons:
     class: "12-class"
     reading: "06-reading"
 
-  - title: "**Lecture: Introduction to Statistical Concepts**"
+  - title: "**Lecture: Point Estimates and Confidence Intervals**"
     date: "May 14"
+    class: "13-class"
+    reading: "07-reading"

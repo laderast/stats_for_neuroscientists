@@ -1,0 +1,43 @@
+---
+title: "Lecture 7: Point Estimates and Confidence Intervals"
+linktitle: "13. Point Estimates and Confidence Intervals"
+date: "2020-05-14"
+class_date: "2020-05-14"
+output:
+  blogdown::html_page:
+    toc: true
+menu:
+  class:
+    parent: Class sessions
+    weight: 12
+type: docs
+weight: 12
+# pdf: 
+# thumb: 
+editor_options: 
+  chunk_output_type: console
+---
+
+## Point Estimates and Confidence Intervals
+
+
+
+Open the class introduction slides in a separate window: <a href="https://stats4neuro.netlify.app/slides/07_point_estimates_confidence_intervals#1" target="_blank">https://stats4neuro.netlify.app/slides/07_point_estimates_confidence_intervals#1</a>
+
+Remember, you can hit `p` to open up the preview mode and see the slides.
+
+```{r echo=FALSE}
+knitr::include_url('https://stats4neuro.netlify.app/slides/07_point_estimates_confidence_intervals#1')
+```
+
+
+## Post-Class
+
+Please fill out the following survey and we will discuss the results during the next lecture. All responses will be anonymous.
+
+- Clearest Point: What was the most clear part of the lecture?
+- Muddiest Point: What was the most unclear part of the lecture to you?
+- Anything Else: Is there something you'd like me to know?
+
+https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap
+
