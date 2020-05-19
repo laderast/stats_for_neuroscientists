@@ -1,6 +1,6 @@
 ---
-title: "Lecture 8: Point Estimates and Confidence Intervals"
-linktitle: "14. Point Estimates and Confidence Intervals"
+title: "Lecture 8: Hypothesis Testing"
+linktitle: "14. Hypothesis Testing"
 date: "2020-05-19"
 class_date: "2020-05-19"
 output:
