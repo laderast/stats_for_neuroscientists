@@ -1,0 +1,17 @@
+---
+title: "Week 7: Hypothesis Testing"
+linktitle: "Week 7: Hypothesis Testing"
+date: "2020-05-19"
+read_date: "2020-05-21"
+menu:
+  reading:
+    parent: Readings
+    weight: 8
+type: docs
+---
+
+## Required
+
+- [There's still only one test](http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html)
+- [The Permutation Test, by Jared Wilber](https://www.jwilber.me/permutationtest/)
+- [A practical guide to evaluating colocalization in biological microscopy](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3074624/)

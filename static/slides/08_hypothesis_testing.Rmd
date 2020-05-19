@@ -19,6 +19,7 @@ knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 library(tidyverse)
 library(gt)
 library(janitor)
+set.seed(666)
 ```
 
 ```{r xaringan-themer, include = FALSE}
@@ -307,16 +308,6 @@ features3 %>% tabyl(type)
 features3 %>% ggplot(aes(x=type, y=x_0_s_area, fill=type)) + geom_boxplot() + geom_jitter()
 ```
 
----
-## Bigger Difference, Smaller n
-
-.pull-left[
-We observe `r nrow(signif_data)` permuted data sets under the null distirbution have a mean difference of `r mean_difference` or higher.
-
-Our p-value is `r nrow(signif_data)` / 1000 = `r signif(nrow(signif_data)/1000, 3)`
-
-]
-.pull-right[
 ```{r}
 out_permute <- permute_data(features3, replicates = 1000)
 
@@ -327,7 +318,19 @@ signif_data <- mean_diffs %>%
   filter(mean_diff >= mean_difference)
 
 nrow(signif_data)
+```
 
+---
+## Bigger Difference, Smaller n
+
+.pull-left[
+We observe `r nrow(signif_data)` permuted data sets under the null distribution have a mean difference of `r mean_difference` or higher.
+
+Our p-value is `r nrow(signif_data)` / 1000 = `r signif(nrow(signif_data)/1000, 3)`
+
+]
+.pull-right[
+```{r}
 mean_diffs %>% ggplot(aes(x=mean_diff)) + geom_histogram() + geom_vline(xintercept = mean_difference, color="red")  +
   geom_histogram(data=signif_data, fill="red")
 ```
