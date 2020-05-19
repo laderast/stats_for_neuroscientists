@@ -41,3 +41,11 @@ Please fill out the following survey and we will discuss the results during the 
 
 https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap
 
+
+### Muddiest Points
+
+> I think someone mentioned this during class, and I agree: in theory, stats always makes sense, but it would be great to see practical examples and work through problems together.
+
+> I'm still unclear when it is appropriate to use bootstrapping
+
+> why resampling is useful? just to correct CI for non-normal data?
