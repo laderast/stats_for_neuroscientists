@@ -1,5 +1,5 @@
 ---
-title: "Spatial Point Analysis"
+title: "Colocalization: Spatial Point Analysis"
 subtitle: "NEUS 643"  
 author: "Ted Laderas"
 date: '`r Sys.Date()`'
@@ -73,7 +73,7 @@ They come from spatial analysis and geography.
 # Object Based Colocalization
 
 - We've extracted features from our images
-- 
+- Can we do better statistics with the features than just correlation?
 
 ---
 # Starting point: X and Y coordinates
@@ -253,6 +253,13 @@ plot(gc)
 ```
 
 ---
+
+# Reporting colocalization
+
+- Must always report within a range
+- Report the p-values within that range
+
+---
 # Nearest Neighbor Distances (percentage)
 
 ```{r}
@@ -276,14 +283,20 @@ nnd %>% ggplot() + aes(x=bc) + geom_histogram() +
 ]
 
 ---
+# Still trying to understand this
 
-# Reporting colocalization
+<img src="image/week8/augh.jpg" width = 800>
 
-- Must always report within a range
-- Report the p-values within that range
+---
+# Lab
+
+- Working with `spatstat` package
+- Generating Complete spatial random data
+- Working with Ripley's K and Average Nearest Neighbor
 
 ---
 # Reading
 
 - [Point Pattern Analysis](https://mgimond.github.io/Spatial/point-pattern-analysis.html)
 - [Hypothesis Testing](https://mgimond.github.io/Spatial/hypothesis-testing.html)
+- [Point Pattern Analysis in R](https://mgimond.github.io/Spatial/point-pattern-analysis-in-r.html)

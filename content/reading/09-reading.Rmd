@@ -1,0 +1,17 @@
+---
+title: "Week 8: Point Pattern Analysis"
+linktitle: "Week 7: Point Pattern Analysis"
+date: "2020-05-26"
+read_date: "2020-05-28"
+menu:
+  reading:
+    parent: Readings
+    weight: 8
+type: docs
+---
+
+## Required
+
+- [Point Pattern Analysis](https://mgimond.github.io/Spatial/point-pattern-analysis.html)
+- [Hypothesis Testing](https://mgimond.github.io/Spatial/hypothesis-testing.html)
+- [Point Pattern Analysis in R](https://mgimond.github.io/Spatial/point-pattern-analysis-in-r.html)

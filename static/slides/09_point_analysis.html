@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Spatial Point Analysis</title>
+    <title>Colocalization: Spatial Point Analysis</title>
     <meta charset="utf-8" />
     <meta name="author" content="Ted Laderas" />
     <meta name="date" content="2020-05-26" />
@@ -11,7 +11,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Spatial Point Analysis
+# Colocalization: Spatial Point Analysis
 ## NEUS 643
 ### Ted Laderas
 ### 2020-05-26
@@ -50,7 +50,7 @@ They come from spatial analysis and geography.
 # Object Based Colocalization
 
 - We've extracted features from our images
-- 
+- Can we do better statistics with the features than just correlation?
 
 ---
 # Starting point: X and Y coordinates
@@ -253,6 +253,13 @@ gc &lt;- envelope(new_spat, Gcross)
 ![](09_point_analysis_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 
 ---
+
+# Reporting colocalization
+
+- Must always report within a range
+- Report the p-values within that range
+
+---
 # Nearest Neighbor Distances (percentage)
 
 
@@ -266,17 +273,23 @@ gc &lt;- envelope(new_spat, Gcross)
 ]
 
 ---
+# Still trying to understand this
 
-# Reporting colocalization
+&lt;img src="image/week8/augh.jpg" width = 800&gt;
 
-- Must always report within a range
-- Report the p-values within that range
+---
+# Lab
+
+- Working with `spatstat` package
+- Generating Complete spatial random data
+- Working with Ripley's K and Average Nearest Neighbor
 
 ---
 # Reading
 
 - [Point Pattern Analysis](https://mgimond.github.io/Spatial/point-pattern-analysis.html)
 - [Hypothesis Testing](https://mgimond.github.io/Spatial/hypothesis-testing.html)
+- [Point Pattern Analysis in R](https://mgimond.github.io/Spatial/point-pattern-analysis-in-r.html)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

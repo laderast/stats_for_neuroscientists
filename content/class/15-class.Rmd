@@ -1,0 +1,41 @@
+---
+title: "Lecture 9: Point Pattern Analysis"
+linktitle: "15. Point Pattern Analysis"
+date: "2020-05-19"
+class_date: "2020-05-19"
+output:
+  blogdown::html_page:
+    toc: true
+menu:
+  class:
+    parent: Class sessions
+    weight: 15
+type: docs
+weight: 15
+# pdf: 
+# thumb: 
+editor_options: 
+  chunk_output_type: console
+---
+
+## Point Pattern Analysis
+
+Open the class introduction slides in a separate window: <a href="https://stats4neuro.netlify.app/slides/09_point_analysis#1" target="_blank">https://stats4neuro.netlify.app/slides/09_point_analysis#1</a>
+
+Remember, you can hit `p` to open up the preview mode and see the slides.
+
+```{r echo=FALSE}
+knitr::include_url('https://stats4neuro.netlify.app/slides/09_point_analysis#1')
+```
+
+
+## Post-Class
+
+Please fill out the following survey and we will discuss the results during the next lecture. All responses will be anonymous.
+
+- Clearest Point: What was the most clear part of the lecture?
+- Muddiest Point: What was the most unclear part of the lecture to you?
+- Anything Else: Is there something you'd like me to know?
+
+https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap
+

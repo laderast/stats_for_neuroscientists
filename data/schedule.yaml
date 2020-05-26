@@ -78,3 +78,11 @@ lessons:
     date: "May 19"
     class: "14-class"
     reading: "08-reading"
+    
+  - title: "**Lab: Colocalization via Correlation"
+    date: "May 21"
+    
+  - title: "**Lecture: Point Pattern Analysis**"
+    date: "May 26"
+    class: "15-class"
+    reading: "09-reading"
