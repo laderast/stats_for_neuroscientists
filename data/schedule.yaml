@@ -79,10 +79,23 @@ lessons:
     class: "14-class"
     reading: "08-reading"
     
-  - title: "**Lab: Colocalization via Correlation"
+  - title: "**Lab 7: Colocalization via Correlation"
     date: "May 21"
     
   - title: "**Lecture: Point Pattern Analysis**"
     date: "May 26"
     class: "15-class"
     reading: "09-reading"
+  
+  - title: "**Lab: Point Pattern Analysis** - CANCELLED"
+    date: "May 28"
+
+  - title: "**Lab 8: Pipelines and Exploring Features"
+    date: "June 2"
+    class: "16-class"
+    reading: "10-reading"
+    
+  - title: "**Lab 9: Features, Dimension Reduction, and Clustering"
+    date: "June 4"
+    class: "17-class"
+    reading: "11-reading"

@@ -1,0 +1,16 @@
+---
+title: "Dimensionality Reduction and Clustering"
+linktitle: "Week 10: Dimensionality Reduction and Clustering"
+date: "2020-06-04"
+read_date: "2020-06-09"
+menu:
+  reading:
+    parent: Readings
+    weight: 11
+type: docs
+---
+
+## Required
+
+- [Understanding PCA](https://towardsdatascience.com/understanding-pca-fae3e243731d)
+- [Understanding UMAP](https://pair-code.github.io/understanding-umap/)

@@ -1,0 +1,15 @@
+---
+title: "Exploring Features"
+linktitle: "Week 9: Exploring Features"
+date: "2020-06-02"
+read_date: "2020-06-04"
+menu:
+  reading:
+    parent: Readings
+    weight: 10
+type: docs
+---
+
+## Required
+
+[Data-analysis strategies for image-based cell profiling](https://www.nature.com/articles/nmeth.4397)

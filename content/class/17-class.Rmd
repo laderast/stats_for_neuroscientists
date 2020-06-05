@@ -1,0 +1,35 @@
+---
+title: "Lab: Features, Dimension Reduction, and Clustering"
+linktitle: "16. Lab: Features, Dimension Reduction, and Clustering"
+date: "2020-06-04"
+class_date: "2020-06-04"
+output:
+  blogdown::html_page:
+    toc: true
+menu:
+  class:
+    parent: Class sessions
+    weight: 17
+type: docs
+weight: 17
+# pdf: 
+# thumb: 
+editor_options: 
+  chunk_output_type: console
+---
+
+# Features, Dimension Reduction, and Clustering
+
+Please refer to week 10 lab in the Rstudio workspace.
+
+
+## Post-Class
+
+Please fill out the following survey and we will discuss the results during the next lecture. All responses will be anonymous.
+
+- Clearest Point: What was the most clear part of the lecture?
+- Muddiest Point: What was the most unclear part of the lecture to you?
+- Anything Else: Is there something you'd like me to know?
+
+https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap
+

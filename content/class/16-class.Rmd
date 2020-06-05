@@ -1,0 +1,34 @@
+---
+title: "Lab: Pipelines and Exploring Features"
+linktitle: "16. Pipelines and Exploring Features"
+date: "2020-06-02"
+class_date: "2020-06-02"
+output:
+  blogdown::html_page:
+    toc: true
+menu:
+  class:
+    parent: Class sessions
+    weight: 16
+type: docs
+weight: 16
+# pdf: 
+# thumb: 
+editor_options: 
+  chunk_output_type: console
+---
+
+# Lab Material
+
+Please see week 9 lab in RStudio Workspace.
+
+## Post-Class
+
+Please fill out the following survey and we will discuss the results during the next lecture. All responses will be anonymous.
+
+- Clearest Point: What was the most clear part of the lecture?
+- Muddiest Point: What was the most unclear part of the lecture to you?
+- Anything Else: Is there something you'd like me to know?
+
+https://ohsu.ca1.qualtrics.com/jfe/form/SV_e99ek34B878dGap
+

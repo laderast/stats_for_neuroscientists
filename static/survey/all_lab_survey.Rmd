@@ -1,0 +1,91 @@
+---
+title: "Qualtrics Lab/Lecture Survey All Weeks"
+author: "Ted Laderas"
+date: "4/9/2020"
+output: html_document
+params: 
+  survey_name: "NEUS 643 Lab Survey"
+---
+
+```{r setup, include=FALSE}
+library(qualtRics)
+library(DT)
+library(tidyverse)
+```
+
+```{r}
+surveys <- all_surveys()
+survey_id <- surveys %>% filter(name == params$survey_name) %>%
+  pull(id)
+
+lab_survey_week1 <- fetch_survey(survey_id, verbose=TRUE) %>%
+  select(week = Q1, pacing = Q2_4, 
+                                       clearest_points = Q7, 
+                                       muddiest_points= Q3, 
+                                       other_stuff=Q4) %>%
+  arrange(desc(week))
+```
+
+## Muddiest points
+
+```{r}
+lab_survey_week1 %>% 
+  select(week, muddiest_points) %>% 
+  DT::datatable()
+```
+
+## Clearest Points
+
+```{r}
+lab_survey_week1 %>%
+  select(week, clearest_points) %>%
+  DT::datatable()
+```
+
+## Other
+
+```{r}
+lab_survey_week1 %>%
+  select(week, other_stuff) %>%
+  DT::datatable()
+```
+
+
+# Lectures
+
+```{r}
+surveys <- all_surveys()
+survey_id <- surveys %>% filter(name == "NEUS 643 Class Survey") %>%
+  pull(id)
+
+lab_survey_week1 <- fetch_survey(survey_id, verbose=TRUE) %>%
+   select(week = Q1,
+                                       clearest_points = Q2, 
+                                       muddiest_points= Q3, 
+                                       other_stuff=Q4) %>%
+  arrange(desc(week))
+```
+
+## Muddiest points
+
+```{r}
+lab_survey_week1 %>% 
+  select(week, muddiest_points) %>% 
+  DT::datatable()
+```
+
+## Clearest Points
+
+```{r}
+lab_survey_week1 %>%
+  select(week, clearest_points) %>%
+  DT::datatable()
+```
+
+## Other
+
+```{r}
+lab_survey_week1 %>%
+  select(week, other_stuff) %>%
+  DT::datatable()
+```
