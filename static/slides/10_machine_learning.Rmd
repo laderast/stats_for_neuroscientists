@@ -36,10 +36,9 @@ mono_light(
 
 # Learning Objectives
 
-- Learn the different types of machine learning
-- Learn the basic phases of machine learning
-- Learn basic transformations on features
-- Learn how to evaluate the predictive power of a model/learner
+- **Learn** the different types of machine learning
+- **Learn** the basic phases of supervised machine learning and the `tidymodels` functions associated with them
+- **Learn how to evaluate** the predictive power of a model/learner
 
 ---
 
@@ -70,15 +69,23 @@ Ordered in terms of *interpretability*
 - Neural Nets
 
 ---
+# `tidymodels`
+
+General framework for machine learning, allows you access to many different machine learning packages, such as TensorFlow
+
+Learn one workflow, use many different algorithms!
+
+
+---
 <img src="image/week10/workflow.JPG" width =800>
 
 ---
 <img src="image/week10/variable_transformation.JPG" width =800>
 
 ---
-# Recipes
+# `recipes`
 
-The `recipes` package in `tidymodels` outlines approaches to transform data:
+The `recipes` package in `tidymodels` outlines approaches to transform data, using `step_` functions
 
 https://www.tidymodels.org/start/recipes/
 
@@ -117,7 +124,7 @@ recipe(~., data = all_features) %>%
 
 The function `initial_split()` from `rsample` package in `tidymodels` handles splitting data into test/train sets.
 
-```
+```{r eval=FALSE}
 all_features_split <- initial_split(all_features, 
                                 prop = 3/4)
 all_features_train <- training(all_features_split)
@@ -165,7 +172,7 @@ lr_mod <-
 
 The `fit()` function in `tidymodels` (`parsnip`) lets you train a model based on the training data
 
-```
+```{r eval=FALSE}
 lr_fit <- fit(lr_mod, formula= dose ~ ., data=all_features_train)
 ```
 ---
@@ -184,10 +191,7 @@ lr_fit <- fit(lr_mod, formula= dose ~ ., data=all_features_train)
 - Balanced Accuracy
 - Area under the Reciever Operating Curve (ROC)
 
----
-# `collect_metrics()`
-
-```
+```{r eval = FALSE}
 lr_fit %>%
   collect_metrics()
 ```

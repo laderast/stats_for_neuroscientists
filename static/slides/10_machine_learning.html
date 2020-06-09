@@ -25,10 +25,9 @@ class: center, middle, inverse, title-slide
 
 # Learning Objectives
 
-- Learn the different types of machine learning
-- Learn the basic phases of machine learning
-- Learn basic transformations on features
-- Learn how to evaluate the predictive power of a model/learner
+- **Learn** the different types of machine learning
+- **Learn** the basic phases of supervised machine learning and the `tidymodels` functions associated with them
+- **Learn how to evaluate** the predictive power of a model/learner
 
 ---
 
@@ -59,15 +58,23 @@ Ordered in terms of *interpretability*
 - Neural Nets
 
 ---
+# `tidymodels`
+
+General framework for machine learning, allows you access to many different machine learning packages, such as TensorFlow
+
+Learn one workflow, use many different algorithms!
+
+
+---
 &lt;img src="image/week10/workflow.JPG" width =800&gt;
 
 ---
 &lt;img src="image/week10/variable_transformation.JPG" width =800&gt;
 
 ---
-# Recipes
+# `recipes`
 
-The `recipes` package in `tidymodels` outlines approaches to transform data:
+The `recipes` package in `tidymodels` outlines approaches to transform data, using `step_` functions
 
 https://www.tidymodels.org/start/recipes/
 
@@ -106,12 +113,7 @@ recipe(~., data = all_features) %&gt;%
 
 The function `initial_split()` from `rsample` package in `tidymodels` handles splitting data into test/train sets.
 
-```
-all_features_split &lt;- initial_split(all_features, 
-                                prop = 3/4)
-all_features_train &lt;- training(all_features_split)
-all_features_test &lt;- testing(all_features_split)
-```
+
 
 ---
 
@@ -154,9 +156,7 @@ lr_mod &lt;-
 
 The `fit()` function in `tidymodels` (`parsnip`) lets you train a model based on the training data
 
-```
-lr_fit &lt;- fit(lr_mod, formula= dose ~ ., data=all_features_train)
-```
+
 ---
 &lt;img src="image/week10/formula.JPG" width =800&gt;
 
@@ -173,13 +173,7 @@ lr_fit &lt;- fit(lr_mod, formula= dose ~ ., data=all_features_train)
 - Balanced Accuracy
 - Area under the Reciever Operating Curve (ROC)
 
----
-# `collect_metrics()`
 
-```
-lr_fit %&gt;%
-  collect_metrics()
-```
 
 ---
 # Summary of workflow
