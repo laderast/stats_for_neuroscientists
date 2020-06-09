@@ -90,17 +90,17 @@ lessons:
   - title: "**Lab: Point Pattern Analysis** - CANCELLED"
     date: "May 28"
 
-  - title: "**Lab 8: Pipelines and Exploring Features"
+  - title: "**Lab 8: Pipelines and Exploring Features**"
     date: "June 2"
     class: "16-class"
     reading: "10-reading"
     
-  - title: "**Lab 9: Features, Dimension Reduction, and Clustering"
+  - title: "**Lab 9: Features, Dimension Reduction, and Clustering**"
     date: "June 4"
     class: "17-class"
     reading: "11-reading"
     
-  - title: "**Lecture: Machine Learning"
+  - title: "**Lecture: Machine Learning**"
     date: "June 9"
     class: "18-class"
     reading: "12-reading"
