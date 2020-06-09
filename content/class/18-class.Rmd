@@ -20,12 +20,12 @@ editor_options:
 
 ### Introduction to Machine Learning
 
-Open these slides in a separate window: <a href="https://stats4neuro.netlify.com/slides/10-machine_learning#1" target="_blank">https://stats4neuro.netlify.com/slides/10-machine_learning#1</a>
+Open these slides in a separate window: <a href="https://stats4neuro.netlify.com/slides/10_machine_learning#1" target="_blank">https://stats4neuro.netlify.com/slides/10_machine_learning#1</a>
 
 To view my speaker notes, press "p".
 
 ```{r echo=FALSE}
-knitr::include_url('https://stats4neuro.netlify.com/slides/10-machine_learning#1')
+knitr::include_url('https://stats4neuro.netlify.com/slides/10_machine_learning#1')
 ``````
 
 ## Post-Class
