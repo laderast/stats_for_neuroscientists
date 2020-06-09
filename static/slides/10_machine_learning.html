@@ -114,6 +114,12 @@ recipe(~., data = all_features) %&gt;%
 The function `initial_split()` from `rsample` package in `tidymodels` handles splitting data into test/train sets.
 
 
+```r
+all_features_split &lt;- initial_split(all_features, 
+                                prop = 3/4)
+all_features_train &lt;- training(all_features_split)
+all_features_test &lt;- testing(all_features_split)
+```
 
 ---
 
@@ -157,6 +163,9 @@ lr_mod &lt;-
 The `fit()` function in `tidymodels` (`parsnip`) lets you train a model based on the training data
 
 
+```r
+lr_fit &lt;- fit(lr_mod, formula= dose ~ ., data=all_features_train)
+```
 ---
 &lt;img src="image/week10/formula.JPG" width =800&gt;
 
@@ -174,6 +183,10 @@ The `fit()` function in `tidymodels` (`parsnip`) lets you train a model based on
 - Area under the Reciever Operating Curve (ROC)
 
 
+```r
+lr_fit %&gt;%
+  collect_metrics()
+```
 
 ---
 # Summary of workflow
