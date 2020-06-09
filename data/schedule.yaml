@@ -99,3 +99,8 @@ lessons:
     date: "June 4"
     class: "17-class"
     reading: "11-reading"
+    
+  - title: "**Lecture: Machine Learning"
+    date: "June 9"
+    class: "18-class"
+    reading: "12-reading"
